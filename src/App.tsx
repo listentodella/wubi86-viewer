@@ -8,12 +8,13 @@ import { CodeResults } from './components/CodeResults'
 import { HistoryPanel } from './components/HistoryPanel'
 import { RootsPage } from './components/RootsPage'
 import { ReviewPage } from './components/ReviewPage'
+import { PracticePage } from './components/PracticePage'
 
-type Page = 'search' | 'roots' | 'review'
+type Page = 'search' | 'roots' | 'review' | 'practice'
 
 function readLocation(): { page: Page; q: string } {
   const p = location.pathname.replace(/\/+$/, '')
-  const page: Page = p === '/roots' ? 'roots' : p === '/review' ? 'review' : 'search'
+  const page: Page = p === '/roots' ? 'roots' : p === '/review' ? 'review' : p === '/practice' ? 'practice' : 'search'
   return { page, q: new URLSearchParams(location.search).get('q') ?? '' }
 }
 
@@ -145,6 +146,7 @@ export default function App() {
     ['search', '查询'],
     ['roots', '字根表'],
     ['review', '复习'],
+    ['practice', '练习'],
   ] as const
 
   return (
@@ -269,6 +271,7 @@ export default function App() {
         )}
         {loc.page === 'roots' && roots && <RootsPage roots={roots} onSearch={search} />}
         {loc.page === 'review' && roots && <ReviewPage roots={roots} onSearch={search} />}
+        {loc.page === 'practice' && <PracticePage roots={roots ?? {}} onSearch={search} />}
       </main>
 
       <footer className="border-t border-black/5 py-4 text-center text-xs text-ink-2/70 dark:border-white/10 dark:text-white/35">

@@ -2,6 +2,8 @@ export interface CharRecord {
   /** Microsoft Wubi codes */
   codes: DictCode[]
   py?: string
+  /** corpus frequency, higher = more common (missing for characters outside data-chars) */
+  freq?: number
   ids?: string
   rad?: string
   /** stroke type sequence: 1横 2竖 3撇 4点 5折 */
@@ -45,8 +47,25 @@ export interface Meta {
   strokes: number
 }
 
+/** A practice tier of the learning route (书中的练习路线). */
+export interface PracticeTier {
+  id: string
+  stage: number
+  title: string
+  hint: string
+  /** expected code length, 0 = full code (the longest one) */
+  codeLen: number
+  /** characters of this tier, packed as one string */
+  chars: string
+}
+
+export interface TiersFile {
+  version: number
+  tiers: PracticeTier[]
+}
+
 // Bump when the data format changes so cached shards from older builds are not reused.
-const DATA_VERSION = 2
+const DATA_VERSION = 4
 const cache = new Map<string, Promise<unknown>>()
 
 function fetchJson<T>(path: string): Promise<T> {
@@ -66,8 +85,13 @@ function fetchJson<T>(path: string): Promise<T> {
 
 const cp = (s: string) => s.codePointAt(0)!
 
+/** All character records sharing the shard of `codePoint` (16 codepoints per shard). */
+export function getCharShard(codePoint: number): Promise<Record<string, CharRecord>> {
+  return fetchJson(`c/${(codePoint >> 4).toString(16)}.json`)
+}
+
 export async function getChar(ch: string): Promise<CharRecord | null> {
-  const shard = await fetchJson<Record<string, CharRecord>>(`c/${(cp(ch) >> 4).toString(16)}.json`)
+  const shard = await getCharShard(cp(ch))
   return shard[ch] ?? null
 }
 
@@ -83,3 +107,4 @@ export function getCodeShard(code: string): Promise<Record<string, string[]>> {
 
 export const getRoots = () => fetchJson<Record<string, RootInfo>>('roots.json')
 export const getMeta = () => fetchJson<Meta>('meta.json')
+export const getTiers = () => fetchJson<TiersFile>('tiers.json')

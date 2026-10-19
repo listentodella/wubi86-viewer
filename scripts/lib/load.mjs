@@ -38,6 +38,7 @@ export function loadChars() {
       strokes: Number(f[10]),
       strokeSeq: f[11],
       freq: Number(f[12]) || 0,
+      jianti: f[3],
     })
   }
   return map

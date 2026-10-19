@@ -100,6 +100,7 @@ write('roots.json', roots)
 // ---- char details (by codepoint >> 4)
 const cShards = new Map()
 const stats = { chars: 0, decomposed: 0, strokes: 0, seg: { source: 0, exact: 0, approx: 0 } }
+const tierChars = { key: [], char: [], stroke: [], id: [] }
 const allChars = new Set([...charCodes.keys()].filter(isHan))
 for (const ch of wubi.keys()) if (charCodes.has(ch)) allChars.add(ch)
 for (const ch of allChars) {
@@ -109,6 +110,7 @@ for (const ch of allChars) {
   const rec = { codes: charCodes.get(ch) ?? [] }
   if (c) {
     rec.py = c.pinyin
+    rec.freq = c.freq
     rec.ids = c.ids
     rec.rad = c.radical
     rec.ss = c.strokeSeq
@@ -135,12 +137,58 @@ for (const ch of allChars) {
       }
     }
   }
+  if (rec.t === 1) tierChars.key.push(ch)
+  else if (rec.t === 2) tierChars.char.push(ch)
+  else if (rec.t === 3) tierChars.stroke.push(ch)
+  if (rec.idu && rec.codes.length) {
+    const lens = rec.codes.map((c) => c[0].length)
+    tierChars.id.push([ch, Math.max(...lens), Math.min(...lens)])
+  }
   stats.chars++
   const b = (ch.codePointAt(0) >> 4).toString(16)
   if (!cShards.has(b)) cShards.set(b, {})
   cShards.get(b)[ch] = rec
 }
 for (const [b, v] of cShards) write(`c/${b}.json`, v)
+
+// ---- practice tiers（晓览《五笔字型入门指南》的学习路线）
+const simpleChars = [...chars.entries()]
+  .filter(([ch, c]) => c.jianti === ch && c.freq > 0)
+  .sort((a, b) => b[1].freq - a[1].freq)
+  .map(([ch]) => ch)
+const freqRank = new Map(simpleChars.map((ch, i) => [ch, i + 1]))
+const topWord = (code) => byCode.get(code)?.[0]?.word ?? ''
+const shortCodeChars = (len) =>
+  [...byCode.keys()].filter((code) => code.length === len && isHan(topWord(code))).map(topWord)
+const oneChars = shortCodeChars(1)
+const oneSet = new Set(oneChars)
+const byFreq = (list) => list.slice().sort((a, b) => (chars.get(b)?.freq ?? 0) - (chars.get(a)?.freq ?? 0))
+const twoChars = byFreq(
+  shortCodeChars(2).filter((ch) => !oneSet.has(ch) && chars.get(ch)?.jianti === ch && freqRank.get(ch) <= 1500),
+)
+const idChars = byFreq(
+  tierChars.id
+    .filter(([ch, max, min]) => min >= max && chars.get(ch)?.jianti === ch && freqRank.get(ch) <= 1500)
+    .map(([ch]) => ch),
+)
+const keyOrder = 'gfdsahjklmtrewqyuiopnbvcx'
+const keynames = tierChars.key
+  .slice()
+  .sort((a, b) => keyOrder.indexOf(wubi.get(a).code[0]) - keyOrder.indexOf(wubi.get(b).code[0]))
+const strokes = tierChars.stroke.filter((ch) => '一丨丿丶乙'.includes(ch))
+const tiers = [
+  { id: 'keyname', stage: 1, title: '键名汉字', hint: '连按四下所在键（多数输入法可「按一下 + 选 2」）', codeLen: 4, chars: keynames.join('') },
+  { id: 'charroot', stage: 1, title: '成字字根', hint: '报户口 + 首笔 + 次笔 + 末笔；两笔字全码 3 码', codeLen: 0, chars: byFreq(tierChars.char).join('') },
+  { id: 'stroke', stage: 1, title: '单笔画', hint: '报户口 + 该笔画 + LL', codeLen: 0, chars: strokes.join('') },
+  { id: 'simple1', stage: 2, title: '一级简码', hint: '1 键 + 空格', codeLen: 1, chars: oneChars.join('') },
+  { id: 'common500', stage: 2, title: '常用字 500', hint: '字频前 500，按全码作答（反馈里会给出简码）', codeLen: 0, chars: simpleChars.slice(0, 500).join('') },
+  { id: 'simple2', stage: 3, title: '二级简码', hint: '2 键 + 空格（前 1500 常用字范围内的纯二简）', codeLen: 2, chars: twoChars.join('') },
+  { id: 'idcode', stage: 3, title: '识别码字', hint: '全码，含末笔字型识别码', codeLen: 0, chars: idChars.join('') },
+  { id: 'common1500', stage: 4, title: '常用字 501–1500', hint: '中 500 + 后 500，按全码作答', codeLen: 0, chars: simpleChars.slice(500, 1500).join('') },
+  { id: 'common3000', stage: 5, title: '常用字 1501–3000', hint: '过一遍即可，不必追速度；3000 名以后极少用', codeLen: 0, chars: simpleChars.slice(1500, 3000).join('') },
+]
+write('tiers.json', { version: 1, tiers })
+console.log('tiers', tiers.map((t) => `${t.id}:${[...t.chars].length}`).join(' '))
 
 const meta = {
   entries: ms.length,
