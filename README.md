@@ -42,7 +42,7 @@
 | `data-src/ms-wubi.tsv` | 本机 `C:\Windows\InputMethod\CHS\ChsWubiNew.lex`（`npm run extract` 导出） |
 | `data-src/data-wubi-v86.tsv` 等 | [sdcb/search-wubi](https://github.com/sdcb/search-wubi) 字根拆解、识别码 |
 | `data-src/hanzi-writer-data/` | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) 笔画矢量（Arphic Public License） |
-| `data-src/黑体字根.ttf` | 字根字形 |
+| `data-src/黑体字根.ttf` | 字根字形；**来源不详、无授权信息**（见 [docs/font-provenance.md](docs/font-provenance.md)） |
 | `scripts/root-names.json` | 非成字字根的中文名称（如“青字头”） |
 
 候选顺序：词库每条记录带有权重，同一编码下按权重升序（与输入法候选顺序一致）。
