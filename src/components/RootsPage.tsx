@@ -117,18 +117,31 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
               查看 {sel.toUpperCase()} 键候选 →
             </button>
           </div>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {(byKey.get(sel) ?? []).map(([id, r]) => (
-              <button
-                key={id}
-                onClick={() => r.n && onSearch(r.n)}
-                className="flex flex-col items-center rounded-xl bg-black/[0.035] px-2 pb-1 pt-2 transition hover:bg-black/[0.07] dark:bg-white/5 dark:hover:bg-white/10"
-                title={r.n ? `查看「${r.n}」` : undefined}
-              >
-                <RootGlyph id={id} roots={roots} size={40} />
-                <span className="h-4 text-[11px] text-ink-2 dark:text-white/40">{r.n || r.a}</span>
-              </button>
-            ))}
+          <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
+            <div className="flex flex-wrap gap-2">
+              {(byKey.get(sel) ?? []).map(([id, r]) => (
+                <button
+                  key={id}
+                  onClick={() => r.n && onSearch(r.n)}
+                  className="flex flex-col items-center rounded-xl bg-black/[0.035] px-2 pb-1 pt-2 transition hover:bg-black/[0.07] dark:bg-white/5 dark:hover:bg-white/10"
+                  title={r.n ? `查看「${r.n}」` : undefined}
+                >
+                  <RootGlyph id={id} roots={roots} size={40} />
+                  <span className="h-4 text-[11px] text-ink-2 dark:text-white/40">{r.n || r.a}</span>
+                </button>
+              ))}
+            </div>
+            <figure className="self-start">
+              <img
+                src={`/chart-keys/${sel}.png`}
+                alt={`${sel.toUpperCase()} 键在书中的字根图`}
+                loading="lazy"
+                className="w-full rounded-xl border border-black/5 bg-white/80 p-1 dark:border-white/10 dark:bg-white/5"
+              />
+              <figcaption className="mt-1 text-[11px] text-ink-2/70 dark:text-white/40">
+                书中原图：楷体，含提笔等书写变体（左为本站字形）
+              </figcaption>
+            </figure>
           </div>
         </section>
       )}
