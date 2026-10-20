@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import type { RootInfo } from '../lib/data'
 import { KEYS, KEYBOARD_ROWS, ZONE_NAMES } from '../lib/keys'
+import { useMediaQuery } from '../lib/useMediaQuery'
 import { RootGlyph } from './RootGlyph'
 
 const ZONE_TINT = ['', 'var(--root-0)', 'var(--root-1)', 'var(--root-2)', 'var(--root-3)', 'var(--root-4)']
 const KEY_GLYPHS = 6
+const MOBILE_GLYPHS = 3
 const ZONE_ORDER = [
   ['g', 'f', 'd', 's', 'a'],
   ['h', 'j', 'k', 'l', 'm'],
@@ -15,6 +17,7 @@ const ZONE_ORDER = [
 
 export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>; onSearch: (q: string) => void }) {
   const [sel, setSel] = useState<string | null>(null)
+  const isDesktop = useMediaQuery('(min-width: 640px)')
   const byKey = new Map<string, [string, RootInfo][]>()
   for (const [id, r] of Object.entries(roots)) {
     if (r.id || !r.p || !r.k) continue
@@ -29,51 +32,61 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
           按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根。
         </p>
-        <div className="mt-5 overflow-x-auto pb-2">
-          {KEYBOARD_ROWS.map((row, ri) => (
-            <div key={row} className="mb-2 flex min-w-[680px] gap-2" style={{ paddingLeft: `${ri * 4}%` }}>
-              {[...row].map((k) => {
-                const info = KEYS[k]
-                const list = byKey.get(k) ?? []
-                return (
-                  <button
+
+        {isDesktop ? (
+          <div className="mt-5 overflow-x-auto pb-2">
+            {KEYBOARD_ROWS.map((row, ri) => (
+              <div key={row} className="mb-2 flex min-w-[680px] gap-2" style={{ paddingLeft: `${ri * 4}%` }}>
+                {[...row].map((k) => (
+                  <KeyButton
                     key={k}
+                    k={k}
+                    list={byKey.get(k) ?? []}
+                    roots={roots}
+                    selected={sel === k}
+                    glyphs={KEY_GLYPHS}
                     onClick={() => setSel(sel === k ? null : k)}
-                    className={`relative flex min-h-32 min-w-0 flex-1 flex-col rounded-2xl border-2 bg-white/80 p-2 text-left transition hover:-translate-y-0.5 hover:shadow-md dark:bg-white/5 ${
-                      sel === k ? 'shadow-lg ring-2 ring-offset-2 ring-offset-paper dark:ring-offset-[#151311]' : ''
-                    }`}
-                    style={{ borderColor: `color-mix(in srgb, ${ZONE_TINT[info.zone]} 45%, transparent)` }}
-                  >
-                    <div className="flex items-baseline justify-between">
-                      <span className="font-mono text-lg font-bold uppercase" style={{ color: ZONE_TINT[info.zone] }}>
-                        {k}
-                      </span>
-                      <span className="text-[10px] text-ink-2/70 dark:text-white/40">
-                        {info.zone}
-                        {info.pos}
-                      </span>
-                    </div>
-                    <span className="font-kai text-2xl leading-tight">{info.name}</span>
-                    <span className="mt-auto flex flex-wrap content-end items-end gap-x-0.5 pt-1 text-ink-2 dark:text-white/70">
-                      {list.slice(0, KEY_GLYPHS).map(([id]) => (
-                        <RootGlyph key={id} id={id} roots={roots} size={17} className="!align-baseline" />
-                      ))}
-                      {list.length > KEY_GLYPHS && (
-                        <span className="text-[10px] leading-[17px] text-ink-2/60 dark:text-white/35">+{list.length - KEY_GLYPHS}</span>
-                      )}
-                    </span>
-                  </button>
-                )
-              })}
-              {ri === 2 && (
-                <div className="flex min-h-32 min-w-0 flex-1 flex-col justify-center rounded-2xl border-2 border-dashed border-black/10 p-2 text-xs text-ink-2 dark:border-white/10 dark:text-white/40">
-                  <span className="font-mono text-lg font-bold">Z</span>
-                  学习键 / 万能键
+                  />
+                ))}
+                {ri === 2 && (
+                  <div className="flex min-h-32 min-w-0 flex-1 flex-col justify-center rounded-2xl border-2 border-dashed border-black/10 p-2 text-xs text-ink-2 dark:border-white/10 dark:text-white/40">
+                    <span className="font-mono text-lg font-bold">Z</span>
+                    学习键 / 万能键
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-4 space-y-1.5">
+            {ZONE_ORDER.map((keys, zi) => (
+              <div key={zi} className="flex items-stretch gap-1.5">
+                <div
+                  className="flex w-5 shrink-0 flex-col items-center justify-center gap-0.5 text-[10px] leading-none text-ink-2 dark:text-white/45"
+                  style={{ color: ZONE_TINT[zi + 1] }}
+                >
+                  <span className="font-mono">{zi + 1}</span>
+                  <span>{ZONE_NAMES[zi + 1]}</span>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
+                <div className="grid flex-1 grid-cols-5 gap-1.5">
+                  {keys.map((k) => (
+                    <KeyButton
+                      key={k}
+                      k={k}
+                      list={byKey.get(k) ?? []}
+                      roots={roots}
+                      selected={sel === k}
+                      glyphs={MOBILE_GLYPHS}
+                      onClick={() => setSel(sel === k ? null : k)}
+                      compact
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+            <p className="pt-1 text-[11px] text-ink-2/60 dark:text-white/35">Z 为学习键 / 万能键，不属于任何区。</p>
+          </div>
+        )}
       </section>
 
       {sel && (
@@ -161,5 +174,60 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
         </ul>
       </section>
     </div>
+  )
+}
+
+function KeyButton({
+  k,
+  list,
+  roots,
+  selected,
+  glyphs,
+  onClick,
+  compact,
+}: {
+  k: string
+  list: [string, RootInfo][]
+  roots: Record<string, RootInfo>
+  selected: boolean
+  glyphs: number
+  onClick: () => void
+  compact?: boolean
+}) {
+  const info = KEYS[k]
+  return (
+    <button
+      onClick={onClick}
+      className={`relative flex w-full min-w-0 flex-1 flex-col rounded-2xl border-2 bg-white/80 text-left transition hover:-translate-y-0.5 hover:shadow-md dark:bg-white/5 ${
+        compact ? 'min-h-24 p-1.5' : 'min-h-32 p-2'
+      } ${selected ? 'shadow-lg ring-2 ring-offset-2 ring-offset-paper dark:ring-offset-[#151311]' : ''}`}
+      style={{ borderColor: `color-mix(in srgb, ${ZONE_TINT[info.zone]} 45%, transparent)` }}
+    >
+      <div className="flex items-baseline justify-between">
+        <span
+          className={`font-mono font-bold uppercase ${compact ? 'text-base' : 'text-lg'}`}
+          style={{ color: ZONE_TINT[info.zone] }}
+        >
+          {k}
+        </span>
+        <span className="text-[10px] text-ink-2/70 dark:text-white/40">
+          {info.zone}
+          {info.pos}
+        </span>
+      </div>
+      <span className={`font-kai leading-tight ${compact ? 'text-xl' : 'text-2xl'}`}>{info.name}</span>
+      <span
+        className={`mt-auto flex flex-wrap content-end items-end gap-x-0.5 pt-1 text-ink-2 dark:text-white/70 ${
+          compact ? 'gap-y-0' : ''
+        }`}
+      >
+        {list.slice(0, glyphs).map(([id]) => (
+          <RootGlyph key={id} id={id} roots={roots} size={compact ? 14 : 17} className="!align-baseline" />
+        ))}
+        {list.length > glyphs && (
+          <span className={`text-[10px] leading-[17px] text-ink-2/60 dark:text-white/35`}>+{list.length - glyphs}</span>
+        )}
+      </span>
+    </button>
   )
 }
