@@ -30,6 +30,11 @@
 
 - [五笔学习路线与必练字表](docs/wubi-learning.md)：据晓览《五笔字型入门指南》整理，含键名、一级简码、二级简码、识别码与常用字分层字表。
 
+## 字体
+
+- `public/fonts/lxgw-wenkai-roots.woff2`：LXGW WenKai（霞鹜文楷）子集，仅含 138 个命名字根，SIL OFL 1.1；许可见 `public/fonts/LXGW-WenKai-OFL.txt`。
+- 字根表页可在「楷体 / 黑体」之间切换；无名字形仍使用书中黑体字根路径。
+
 ## 数据
 
 | 文件 | 来源 |

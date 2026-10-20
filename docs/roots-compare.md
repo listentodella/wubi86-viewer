@@ -13,6 +13,10 @@
 
 按区分成 5 张对照图（左：本站字形；右：书中键框图）：见 [`roots-side-by-side/`](roots-side-by-side/README.md)。
 
+## 楷体显示
+
+字根表页已支持「楷体 / 黑体」切换：命名根用 LXGW WenKai 子集渲染，无名字形仍为书中黑体路径。对比效果见 [`roots-font-compare.jpg`](roots-font-compare.jpg)（左楷体、右黑体）。
+
 ## 逐键对照
 
 | 键 | 图中字根（OCR 候选，含误读） | 本站命名根 | 结论 |

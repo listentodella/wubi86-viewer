@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { RootInfo } from '../lib/data'
 import { KEYS, KEYBOARD_ROWS, ZONE_NAMES } from '../lib/keys'
 import { useMediaQuery } from '../lib/useMediaQuery'
+import { useRootFont } from '../lib/root-font'
 import { RootGlyph } from './RootGlyph'
 
 const ZONE_TINT = ['', 'var(--root-0)', 'var(--root-1)', 'var(--root-2)', 'var(--root-3)', 'var(--root-4)']
@@ -18,6 +19,7 @@ const ZONE_ORDER = [
 export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>; onSearch: (q: string) => void }) {
   const [sel, setSel] = useState<string | null>(null)
   const isDesktop = useMediaQuery('(min-width: 640px)')
+  const { mode, setMode } = useRootFont()
   const byKey = new Map<string, [string, RootInfo][]>()
   for (const [id, r] of Object.entries(roots)) {
     if (r.id || !r.p || !r.k) continue
@@ -28,9 +30,19 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
   return (
     <div className="space-y-6">
       <section className="card p-4 sm:p-6">
-        <h2 className="font-kai text-2xl">86 版五笔字根键盘</h2>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-kai text-2xl">86 版五笔字根键盘</h2>
+          <button
+            type="button"
+            className="btn text-xs"
+            onClick={() => setMode(mode === 'kai' ? 'hei' : 'kai')}
+            title="切换命名根的字形：楷体（霞鹜文楷）或黑体（书中字根字体）"
+          >
+            字形：{mode === 'kai' ? '楷体' : '黑体'}
+          </button>
+        </div>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
-          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根。
+          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根；命名根可切换楷体，无名字形仍为书中字根字形。
         </p>
 
         {isDesktop ? (

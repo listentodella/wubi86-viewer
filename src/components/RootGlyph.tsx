@@ -1,4 +1,7 @@
 import type { RootInfo } from '../lib/data'
+import { useRootFont } from '../lib/root-font'
+
+const KAI_CHAR = /^[\u3007\u3400-\u9fff]$/
 
 export const slotColor = (slot: number) => (slot >= 0 ? `var(--root-${slot})` : 'var(--stroke-uncovered)')
 
@@ -13,6 +16,21 @@ interface Props {
 
 export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', className = '', title }: Props) {
   const info = id ? roots[id] : undefined
+  const { mode } = useRootFont()
+  const name = info?.n?.trim()
+  if (mode === 'kai' && name && KAI_CHAR.test(name)) {
+    return (
+      <span
+        className={`inline-block text-center leading-none ${className}`}
+        style={{ color, fontSize: size, fontFamily: 'var(--font-kai-roots)', verticalAlign: '-0.12em' }}
+        title={title ?? name}
+        role="img"
+        aria-label={title ?? name}
+      >
+        {name}
+      </span>
+    )
+  }
   if (!info?.p) {
     const ch = info?.n || (id ? String.fromCodePoint(parseInt(id, 16)) : '?')
     return (

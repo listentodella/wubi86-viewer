@@ -30,7 +30,7 @@ export default defineConfig({
       },
       workbox: {
         // app shell + the two small data files that every page needs
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}', 'data/roots.json', 'data/tiers.json'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest,woff2}', 'data/roots.json', 'data/tiers.json'],
         // data.ts appends ?v=<DATA_VERSION>; ignore it when matching the precache
         ignoreURLParametersMatching: [/^v$/, /^utm_/, /^fbclid$/],
         navigateFallback: 'index.html',
