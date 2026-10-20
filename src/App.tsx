@@ -10,6 +10,8 @@ import { RootsPage } from './components/RootsPage'
 import { ReviewPage } from './components/ReviewPage'
 import { PracticePage } from './components/PracticePage'
 
+import { BottomNav } from './components/BottomNav'
+import { isCoarsePointer } from './lib/mobile'
 type Page = 'search' | 'roots' | 'review' | 'practice'
 
 function readLocation(): { page: Page; q: string } {
@@ -150,7 +152,10 @@ export default function App() {
   ] as const
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6">
+    <div
+      className="mx-auto flex min-h-dvh max-w-5xl flex-col px-4 pb-20 sm:px-6 sm:pb-0"
+      style={{ paddingTop: 'env(safe-area-inset-top)' }}
+    >
       <header className="flex flex-wrap items-center gap-3 py-5">
         <button onClick={() => search('')} className="flex items-center gap-2.5">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-cinnabar font-kai text-2xl text-white shadow-md shadow-cinnabar/30">
@@ -161,7 +166,7 @@ export default function App() {
             <span className="block text-[11px] tracking-wider text-ink-2 dark:text-white/45">86 版 · 微软五笔词库</span>
           </span>
         </button>
-        <nav className="ml-auto flex items-center gap-1 text-sm">
+        <nav className="ml-auto hidden items-center gap-1 text-sm sm:flex">
           {pages.map(([p, label]) => (
             <button
               key={p}
@@ -173,7 +178,9 @@ export default function App() {
               {label}
             </button>
           ))}
-          <button className="btn ml-1 !px-2.5" onClick={() => setHistoryOpen(true)} title="查询记录">
+        </nav>
+        <div className="ml-auto flex items-center gap-1 sm:ml-0">
+          <button className="btn !px-2.5" onClick={() => setHistoryOpen(true)} title="查询记录">
             🕘<span className="hidden sm:inline">记录</span>
           </button>
           <button className="btn !px-2.5" onClick={toggleTheme} title="切换明暗">
@@ -182,7 +189,7 @@ export default function App() {
           <a className="btn !px-2.5" href={REPO_URL} target="_blank" rel="noreferrer" title="GitHub 源代码" aria-label="GitHub">
             <GitHubIcon className="h-[1.1em] w-[1.1em]" />
           </a>
-        </nav>
+        </div>
       </header>
 
       <main className="flex-1 pb-8">
@@ -200,7 +207,7 @@ export default function App() {
               <div className="relative mx-auto max-w-2xl">
                 <input
                   ref={inputRef}
-                  autoFocus
+                  autoFocus={!isCoarsePointer()}
                   value={input}
                   onChange={(e) => onInput(e.target.value)}
                   onCompositionStart={() => (composing.current = true)}
@@ -216,6 +223,9 @@ export default function App() {
                   className="w-full rounded-2xl border border-black/10 bg-white/90 py-4 pl-5 pr-12 text-xl shadow-[0_8px_30px_rgba(60,40,20,0.08)] outline-none transition placeholder:text-ink-2/40 focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10 dark:border-white/10 dark:bg-white/5 dark:placeholder:text-white/25"
                   spellCheck={false}
                   autoComplete="off"
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  enterKeyHint="search"
                 />
                 {input && (
                   <button
@@ -313,6 +323,8 @@ export default function App() {
           navigate('review', '')
         }}
       />
+
+      <BottomNav page={loc.page} onNavigate={(p) => navigate(p, p === 'search' ? input.trim() : '')} />
     </div>
   )
 }

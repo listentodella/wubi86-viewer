@@ -128,7 +128,7 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
                           document.getElementById('key-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
                         )
                       }}
-                      className={`flex w-full items-baseline gap-3 rounded-lg px-2 py-1 text-left transition hover:bg-black/[0.05] dark:hover:bg-white/[0.07] ${
+                      className={`flex min-h-10 w-full items-baseline gap-3 rounded-lg px-2 py-1 text-left transition hover:bg-black/[0.05] dark:hover:bg-white/[0.07] ${
                         sel === k ? 'bg-black/[0.05] dark:bg-white/[0.08]' : ''
                       }`}
                     >

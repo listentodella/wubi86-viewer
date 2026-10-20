@@ -34,7 +34,7 @@ export function PracticePage({ roots, onSearch }: { roots: Record<string, RootIn
               <button
                 key={m}
                 onClick={() => setMode(m)}
-                className={`rounded-full px-3 py-1.5 transition ${
+                className={`min-h-9 rounded-full px-3 py-1.5 transition ${
                   mode === m
                     ? 'bg-ink text-paper dark:bg-white dark:text-black'
                     : 'hover:bg-black/5 dark:hover:bg-white/10'

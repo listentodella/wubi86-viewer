@@ -87,7 +87,7 @@ export function HistoryPanel({ open, onClose, onSearch, onReview }: Props) {
             value={kw}
             onChange={(e) => setKw(e.target.value)}
             placeholder="筛选"
-            className="min-w-0 flex-1 rounded-full border border-black/10 bg-transparent px-3 text-sm outline-none focus:border-cinnabar/50 dark:border-white/15"
+            className="min-w-0 flex-1 rounded-full border border-black/10 bg-transparent px-3 text-base outline-none focus:border-cinnabar/50 dark:border-white/15"
           />
         </div>
 
@@ -124,7 +124,7 @@ export function HistoryPanel({ open, onClose, onSearch, onReview }: Props) {
               </span>
               <button
                 onClick={() => history.remove(x.q)}
-                className="shrink-0 px-1 text-black/30 opacity-0 transition hover:text-cinnabar group-hover:opacity-100 dark:text-white/30"
+                className="shrink-0 px-1 text-black/30 opacity-100 transition hover:text-cinnabar sm:opacity-0 sm:group-hover:opacity-100 dark:text-white/30"
                 title="删除"
               >
                 ✕
@@ -133,7 +133,10 @@ export function HistoryPanel({ open, onClose, onSearch, onReview }: Props) {
           ))}
         </ul>
 
-        <div className="flex flex-wrap gap-2 border-t border-black/5 p-4 text-sm dark:border-white/10">
+        <div
+          className="flex flex-wrap gap-2 border-t border-black/5 p-4 text-sm dark:border-white/10"
+          style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 1rem)' }}
+        >
           <button className="btn" onClick={onReview} disabled={!starCount}>
             复习易忘
           </button>

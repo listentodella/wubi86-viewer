@@ -14,6 +14,7 @@ import {
 } from '../lib/practice'
 import { RootGlyph, slotColor } from './RootGlyph'
 import { Stat } from './Stat'
+import { isCoarsePointer, keepAboveKeyboard } from '../lib/mobile'
 
 type Phase = 'ready' | 'loading' | 'run' | 'done'
 
@@ -58,6 +59,7 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   const used = useRef(new Set<string>())
   const runId = useRef(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const engaged = useRef(false)
   const drawRef = useRef(draw)
   const finishRef = useRef(onFinish)
 
@@ -66,17 +68,18 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
     finishRef.current = onFinish
   })
 
-  const focusInput = () =>
+  const focusInput = (force = false) =>
     requestAnimationFrame(() => {
       const el = inputRef.current
       if (!el) return
+      // phones: don't pop the keyboard on first load, only once the user has tapped in
+      if (!force && isCoarsePointer() && !engaged.current) return
+      engaged.current = true
       el.focus({ preventScroll: true })
-      // on small screens the drill box sits below the stats: bring it into view
-      const r = el.getBoundingClientRect()
-      if (r.bottom > window.innerHeight || r.top < 0) el.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      keepAboveKeyboard(el)
     })
 
-  const start = useCallback(async () => {
+  const start = useCallback(async (forceFocus = false) => {
     const id = ++runId.current
     used.current = new Set()
     setError(null)
@@ -98,7 +101,7 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
       used.current.add(first.text)
       setQ(first)
       setPhase('run')
-      focusInput()
+      focusInput(forceFocus)
     } catch (e) {
       if (id === runId.current) {
         setError(String(e))
@@ -207,7 +210,7 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
       <section className="card p-5 sm:p-7">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           {options}
-          <button className="btn ml-auto" onClick={() => void start()}>
+          <button className="btn ml-auto" onClick={() => void start(true)}>
             {phase === 'done' ? '再来一轮' : '重新开始'}
           </button>
         </div>
@@ -243,7 +246,14 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
       )}
 
       {phase === 'run' && q && (
-        <section className="card p-6 sm:p-10" onClick={() => inputRef.current?.focus({ preventScroll: true })}>
+        <section
+          className="card p-6 sm:p-10"
+          onClick={() => {
+            engaged.current = true
+            inputRef.current?.focus({ preventScroll: true })
+            if (inputRef.current) keepAboveKeyboard(inputRef.current)
+          }}
+        >
           <div className="flex flex-col items-center gap-5">
             <div className="text-center">
               {subtitle && <div className="mb-1 text-xs text-ink-2/70 dark:text-white/45">{subtitle}</div>}
@@ -261,10 +271,18 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
                 value={buffer}
                 onChange={onChange}
                 onKeyDown={onKeyDown}
-                autoFocus
+                onFocus={(e) => {
+                  engaged.current = true
+                  keepAboveKeyboard(e.currentTarget)
+                }}
                 aria-label="输入五笔编码"
                 spellCheck={false}
                 autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
+                enterKeyHint="done"
+                inputMode="text"
+                pattern="[a-yA-Y]*"
                 placeholder="键入编码"
                 className="w-44 rounded-xl border border-black/10 bg-white/90 px-3 py-2 text-center font-mono text-2xl tracking-[0.35em] outline-none transition placeholder:text-sm placeholder:tracking-normal placeholder:text-ink-2/40 focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10 dark:border-white/15 dark:bg-white/5 dark:placeholder:text-white/25"
               />
@@ -365,7 +383,7 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
             </div>
           )}
           <div className="mt-5 flex flex-wrap gap-2">
-            <button className="btn" onClick={() => void start()}>
+            <button className="btn" onClick={() => void start(true)}>
               再来一轮
             </button>
             {extraActions}

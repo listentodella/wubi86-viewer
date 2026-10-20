@@ -41,6 +41,7 @@ function describeIds(ids: string) {
 export function CharCard({ ch, rec, roots, onSearch, compact }: Props) {
   const ex = useMemo(() => (rec ? explainChar(ch, rec, roots) : null), [ch, rec, roots])
   const [hover, setHover] = useState<number | null>(null)
+  const [pinned, setPinned] = useState<number | null>(null)
   const [demo, setDemo] = useState<Demo>(null)
   const timer = useRef<number | undefined>(undefined)
   const items = useHistory()
@@ -90,8 +91,8 @@ export function CharCard({ ch, rec, roots, onSearch, compact }: Props) {
     splitSteps.slice(0, demo.step).forEach((p) => p.strokes.forEach((s) => (strokeColor[s] = p.color)))
   } else if (demo?.kind === 'order') {
     visible = demo.step
-  } else if (hover !== null) {
-    const p = ex.parts[hover]
+  } else if (hover !== null || pinned !== null) {
+    const p = ex.parts[(pinned ?? hover)!]
     active = p.strokes
     activeSlot = p.color
   }
@@ -140,7 +141,7 @@ export function CharCard({ ch, rec, roots, onSearch, compact }: Props) {
               </span>
             </div>
             <button
-              className={`ml-auto rounded-full border px-3 py-1 text-sm transition ${
+              className={`ml-auto min-h-9 rounded-full border px-3 py-1 text-sm transition ${
                 starred
                   ? 'border-amber-400 bg-amber-50 text-amber-700 dark:bg-amber-400/10 dark:text-amber-300'
                   : 'border-black/10 text-ink-2 hover:border-amber-400 dark:border-white/15 dark:text-white/60'
@@ -162,9 +163,10 @@ export function CharCard({ ch, rec, roots, onSearch, compact }: Props) {
                   key={i}
                   part={p}
                   roots={roots}
-                  active={hover === i}
+                  active={hover === i || pinned === i}
                   onEnter={() => setHover(i)}
                   onLeave={() => setHover(null)}
+                  onToggle={() => setPinned((v) => (v === i ? null : i))}
                 />
               ))}
             </div>
@@ -213,17 +215,22 @@ function PartChip({
   active,
   onEnter,
   onLeave,
+  onToggle,
 }: {
   part: CodePart
   roots: Record<string, RootInfo>
   active: boolean
   onEnter: () => void
   onLeave: () => void
+  onToggle: () => void
 }) {
   const color = slotColor(part.color)
   const key = KEYS[part.letter]
   return (
     <button
+      type="button"
+      onClick={onToggle}
+      aria-pressed={active}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       onFocus={onEnter}

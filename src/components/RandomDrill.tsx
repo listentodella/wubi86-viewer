@@ -49,7 +49,7 @@ export function RandomDrill({ roots, onSearch }: { roots: Record<string, RootInf
                 setKind(k)
                 setRun((n) => n + 1)
               }}
-              className={`rounded-full border px-3 py-1 transition ${
+              className={`min-h-9 rounded-full border px-3 py-1.5 transition ${
                 kind === k
                   ? 'border-cinnabar/60 bg-cinnabar/10 text-cinnabar dark:text-[#ff8a7a]'
                   : 'border-black/10 text-ink-2 hover:border-cinnabar/40 dark:border-white/15 dark:text-white/60'

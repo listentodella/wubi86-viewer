@@ -2,3 +2,12 @@
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: public, max-age=3600
+/icon-192.png
+/icon-512.png
+/icon-maskable-512.png
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800

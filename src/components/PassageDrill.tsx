@@ -10,6 +10,7 @@ import {
   type CharState,
 } from '../lib/passage'
 import { charQuestion, formatDuration, type Question } from '../lib/practice'
+import { isCoarsePointer, keepAboveKeyboard } from '../lib/mobile'
 import { Stat } from './Stat'
 
 const STATE_CLASS: Record<CharState, string> = {
@@ -137,6 +138,7 @@ export function PassageDrill({ onSearch }: { onSearch: (q: string) => void }) {
     setEndedAt(0)
     requestAnimationFrame(() => {
       inputRef.current?.focus({ preventScroll: true })
+      if (inputRef.current) keepAboveKeyboard(inputRef.current)
       if (boxRef.current) boxRef.current.scrollTop = 0
     })
   }
@@ -209,7 +211,7 @@ export function PassageDrill({ onSearch }: { onSearch: (q: string) => void }) {
 
         <div
           ref={boxRef}
-          className="mt-3 max-h-[42vh] overflow-y-auto overscroll-contain rounded-xl bg-black/[0.02] px-3 py-2 dark:bg-white/[0.03]"
+          className="mt-3 max-h-[42dvh] overflow-y-auto overscroll-contain rounded-xl bg-black/[0.02] px-3 py-2 dark:bg-white/[0.03]"
         >
           <p className="whitespace-pre-wrap font-kai text-xl leading-loose sm:text-2xl">
             {tokens.map((t, i) => (
@@ -230,7 +232,11 @@ export function PassageDrill({ onSearch }: { onSearch: (q: string) => void }) {
           value={input}
           onChange={(e) => onChange(e.target.value)}
           onPaste={(e) => e.preventDefault()}
-          autoFocus
+          autoFocus={!isCoarsePointer()}
+          onFocus={(e) => keepAboveKeyboard(e.currentTarget)}
+          autoCapitalize="off"
+          autoCorrect="off"
+          enterKeyHint="enter"
           rows={4}
           spellCheck={false}
           autoComplete="off"

@@ -48,12 +48,31 @@ html.dark {
   @apply bg-[#151311] text-[#ece6da];
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background-image:
     radial-gradient(circle at 15% 0%, rgba(192, 57, 43, 0.07), transparent 40%),
     radial-gradient(circle at 90% 10%, rgba(47, 111, 220, 0.06), transparent 35%);
   background-attachment: fixed;
   min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* touch devices: no 300ms tap delay, no grey flash, comfortable hit areas */
+@media (pointer: coarse) {
+  button,
+  a,
+  [role='button'] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .btn {
+    min-height: 2.75rem;
+  }
 }
 
 .dark body {
