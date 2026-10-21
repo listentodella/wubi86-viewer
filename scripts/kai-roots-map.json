@@ -800,32 +800,41 @@
   "rejected": true
  },
  "e0fd": {
-  "ch": "月",
-  "rejected": true
+  "label": "且（前四笔）",
+  "confirmed": true,
+  "note": "且的前四笔（去掉末笔钩）；正楷取自 MMH 抽笔画（且 strokes 1–4）"
  },
  "e0fe": {
-  "ch": "月",
-  "rejected": true
+  "label": "有（三~六笔）",
+  "confirmed": true,
+  "note": "有的第 3~6 笔；正楷取自 MMH 抽笔画（有 strokes 3–6）"
  },
  "e0ff": {
-  "ch": "用",
-  "rejected": true
+  "label": "甬（三~七笔）",
+  "confirmed": true,
+  "note": "甬的第 3~7 笔；正楷取自 MMH 抽笔画（甬 strokes 3–7）"
  },
  "e100": {
-  "ch": "豕",
-  "rejected": true
+  "ch": "象",
+  "label": "象（下半部）",
+  "confirmed": true,
+  "note": "象的下半部（第 7~11 笔）；正楷取自 MMH 抽笔画（象 strokes 7–11）"
  },
  "e101": {
   "ch": "衣",
-  "rejected": true
+  "label": "衣（三~六笔）",
+  "confirmed": true,
+  "note": "衣的第 3~6 笔；正楷取自 MMH 抽笔画（衣 strokes 3–6）"
  },
  "e102": {
-  "ch": "豕",
-  "rejected": true
+  "label": "派（六~九笔）",
+  "confirmed": true,
+  "note": "派的第 6~9 笔；正楷取自 MMH 抽笔画（派 strokes 6–9）"
  },
  "e103": {
-  "ch": "豕",
-  "rejected": true
+  "label": "辰（五~七笔）",
+  "confirmed": true,
+  "note": "辰的第 5~7 笔；正楷取自 MMH 抽笔画（辰 strokes 5–7）"
  },
  "e104": {
   "ch": "凵",
@@ -836,20 +845,26 @@
   "confirmed": true
  },
  "e106": {
-  "ch": "乃",
-  "rejected": true
+  "ch": "十",
+  "label": "及（前两笔）",
+  "confirmed": true,
+  "note": "及的前两笔（撇 + 横 = 十）；正楷取自 MMH 抽笔画（及 strokes 1–2）"
  },
  "e107": {
-  "ch": "豕",
-  "rejected": true
+  "label": "豹（前四笔）",
+  "confirmed": true,
+  "note": "豹的前四笔；正楷取自 MMH 抽笔画（豹 strokes 1–4）"
  },
  "e108": {
-  "ch": "豸",
-  "rejected": true
+  "label": "豹（五~七笔）",
+  "confirmed": true,
+  "note": "豹的第 5~7 笔；正楷取自 MMH 抽笔画（豹 strokes 5–7）"
  },
  "e109": {
-  "ch": "豕",
-  "rejected": true
+  "ch": "恳",
+  "label": "恳（四~六笔）",
+  "confirmed": true,
+  "note": "恳的第 4~6 笔；正楷取自 MMH 抽笔画（恳 strokes 4–6）"
  },
  "e10f": {
   "ch": "人",
@@ -1038,7 +1053,9 @@
  },
  "e159": {
   "ch": "舟",
-  "rejected": true
+  "label": "舟（去首笔）",
+  "confirmed": true,
+  "note": "舟去掉第一笔（底横）；正楷取自 MMH 抽笔画（舟 strokes 2–6）"
  },
  "e15a": {
   "ch": "冫",
@@ -1746,5 +1763,37 @@
  "3007": {
   "removed": true,
   "note": "★ 去掉：〇（U+3007）简体字用不到，仅从表里撤掉；此键不参与造字，font:kai 会原样保留"
+ },
+ "e911": {
+  "label": "勇（三~七笔）",
+  "confirmed": true,
+  "note": "勇的第 3~7 笔；正楷取自 MMH 抽笔画（勇 strokes 3–7）"
+ },
+ "e912": {
+  "label": "逐（一~七笔）",
+  "confirmed": true,
+  "note": "逐的第 1~7 笔；正楷取自 MMH 抽笔画（逐 strokes 1–7）"
+ },
+ "e913": {
+  "ch": "遂",
+  "label": "遂（四~九笔）",
+  "confirmed": true,
+  "note": "遂的第 4~9 笔；正楷取自 MMH 抽笔画（遂 strokes 4–9）"
+ },
+ "e914": {
+  "ch": "农",
+  "label": "农（三~六笔）",
+  "confirmed": true,
+  "note": "农的第 3~6 笔；正楷取自 MMH 抽笔画（农 strokes 3–6）"
+ },
+ "e915": {
+  "label": "圜（十二~十五笔）",
+  "confirmed": true,
+  "note": "圜的第 12~15 笔；正楷取自 MMH 抽笔画（圜 strokes 12–15）"
+ },
+ "e916": {
+  "label": "退（四~六笔）",
+  "confirmed": true,
+  "note": "退的第 4~6 笔；正楷取自 MMH 抽笔画（退 strokes 4–6）"
  }
 }
