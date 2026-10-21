@@ -1,0 +1,1750 @@
+{
+ "_meta": {
+  "description": "黑体字根.ttf 的 PUA 码位 → 汉字。\"E086\": \"日\" 换字；\"E086\": \"\" 表示确认没有对应汉字、留空；需要备注时写 {\"ch\": \"日\", \"note\": \"...\"}。改完重跑 npm run font:kai 即可。",
+  "hei": "黑体字根.ttf",
+  "kai": "LXGW WenKai Version 1.530; October 18, 2026",
+  "generated_by": "scripts/build-kai-roots-font.py"
+ },
+ "9fb0": {
+  "ch": "龰",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fb4": {
+  "ch": "龴",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fb5": {
+  "ch": "龵",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fb6": {
+  "ch": "龶",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fb7": {
+  "ch": "龷",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fb8": {
+  "ch": "龸",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fb9": {
+  "ch": "龹",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fba": {
+  "ch": "龺",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "9fbb": {
+  "ch": "龻",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e001": {
+  "ch": "一",
+  "confirmed": true,
+  "note": "用户核对：匹配；G 键整键人工确认（2026-10）"
+ },
+ "e002": {
+  "ch": "王",
+  "confirmed": true,
+  "note": "用户核对：匹配；G 键整键人工确认（2026-10）"
+ },
+ "e003": {
+  "ch": "五",
+  "confirmed": true,
+  "note": "用户核对：匹配；G 键整键人工确认（2026-10）"
+ },
+ "e004": {
+  "ch": "夫",
+  "confirmed": true
+ },
+ "e005": {
+  "ch": "㇀",
+  "confirmed": true,
+  "note": "用户核对：匹配；G 键整键人工确认（2026-10）"
+ },
+ "e006": {
+  "ch": "干",
+  "rejected": true,
+  "note": "你反馈：丰字少一横"
+ },
+ "e007": {
+  "ch": "亐",
+  "rejected": true
+ },
+ "e008": {
+  "ch": "午",
+  "rejected": true,
+  "note": "你反馈：年字去掉上面的人"
+ },
+ "e009": {
+  "ch": "舛",
+  "rejected": true,
+  "note": "你反馈：再去掉夕字"
+ },
+ "e00a": {
+  "ch": "龶",
+  "raise_bottom": 6,
+  "note": "青字头第二种：底横写成提（楷书压在月/日上时）；6° 为定稿档（实测底横约 6°）；G 键整键人工确认（2026-10）",
+  "confirmed": true
+ },
+ "e00b": {
+  "ch": "龶",
+  "confirmed": true,
+  "note": "用户核对：匹配；G 键整键人工确认（2026-10）"
+ },
+ "e00c": {
+  "ch": "戋",
+  "confirmed": true,
+  "note": "用户核对：匹配；G 键整键人工确认（2026-10）"
+ },
+ "e016": {
+  "ch": "二",
+  "confirmed": true,
+  "note": "用户核对：匹配；F 键整键人工确认（2026-10）"
+ },
+ "e017": {
+  "ch": "土",
+  "confirmed": true,
+  "note": "用户核对：匹配；F 键整键人工确认（2026-10）"
+ },
+ "e018": {
+  "ch": "士",
+  "confirmed": true,
+  "note": "用户核对：匹配；F 键整键人工确认（2026-10）"
+ },
+ "e019": {
+  "ch": "干",
+  "confirmed": true,
+  "note": "用户核对：匹配；F 键整键人工确认（2026-10）"
+ },
+ "e01a": {
+  "ch": "十",
+  "confirmed": true,
+  "note": "用户核对：匹配；F 键整键人工确认（2026-10）"
+ },
+ "e01b": {
+  "ch": "雨",
+  "confirmed": true,
+  "note": "用户核对：匹配；F 键整键人工确认（2026-10）"
+ },
+ "e01c": {
+  "ch": "寸",
+  "confirmed": true,
+  "note": "用户核对：匹配；F 键整键人工确认（2026-10）"
+ },
+ "e01d": {
+  "ch": "甘",
+  "confirmed": true
+ },
+ "e01e": {
+  "ch": "未",
+  "confirmed": true
+ },
+ "e01f": {
+  "ch": "⻗",
+  "confirmed": true,
+  "note": "F 键整键人工确认（2026-10）"
+ },
+ "e020": {
+  "ch": "竹",
+  "rejected": true,
+  "note": "你反馈：亞字去掉上下两横"
+ },
+ "e021": {
+  "ch": "寸",
+  "drop_dot": true,
+  "confirmed": true,
+  "note": "寸去点：删掉文楷「寸」里最小的那条轮廓（就是那一点），保留寸的横与钩；取自 F 键缺件页候选 A；F 键整键人工确认（2026-10）",
+  "label": "寸去点"
+ },
+ "e022": {
+  "ch": "革",
+  "clip_top": 0.62,
+  "confirmed": true,
+  "label": "革去廿",
+  "note": "革去廿：在廿横与口顶之间水平切分（0.62），保留口+十（用户指定放在 E022）；F 键整键人工确认（2026-10）"
+ },
+ "e023": {
+  "removed": true,
+  "note": "用户：与 E022 重复，去掉该槽"
+ },
+ "e02e": {
+  "ch": "三",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e02f": {
+  "ch": "大",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e030": {
+  "ch": "镸",
+  "confirmed": true,
+  "note": "正楷取「套」去掉「大」(第 4–10 笔)，比「肆左」舒展",
+  "label": "镸（套去大）"
+ },
+ "e031": {
+  "ch": "古",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e032": {
+  "ch": "石",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e033": {
+  "ch": "厂",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e034": {
+  "ch": "⺁",
+  "rejected": true,
+  "note": "石去口：正楷取「石」前 2 笔（厂）。你反馈：不应该是撇而是横",
+  "label": "石去口",
+  "confirmed": true
+ },
+ "e035": {
+  "ch": "犬",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e036": {
+  "ch": "戊",
+  "confirmed": true
+ },
+ "e037": {
+  "removed": true,
+  "note": "用户：黑体字根里没有与它匹配的简体汉字，删除该槽"
+ },
+ "e038": {
+  "ch": "龷",
+  "rejected": true,
+  "note": "你反馈：你改成了共字了"
+ },
+ "e039": {
+  "ch": "ナ",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e03a": {
+  "ch": "王",
+  "rejected": true,
+  "note": "羊去掉上面两点：正楷取「羊」第 3–6 笔。",
+  "label": "羊去两点",
+  "confirmed": true
+ },
+ "e03b": {
+  "ch": "丰",
+  "rejected": true,
+  "note": "羯左半（羊）去掉上面两点：正楷取「羯」第 3–6 笔。",
+  "label": "羯羊去点",
+  "confirmed": true
+ },
+ "e03c": {
+  "ch": "弋",
+  "rejected": true,
+  "note": "尤去竖弯钩：正楷取「尤」第 1、2、4 笔。",
+  "label": "尤去竖弯钩",
+  "confirmed": true
+ },
+ "e03d": {
+  "ch": "丆",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e043": {
+  "ch": "木",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e044": {
+  "ch": "丁",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e045": {
+  "ch": "西",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e046": {
+  "ch": "覀",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e047": {
+  "ch": "朩",
+  "confirmed": true,
+  "note": "条去掉条字头（夂）：正楷取「条」第 4–7 笔",
+  "label": "朩（条去夂）"
+ },
+ "e048": {
+  "ch": "甫",
+  "confirmed": true
+ },
+ "e049": {
+  "ch": "丂",
+  "note": "哥的上半部（可）去掉口：正楷取「哥」第 1、5 笔",
+  "label": "丁（哥上半去口）",
+  "confirmed": true
+ },
+ "e053": {
+  "ch": "工",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e054": {
+  "ch": "戈",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e055": {
+  "ch": "卄",
+  "confirmed": true,
+  "label": "廿（前三笔）",
+  "note": "廿的前三笔，写法更美观（正楷取自 MMH 抽笔画）"
+ },
+ "e056": {
+  "ch": "廾",
+  "confirmed": true,
+  "note": "升去掉第一笔（正楷取自 MMH 抽笔画）",
+  "label": "升（去首笔）"
+ },
+ "e057": {
+  "ch": "廿",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e058": {
+  "ch": "匚",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e059": {
+  "ch": "七",
+  "confirmed": true,
+  "note": "用户核对：匹配"
+ },
+ "e05a": {
+  "ch": "虫",
+  "rejected": true
+ },
+ "e05b": {
+  "ch": "七",
+  "label": "氏后二笔",
+  "confirmed": true,
+  "note": "氏的第 3、4 笔（正楷取自 MMH 抽笔画）"
+ },
+ "e05c": {
+  "ch": "廾",
+  "label": "车头（前两笔）",
+  "confirmed": true,
+  "note": "车的前两笔（正楷取自 MMH 抽笔画）"
+ },
+ "e05d": {
+  "ch": "七",
+  "label": "切左（七）",
+  "confirmed": true,
+  "note": "切的左半部（七）（正楷取自 MMH 抽笔画）"
+ },
+ "e05e": {
+  "ch": "工",
+  "label": "牙头（前两笔）",
+  "confirmed": true,
+  "note": "牙的前两笔（正楷取自 MMH 抽笔画）"
+ },
+ "e05f": {
+  "ch": "龷",
+  "confirmed": true,
+  "label": "龷（共前四笔）",
+  "note": "共的前四笔（正楷取自 MMH 抽笔画）"
+ },
+ "e060": {
+  "ch": "艹",
+  "confirmed": true
+ },
+ "e061": {
+  "ch": "弋",
+  "confirmed": true
+ },
+ "e062": {
+  "ch": "匚",
+  "label": "戉头（前两笔）",
+  "confirmed": true,
+  "note": "戉的前两笔（正楷取自 MMH 抽笔画）"
+ },
+ "e063": {
+  "ch": "卄",
+  "confirmed": true,
+  "label": "卄（扁末三笔）",
+  "note": "扁的最后三笔（正楷取自 MMH 抽笔画）"
+ },
+ "e06b": {
+  "ch": "丨",
+  "confirmed": true
+ },
+ "e06c": {
+  "ch": "亅",
+  "confirmed": true
+ },
+ "e06d": {
+  "ch": "目",
+  "confirmed": true
+ },
+ "e06e": {
+  "label": "且（具去八）",
+  "confirmed": true,
+  "note": "具去掉最后两笔（八）= 且；正楷取自 MMH 抽笔画（具 1–6 笔）"
+ },
+ "e06f": {
+  "ch": "上",
+  "confirmed": true
+ },
+ "e070": {
+  "ch": "止",
+  "confirmed": true
+ },
+ "e071": {
+  "ch": "卜",
+  "confirmed": true
+ },
+ "e072": {
+  "ch": "虍",
+  "confirmed": true
+ },
+ "e073": {
+  "ch": "步",
+  "rejected": true
+ },
+ "e074": {
+  "label": "上（前两笔）",
+  "at": "卜",
+  "confirmed": true,
+  "note": "上的前两笔（竖 + 短横）= 卜；正楷取自 MMH 抽笔画"
+ },
+ "e075": {
+  "ch": "龰",
+  "label": "足去口",
+  "confirmed": true,
+  "note": "足去掉口 = 龰；正楷取自 MMH 抽笔画（足 4–7 笔）"
+ },
+ "e076": {
+  "label": "虍（虎前四笔）",
+  "confirmed": true,
+  "note": "虎的前四笔（虍 的上半）；正楷取自 MMH 抽笔画"
+ },
+ "e077": {
+  "label": "皮（前三笔）",
+  "at": -1,
+  "confirmed": true,
+  "note": "皮的前三笔；正楷取自 MMH 抽笔画"
+ },
+ "e081": {
+  "label": "临（前两笔）",
+  "confirmed": true,
+  "note": "临的第 1、2 笔 = 两竖；正楷取自 MMH 抽笔画"
+ },
+ "e082": {
+  "label": "师（前两笔）",
+  "confirmed": true,
+  "note": "师的前两笔；正楷取自 MMH 抽笔画"
+ },
+ "e083": {
+  "removed": true,
+  "note": "★ 与 E08E 合并：原书这一格就是肃字那两笔（川 属 K 键 U+E09A），不再单列；码位仍留空，随时可恢复"
+ },
+ "e084": {
+  "ch": "刂",
+  "confirmed": true
+ },
+ "e085": {
+  "ch": "日",
+  "confirmed": true
+ },
+ "e086": {
+  "removed": true,
+  "note": "★ 暂时不显示：与 E085 的「日」在楷体里几乎不可区分，先从这个表里撤掉（码位仍留空，随时可恢复）"
+ },
+ "e087": {
+  "label": "冒（前四笔）",
+  "confirmed": true,
+  "note": "冒的前四笔 = 上面的「曰」；正楷取自 MMH 抽笔画"
+ },
+ "e088": {
+  "label": "临（六~九笔）",
+  "confirmed": true,
+  "note": "临的第 6–9 笔（右下的「品」形）；正楷取自 MMH 抽笔画"
+ },
+ "e089": {
+  "ch": "曰",
+  "rejected": true
+ },
+ "e08a": {
+  "ch": "曰",
+  "rejected": true
+ },
+ "e08b": {
+  "ch": "早",
+  "confirmed": true
+ },
+ "e08c": {
+  "ch": "虫",
+  "confirmed": true
+ },
+ "e08d": {
+  "ch": "臼",
+  "rejected": true
+ },
+ "e08e": {
+  "label": "介（三~四笔）",
+  "confirmed": true,
+  "note": "介的第 3、4 笔（撇 + 竖）；此前用过「肃」第 5、6 笔，介这两笔更匀、更端正"
+ },
+ "e098": {
+  "label": "带（二~四笔）",
+  "confirmed": true,
+  "note": "带的第 2–4 笔（三竖，即「卅」那一排）；正楷取自 MMH 抽笔画。川 属 K 键 U+E09A，本格是它上面那三竖"
+ },
+ "e099": {
+  "ch": "㐬",
+  "rejected": true
+ },
+ "e09a": {
+  "ch": "川",
+  "confirmed": true
+ },
+ "e09b": {
+  "ch": "口",
+  "confirmed": true
+ },
+ "e0a4": {
+  "ch": "田",
+  "confirmed": true
+ },
+ "e0a5": {
+  "ch": "甲",
+  "confirmed": true
+ },
+ "e0a6": {
+  "ch": "囗",
+  "confirmed": true
+ },
+ "e0a7": {
+  "ch": "四",
+  "confirmed": true
+ },
+ "e0a8": {
+  "ch": "罒",
+  "confirmed": true
+ },
+ "e0a9": {
+  "ch": "皿",
+  "confirmed": true
+ },
+ "e0aa": {
+  "ch": "车",
+  "confirmed": true
+ },
+ "e0ab": {
+  "removed": true,
+  "note": "★ 去掉：車（繁体）简体字用不到；码位仍留空，随时可恢复"
+ },
+ "e0ac": {
+  "label": "舞（四~七笔）",
+  "confirmed": true,
+  "note": "舞的第 4–7 笔（只有四竖，不含第 3 笔那一横）；正楷取自 MMH 抽笔画"
+ },
+ "e0ad": {
+  "label": "黑（前五笔）",
+  "confirmed": true,
+  "note": "黑的前五笔（黑字头的方框）；正楷取自 MMH 抽笔画"
+ },
+ "e0ae": {
+  "label": "曾（三~八笔）",
+  "confirmed": true,
+  "note": "曾的第 3–8 笔（中间的「田」加底横）；正楷取自 MMH 抽笔画"
+ },
+ "e0af": {
+  "removed": true,
+  "note": "★ 去掉：婁（繁体）简体字用不到；码位仍留空，随时可恢复"
+ },
+ "e0b0": {
+  "ch": "車",
+  "rejected": true
+ },
+ "e0ba": {
+  "ch": "山",
+  "confirmed": true
+ },
+ "e0bb": {
+  "ch": "由",
+  "confirmed": true
+ },
+ "e0bc": {
+  "ch": "贝",
+  "confirmed": true
+ },
+ "e0bd": {
+  "removed": true,
+  "note": "★ 去掉：貝（繁体）简体字用不上；码位仍留空，随时可恢复"
+ },
+ "e0be": {
+  "ch": "冂",
+  "confirmed": true
+ },
+ "e0bf": {
+  "label": "用（前两笔）",
+  "confirmed": true,
+  "note": "用的前两笔（撇 + 横折钩 = 冂）；正楷取自 MMH 抽笔画"
+ },
+ "e0c0": {
+  "label": "身（二~三笔）",
+  "confirmed": true,
+  "note": "身的第 2、3 笔；正楷取自 MMH 抽笔画"
+ },
+ "e0c1": {
+  "label": "骨（前五笔）",
+  "confirmed": true,
+  "note": "骨的前五笔（骨头上面的框）；正楷取自 MMH 抽笔画"
+ },
+ "e0c2": {
+  "label": "见（前两笔）",
+  "confirmed": true,
+  "note": "见的前两笔（冂）；正楷取自 MMH 抽笔画"
+ },
+ "e0c3": {
+  "label": "册（前两笔）",
+  "confirmed": true,
+  "note": "册的前两笔（两竖）；正楷取自 MMH 抽笔画"
+ },
+ "e0c4": {
+  "label": "凹（三~四笔）",
+  "confirmed": true,
+  "note": "凹的第 3、4 笔；正楷取自 MMH 抽笔画。原 E119 与本格重复，已并入"
+ },
+ "e0c5": {
+  "label": "凸（一、四笔）",
+  "confirmed": true,
+  "note": "凸的第 1、4 笔（MMH 笔顺：先竖、再那一大笔）；正楷取自 MMH 抽笔画"
+ },
+ "e0c6": {
+  "label": "凹（前两笔）",
+  "confirmed": true,
+  "note": "凹的前两笔；正楷取自 MMH 抽笔画"
+ },
+ "e0ce": {
+  "ch": "丿",
+  "confirmed": true
+ },
+ "e0cf": {
+  "ch": "禾",
+  "confirmed": true
+ },
+ "e0d0": {
+  "ch": "⺮",
+  "confirmed": true,
+  "note": "竹字头；正楷 MMH 没有 ⺮ 单字，取「笼」前 6 笔（F1 0.998）"
+ },
+ "e0d1": {
+  "ch": "彳",
+  "confirmed": true
+ },
+ "e0d2": {
+  "ch": "攵",
+  "confirmed": true
+ },
+ "e0d3": {
+  "ch": "夂",
+  "confirmed": true,
+  "note": "正楷按用户指定取「条」第 1–3 笔（条字头，F1 0.396；数值低于自动候选，以人工判断为准）"
+ },
+ "e0d4": {
+  "ch": "𠂉",
+  "confirmed": true,
+  "note": "𠂉；正楷取「医」第 2、3 笔（撇 + 横，F1 0.948）"
+ },
+ "e0d5": {
+  "label": "余下（荼六~十笔）",
+  "confirmed": true,
+  "note": "无名根：书上是「余」去掉上面的人；正楷取「荼」第 6–10 笔（F1 0.941）"
+ },
+ "e0d6": {
+  "ch": "竹",
+  "confirmed": true
+ },
+ "e0d7": {
+  "ch": "㇒",
+  "label": "撇",
+  "confirmed": true,
+  "note": "正楷按用户指定取「生」第 2 笔（长宽比 4.21，书中 1.26；F1 0.532——数值低于自动候选，以人工判断为准）"
+ },
+ "e0d8": {
+  "label": "撇横（连笔）",
+  "confirmed": true,
+  "note": "正楷按用户指定取「币」第 1 笔（撇；F1 0.711，长宽比 2.68，书中 7.25——数值低于自动候选，以人工判断为准）"
+ },
+ "e0e0": {
+  "label": "勿（三~四笔）",
+  "confirmed": true,
+  "note": "勿的第 3、4 笔（里面那两撇）；正楷取自 MMH 抽笔画"
+ },
+ "e0e1": {
+  "ch": "白",
+  "confirmed": true
+ },
+ "e0e2": {
+  "ch": "手",
+  "confirmed": true
+ },
+ "e0e3": {
+  "ch": "扌",
+  "confirmed": true
+ },
+ "e0e4": {
+  "ch": "斤",
+  "label": "丘（前四笔）",
+  "confirmed": true,
+  "note": "丘的前四笔（去掉最下那一横，形状即斤）；正楷取自 MMH 抽笔画"
+ },
+ "e0e5": {
+  "ch": "五",
+  "rejected": true
+ },
+ "e0e6": {
+  "ch": "竹",
+  "rejected": true
+ },
+ "e0e7": {
+  "label": "反（前两笔）",
+  "confirmed": true,
+  "note": "反的前两笔（厂）；正楷取自 MMH 抽笔画"
+ },
+ "e0e8": {
+  "label": "看（前四笔）",
+  "confirmed": true,
+  "note": "看的前四笔（龵，手字头）；正楷取自 MMH 抽笔画"
+ },
+ "e0e9": {
+  "ch": "乂",
+  "confirmed": true
+ },
+ "e0ea": {
+  "ch": "⺧",
+  "label": "牛（前三笔）",
+  "confirmed": true,
+  "note": "牛的前三笔（⺧）；正楷取自 MMH 抽笔画"
+ },
+ "e0eb": {
+  "ch": "牜",
+  "label": "牧（二~四笔）",
+  "confirmed": true,
+  "note": "牧的第 2–4 笔（牜，末笔作提）；正楷取自 MMH 抽笔画"
+ },
+ "e0ec": {
+  "ch": "斤",
+  "rejected": true
+ },
+ "e0ed": {
+  "ch": "乂",
+  "rejected": true
+ },
+ "e0ee": {
+  "ch": "乂",
+  "rejected": true
+ },
+ "e0f5": {
+  "ch": "彡",
+  "confirmed": true
+ },
+ "e0f6": {
+  "ch": "爫",
+  "confirmed": true
+ },
+ "e0f7": {
+  "ch": "月",
+  "confirmed": true
+ },
+ "e0f8": {
+  "ch": "用",
+  "confirmed": true
+ },
+ "e0f9": {
+  "ch": "辛",
+  "rejected": true
+ },
+ "e0fa": {
+  "ch": "臼",
+  "confirmed": true
+ },
+ "e0fb": {
+  "ch": "力",
+  "confirmed": true
+ },
+ "e0fc": {
+  "ch": "豕",
+  "rejected": true
+ },
+ "e0fd": {
+  "ch": "月",
+  "rejected": true
+ },
+ "e0fe": {
+  "ch": "月",
+  "rejected": true
+ },
+ "e0ff": {
+  "ch": "用",
+  "rejected": true
+ },
+ "e100": {
+  "ch": "豕",
+  "rejected": true
+ },
+ "e101": {
+  "ch": "衣",
+  "rejected": true
+ },
+ "e102": {
+  "ch": "豕",
+  "rejected": true
+ },
+ "e103": {
+  "ch": "豕",
+  "rejected": true
+ },
+ "e104": {
+  "ch": "凵",
+  "rejected": true
+ },
+ "e105": {
+  "ch": "豕",
+  "confirmed": true
+ },
+ "e106": {
+  "ch": "乃",
+  "rejected": true
+ },
+ "e107": {
+  "ch": "豕",
+  "rejected": true
+ },
+ "e108": {
+  "ch": "豸",
+  "rejected": true
+ },
+ "e109": {
+  "ch": "豕",
+  "rejected": true
+ },
+ "e10f": {
+  "ch": "人",
+  "confirmed": true
+ },
+ "e110": {
+  "ch": "亻",
+  "confirmed": true
+ },
+ "e111": {
+  "ch": "八",
+  "confirmed": true
+ },
+ "e112": {
+  "ch": "癶",
+  "confirmed": true
+ },
+ "e113": {
+  "ch": "几",
+  "confirmed": true
+ },
+ "e114": {
+  "ch": "八",
+  "rejected": true
+ },
+ "e115": {
+  "label": "风（前两笔）",
+  "confirmed": true,
+  "note": "风的前两笔（几）；正楷取自 MMH 抽笔画"
+ },
+ "e116": {
+  "ch": "龺",
+  "rejected": true
+ },
+ "e117": {
+  "ch": "殳",
+  "rejected": true
+ },
+ "e118": {
+  "ch": "八",
+  "rejected": true
+ },
+ "e121": {
+  "ch": "金",
+  "confirmed": true
+ },
+ "e122": {
+  "ch": "钅",
+  "confirmed": true
+ },
+ "e123": {
+  "ch": "金",
+  "rejected": true
+ },
+ "e124": {
+  "ch": "勹",
+  "confirmed": true
+ },
+ "e125": {
+  "ch": "⺈",
+  "confirmed": true
+ },
+ "e126": {
+  "ch": "夕",
+  "confirmed": true
+ },
+ "e127": {
+  "ch": "儿",
+  "confirmed": true
+ },
+ "e128": {
+  "ch": "钅",
+  "rejected": true
+ },
+ "e129": {
+  "ch": "氏",
+  "rejected": true
+ },
+ "e12a": {
+  "ch": "⺈",
+  "rejected": true
+ },
+ "e12b": {
+  "ch": "儿",
+  "rejected": true
+ },
+ "e12c": {
+  "ch": "夕",
+  "rejected": true
+ },
+ "e12d": {
+  "ch": "弓",
+  "rejected": true
+ },
+ "e12e": {
+  "ch": "西",
+  "rejected": true
+ },
+ "e12f": {
+  "ch": "弓",
+  "rejected": true
+ },
+ "e130": {
+  "ch": "勹",
+  "rejected": true
+ },
+ "e131": {
+  "ch": "鱼",
+  "rejected": true
+ },
+ "e132": {
+  "ch": "⺈",
+  "confirmed": true
+ },
+ "e133": {
+  "ch": "犭",
+  "rejected": true
+ },
+ "e134": {
+  "ch": "乂",
+  "rejected": true
+ },
+ "e135": {
+  "ch": "卩",
+  "rejected": true
+ },
+ "e13e": {
+  "ch": "丶",
+  "rejected": true
+ },
+ "e13f": {
+  "ch": "㇏",
+  "confirmed": true
+ },
+ "e140": {
+  "ch": "言",
+  "confirmed": true
+ },
+ "e142": {
+  "ch": "讠",
+  "confirmed": true
+ },
+ "e143": {
+  "ch": "亠",
+  "confirmed": true
+ },
+ "e144": {
+  "ch": "文",
+  "confirmed": true
+ },
+ "e145": {
+  "ch": "方",
+  "confirmed": true
+ },
+ "e146": {
+  "ch": "五",
+  "rejected": true
+ },
+ "e147": {
+  "ch": "丶",
+  "confirmed": true
+ },
+ "e148": {
+  "ch": "隹",
+  "rejected": true
+ },
+ "e149": {
+  "ch": "亠",
+  "rejected": true
+ },
+ "e14a": {
+  "ch": "灬",
+  "rejected": true
+ },
+ "e156": {
+  "ch": "⺀",
+  "confirmed": true
+ },
+ "e157": {
+  "ch": "㇔",
+  "rejected": true
+ },
+ "e158": {
+  "ch": "丬",
+  "rejected": true
+ },
+ "e159": {
+  "ch": "舟",
+  "rejected": true
+ },
+ "e15a": {
+  "ch": "冫",
+  "confirmed": true
+ },
+ "e15b": {
+  "ch": "丷",
+  "confirmed": true
+ },
+ "e15c": {
+  "ch": "立",
+  "confirmed": true
+ },
+ "e15d": {
+  "ch": "辛",
+  "confirmed": true
+ },
+ "e15e": {
+  "ch": "䒑",
+  "confirmed": true
+ },
+ "e15f": {
+  "ch": "臼",
+  "rejected": true
+ },
+ "e160": "六",
+ "e161": {
+  "ch": "门",
+  "confirmed": true
+ },
+ "e162": {
+  "ch": "門",
+  "confirmed": true
+ },
+ "e163": {
+  "ch": "疒",
+  "confirmed": true
+ },
+ "e164": {
+  "ch": "车",
+  "rejected": true
+ },
+ "e165": {
+  "ch": "龵",
+  "rejected": true
+ },
+ "e166": {
+  "ch": "丬",
+  "confirmed": true
+ },
+ "e167": {
+  "ch": "冫",
+  "rejected": true
+ },
+ "e168": {
+  "ch": "亠",
+  "rejected": true
+ },
+ "e172": {
+  "ch": "氵",
+  "confirmed": true
+ },
+ "e173": {
+  "ch": "水",
+  "confirmed": true
+ },
+ "e174": {
+  "ch": "水",
+  "rejected": true
+ },
+ "e175": {
+  "ch": "小",
+  "rejected": true
+ },
+ "e176": {
+  "ch": "小",
+  "confirmed": true
+ },
+ "e177": {
+  "ch": "⺌",
+  "confirmed": true
+ },
+ "e178": {
+  "ch": "雨",
+  "rejected": true
+ },
+ "e179": {
+  "ch": "米",
+  "rejected": true
+ },
+ "e17a": {
+  "ch": "⺍",
+  "confirmed": true
+ },
+ "e17b": {
+  "ch": "水",
+  "rejected": true
+ },
+ "e17c": {
+  "ch": "水",
+  "rejected": true
+ },
+ "e17d": {
+  "ch": "小",
+  "rejected": true
+ },
+ "e17e": {
+  "ch": "⺈",
+  "rejected": true
+ },
+ "e17f": {
+  "ch": "水",
+  "rejected": true
+ },
+ "e180": {
+  "ch": "⺌",
+  "rejected": true
+ },
+ "e181": {
+  "ch": "⺍",
+  "rejected": true
+ },
+ "e182": {
+  "ch": "小",
+  "rejected": true
+ },
+ "e183": {
+  "ch": "氺",
+  "rejected": true
+ },
+ "e184": {
+  "ch": "朩",
+  "rejected": true
+ },
+ "e185": {
+  "ch": "乑",
+  "rejected": true
+ },
+ "e189": {
+  "ch": "灬",
+  "confirmed": true
+ },
+ "e18a": {
+  "ch": "火",
+  "confirmed": true
+ },
+ "e18b": {
+  "ch": "米",
+  "confirmed": true
+ },
+ "e18c": {
+  "ch": "广",
+  "confirmed": true
+ },
+ "e18d": {
+  "ch": "金",
+  "rejected": true
+ },
+ "e18e": {
+  "ch": "米",
+  "rejected": true
+ },
+ "e18f": {
+  "ch": "灬",
+  "rejected": true
+ },
+ "e190": {
+  "ch": "金",
+  "rejected": true
+ },
+ "e191": {
+  "ch": "甲",
+  "rejected": true
+ },
+ "e192": {
+  "compose": "丶",
+  "confirmed": true,
+  "note": "四点为四点底：按黑体四点的四个方框各放一个「丶」合成（2026-10 复核）"
+ },
+ "e193": {
+  "ch": "业",
+  "rejected": true
+ },
+ "e19c": {
+  "ch": "之",
+  "confirmed": true
+ },
+ "e19d": {
+  "ch": "辶",
+  "confirmed": true
+ },
+ "e19e": {
+  "ch": "廴",
+  "confirmed": true
+ },
+ "e19f": {
+  "ch": "宀",
+  "confirmed": true
+ },
+ "e1a0": {
+  "ch": "冖",
+  "confirmed": true
+ },
+ "e1a1": {
+  "ch": "钅",
+  "rejected": true
+ },
+ "e1a2": {
+  "ch": "扌",
+  "rejected": true
+ },
+ "e1a3": {
+  "ch": "礻",
+  "confirmed": true
+ },
+ "e1a4": {
+  "ch": "龺",
+  "rejected": true
+ },
+ "e1ae": {
+  "ch": "乙",
+  "confirmed": true
+ },
+ "e1af": {
+  "ch": "已",
+  "confirmed": true
+ },
+ "e1b0": {
+  "ch": "己",
+  "confirmed": true
+ },
+ "e1b1": {
+  "ch": "巳",
+  "confirmed": true
+ },
+ "e1b2": {
+  "ch": "尸",
+  "confirmed": true
+ },
+ "e1b3": {
+  "ch": "心",
+  "confirmed": true
+ },
+ "e1b4": {
+  "ch": "忄",
+  "confirmed": true
+ },
+ "e1b5": {
+  "ch": "⺗",
+  "confirmed": true
+ },
+ "e1b6": {
+  "ch": "羽",
+  "confirmed": true
+ },
+ "e1b7": {
+  "ch": "已",
+  "rejected": true
+ },
+ "e1b8": {
+  "ch": "西",
+  "rejected": true
+ },
+ "e1b9": {
+  "ch": "己",
+  "rejected": true
+ },
+ "e1ba": {
+  "ch": "尸",
+  "rejected": true
+ },
+ "e1bb": {
+  "ch": "コ",
+  "confirmed": true
+ },
+ "e1bc": {
+  "ch": "大",
+  "rejected": true
+ },
+ "e1bd": {
+  "ch": "尸",
+  "rejected": true
+ },
+ "e1be": {
+  "ch": "五",
+  "rejected": true
+ },
+ "e1bf": {
+  "ch": "夕",
+  "rejected": true
+ },
+ "e1c0": {
+  "ch": "𠃍",
+  "confirmed": true
+ },
+ "e1c1": {
+  "ch": "讠",
+  "rejected": true
+ },
+ "e1c2": {
+  "ch": "瓦",
+  "rejected": true
+ },
+ "e1c3": {
+  "ch": "讠",
+  "rejected": true
+ },
+ "e1c4": {
+  "ch": "纟",
+  "rejected": true
+ },
+ "e1c5": {
+  "ch": "勹",
+  "rejected": true
+ },
+ "e1c6": {
+  "ch": "丁",
+  "rejected": true
+ },
+ "e1c7": {
+  "ch": "凵",
+  "rejected": true
+ },
+ "e1c8": {
+  "ch": "㇙",
+  "confirmed": true
+ },
+ "e1c9": {
+  "ch": "刂",
+  "rejected": true
+ },
+ "e1ca": {
+  "ch": "乚",
+  "rejected": true
+ },
+ "e1cb": {
+  "ch": "专",
+  "rejected": true
+ },
+ "e1cc": {
+  "ch": "㇉",
+  "confirmed": true
+ },
+ "e1cd": {
+  "ch": "已",
+  "rejected": true
+ },
+ "e1ce": {
+  "ch": "己",
+  "rejected": true
+ },
+ "e1cf": {
+  "ch": "乙",
+  "rejected": true
+ },
+ "e1d0": {
+  "ch": "已",
+  "rejected": true
+ },
+ "e1d1": {
+  "ch": "㇗",
+  "confirmed": true
+ },
+ "e1d2": {
+  "ch": "乚",
+  "confirmed": true
+ },
+ "e1d3": {
+  "ch": "己",
+  "rejected": true
+ },
+ "e1d4": {
+  "ch": "乙",
+  "rejected": true
+ },
+ "e1d5": {
+  "ch": "丶",
+  "rejected": true
+ },
+ "e1d6": {
+  "ch": "几",
+  "rejected": true
+ },
+ "e1d7": {
+  "ch": "尸",
+  "rejected": true
+ },
+ "e1d8": {
+  "ch": "夕",
+  "rejected": true
+ },
+ "e1d9": {
+  "ch": "冫",
+  "rejected": true
+ },
+ "e1da": {
+  "ch": "冫",
+  "rejected": true
+ },
+ "e1db": {
+  "ch": "大",
+  "rejected": true
+ },
+ "e1dc": {
+  "ch": "王",
+  "rejected": true
+ },
+ "e1e0": {
+  "ch": "舛",
+  "rejected": true
+ },
+ "e1e1": {
+  "ch": "子",
+  "confirmed": true
+ },
+ "e1e2": {
+  "ch": "孑",
+  "confirmed": true
+ },
+ "e1e3": {
+  "ch": "阝",
+  "confirmed": true
+ },
+ "e1e4": {
+  "ch": "耳",
+  "confirmed": true
+ },
+ "e1e5": {
+  "ch": "㔾",
+  "confirmed": true
+ },
+ "e1e6": {
+  "ch": "了",
+  "confirmed": true
+ },
+ "e1e7": {
+  "ch": "也",
+  "confirmed": true
+ },
+ "e1e8": {
+  "ch": "凵",
+  "confirmed": true
+ },
+ "e1e9": {
+  "ch": "卩",
+  "confirmed": true
+ },
+ "e1ea": {
+  "ch": "乃",
+  "confirmed": true
+ },
+ "e1eb": {
+  "ch": "虫",
+  "rejected": true
+ },
+ "e1ec": {
+  "ch": "雨",
+  "rejected": true
+ },
+ "e1ed": {
+  "ch": "卩",
+  "rejected": true
+ },
+ "e1ee": "卩",
+ "e1ef": {
+  "ch": "子",
+  "rejected": true
+ },
+ "e1f0": {
+  "ch": "予",
+  "rejected": true
+ },
+ "e1fb": {
+  "ch": "巛",
+  "confirmed": true
+ },
+ "e1fc": {
+  "ch": "女",
+  "confirmed": true
+ },
+ "e1fd": {
+  "ch": "刀",
+  "confirmed": true
+ },
+ "e1fe": {
+  "ch": "九",
+  "confirmed": true
+ },
+ "e1ff": {
+  "ch": "彐",
+  "rejected": true
+ },
+ "e200": {
+  "ch": "西",
+  "rejected": true
+ },
+ "e201": {
+  "ch": "彐",
+  "rejected": true
+ },
+ "e202": {
+  "ch": "彐",
+  "confirmed": true
+ },
+ "e203": {
+  "ch": "龺",
+  "rejected": true
+ },
+ "e20e": {
+  "ch": "又",
+  "confirmed": true
+ },
+ "e20f": {
+  "ch": "厶",
+  "confirmed": true
+ },
+ "e210": {
+  "ch": "巴",
+  "confirmed": true
+ },
+ "e211": {
+  "ch": "钅",
+  "rejected": true
+ },
+ "e212": {
+  "ch": "又",
+  "rejected": true
+ },
+ "e213": {
+  "ch": "マ",
+  "confirmed": true
+ },
+ "e214": {
+  "ch": "马",
+  "rejected": true
+ },
+ "e215": {
+  "ch": "耳",
+  "rejected": true
+ },
+ "e216": {
+  "ch": "马",
+  "confirmed": true
+ },
+ "e217": {
+  "ch": "馬",
+  "confirmed": true
+ },
+ "e218": {
+  "ch": "厶",
+  "rejected": true
+ },
+ "e220": {
+  "ch": "幺",
+  "confirmed": true
+ },
+ "e221": {
+  "ch": "纟",
+  "confirmed": true
+ },
+ "e222": {
+  "ch": "糸",
+  "rejected": true
+ },
+ "e223": {
+  "ch": "弓",
+  "confirmed": true
+ },
+ "e224": {
+  "ch": "貝",
+  "rejected": true
+ },
+ "e225": {
+  "ch": "匕",
+  "confirmed": true
+ },
+ "e226": {
+  "ch": "田",
+  "rejected": true
+ },
+ "e227": {
+  "ch": "古",
+  "rejected": true
+ },
+ "e228": {
+  "ch": "田",
+  "rejected": true
+ },
+ "e229": {
+  "ch": "幺",
+  "rejected": true
+ },
+ "e22a": {
+  "ch": "幺",
+  "rejected": true
+ },
+ "e22b": {
+  "ch": "匕",
+  "rejected": true
+ },
+ "e22c": {
+  "ch": "皿",
+  "rejected": true
+ },
+ "e22d": {
+  "ch": "母",
+  "rejected": true
+ },
+ "e22e": {
+  "ch": "彑",
+  "rejected": true
+ },
+ "e22f": {
+  "ch": "幺",
+  "rejected": true
+ },
+ "e230": {
+  "ch": "弓",
+  "rejected": true
+ },
+ "e816": {
+  "ch": "龵",
+  "rejected": true
+ },
+ "e817": {
+  "ch": "宀",
+  "rejected": true
+ },
+ "e818": {
+  "ch": "刀",
+  "rejected": true
+ },
+ "e81e": {
+  "ch": "龴",
+  "confirmed": true
+ },
+ "e826": {
+  "ch": "龵",
+  "confirmed": true
+ },
+ "e82b": {
+  "ch": "龶",
+  "confirmed": true
+ },
+ "e82c": {
+  "ch": "龷",
+  "confirmed": true
+ },
+ "e831": {
+  "ch": "龵",
+  "rejected": true
+ },
+ "e832": {
+  "ch": "宀",
+  "rejected": true
+ },
+ "e83b": {
+  "ch": "竹",
+  "rejected": true
+ },
+ "e843": {
+  "ch": "龵",
+  "rejected": true
+ },
+ "e854": {
+  "ch": "龺",
+  "confirmed": true
+ },
+ "e855": {
+  "ch": "羽",
+  "rejected": true
+ },
+ "e864": {
+  "ch": "龻",
+  "rejected": true
+ },
+ "20087": {
+  "ch": "大",
+  "rejected": true
+ },
+ "20089": {
+  "ch": "宀",
+  "rejected": true
+ },
+ "200cc": {
+  "ch": "刀",
+  "rejected": true
+ },
+ "215d7": {
+  "ch": "龵",
+  "rejected": true
+ },
+ "2298f": {
+  "ch": "竹",
+  "rejected": true
+ },
+ "241fe": {
+  "ch": "羽",
+  "rejected": true
+ },
+ "e119": {
+  "removed": true,
+  "note": "★ 与 E0C4 合并（重复格）：两格都是凹字那两笔，保留 E0C4，本格撤掉；码位仍留空"
+ },
+ "3007": {
+  "removed": true,
+  "note": "★ 去掉：〇（U+3007）简体字用不到，仅从表里撤掉；此键不参与造字，font:kai 会原样保留"
+ }
+}

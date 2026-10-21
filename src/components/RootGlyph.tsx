@@ -18,11 +18,16 @@ export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', 
   const info = id ? roots[id] : undefined
   const { mode } = useRootFont()
   const name = info?.n?.trim()
-  if (mode === 'kai' && name && KAI_CHAR.test(name)) {
+  if (mode !== 'hei' && name && KAI_CHAR.test(name)) {
     return (
       <span
         className={`inline-block text-center leading-none ${className}`}
-        style={{ color, fontSize: size, fontFamily: 'var(--font-kai-roots)', verticalAlign: '-0.12em' }}
+        style={{
+          color,
+          fontSize: size,
+          fontFamily: mode === 'zheng' ? 'var(--font-zhengkai-roots)' : 'var(--font-kai-roots)',
+          verticalAlign: '-0.12em',
+        }}
         title={title ?? name}
         role="img"
         aria-label={title ?? name}

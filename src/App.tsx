@@ -9,6 +9,7 @@ import { HistoryPanel } from './components/HistoryPanel'
 import { RootsPage } from './components/RootsPage'
 import { ReviewPage } from './components/ReviewPage'
 import { PracticePage } from './components/PracticePage'
+import { RootPicker } from './components/RootPicker'
 
 import { BottomNav } from './components/BottomNav'
 import { isCoarsePointer } from './lib/mobile'
@@ -250,6 +251,8 @@ export default function App() {
                 </div>
               )}
             </div>
+
+            {!q && <RootPicker roots={roots} onSearch={search} />}
 
             <div className="mt-8 space-y-5">
               {q && !roots && <p className="text-center text-ink-2">加载字根数据…</p>}

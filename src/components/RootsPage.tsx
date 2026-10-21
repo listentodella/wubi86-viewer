@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { RootInfo } from '../lib/data'
 import { KEYS, KEYBOARD_ROWS, ZONE_NAMES } from '../lib/keys'
 import { useMediaQuery } from '../lib/useMediaQuery'
-import { useRootFont } from '../lib/root-font'
+import { ROOT_FONT_LABEL, nextRootFont, useRootFont } from '../lib/root-font'
 import { RootGlyph } from './RootGlyph'
 
 const ZONE_TINT = ['', 'var(--root-0)', 'var(--root-1)', 'var(--root-2)', 'var(--root-3)', 'var(--root-4)']
@@ -35,14 +35,14 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
           <button
             type="button"
             className="btn text-xs"
-            onClick={() => setMode(mode === 'kai' ? 'hei' : 'kai')}
-            title="切换命名根的字形：楷体（霞鹜文楷）或黑体（书中字根字体）"
+            onClick={() => setMode(nextRootFont(mode))}
+            title="切换命名根的字形：文楷（霞鹜文楷）/ 正楷（文鼎 PL 楷书）/ 黑体（书中字根字体）"
           >
-            字形：{mode === 'kai' ? '楷体' : '黑体'}
+            字形：{ROOT_FONT_LABEL[mode]}
           </button>
         </div>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
-          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根；命名根可切换楷体，无名字形仍为书中字根字形。
+          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根；命名根可在文楷 / 正楷 / 黑体之间切换，无名字形仍为书中字根字形。
         </p>
 
         {isDesktop ? (

@@ -15,6 +15,8 @@
 - 编码 → 汉字 / 词语（支持前缀「继续输入」，第 3、4 位可用 Z 万能键）
 - 田字格字根高亮：悬停编码字母即高亮对应笔画，支持拆解演示与笔顺演示
 - 字根键盘表、取码规则速记
+- **字根反查**（查询页「字根反查：由字根找例字」）：点键位 → 选字根 → 列出含有它的汉字，
+  例字按「能用 Make Me a Hanzi 重绘」优先、再按常用度排序，带绿角标的字可直接照它抽笔画重绘字根
 - 查询记录保存在 localStorage：易忘标记、删除、清空、导入导出、复习卡片
 - 练习：随机默写五笔全码；分级练习按书中路线（指法热身、键名、成字字根、单笔画、一简、二简、识别码、常用字 500/1500/3000）逐层推进；跟打练习支持古文与常用字范本（任意输入法）
 
@@ -36,8 +38,42 @@
 
 ## 字体
 
+- `data-src/文楷字根.ttf`：**黑体字根.ttf 的楷体版本**——码位（677 个 PUA + 9F 段）、字形数、字宽与 `黑体字根.ttf` 完全一致，
+  字形取自 LXGW WenKai（霞鹜文楷，SIL OFL 1.1），15 个识别码字形由文楷笔画合成。可直接替换 `黑体字根.ttf` 使用。
+  生成脚本 `scripts/build-kai-roots-font.py`，映射表 `scripts/kai-roots-map.json`，逐字来源与置信度见
+  [docs/kai-roots-map.md](docs/kai-roots-map.md)；许可见 `data-src/文楷字根-OFL.txt`。
 - `public/fonts/lxgw-wenkai-roots.woff2`：LXGW WenKai（霞鹜文楷）子集，仅含 138 个命名字根，SIL OFL 1.1；许可见 `public/fonts/LXGW-WenKai-OFL.txt`。
 - 字根表页可在「楷体 / 黑体」之间切换；无名字形仍使用书中黑体字根路径。
+
+### 核对与修正文楷字根
+
+402 个 PUA 里有一部分是自动按轮廓匹配的，可能对不上。核对方式：
+
+```bash
+npm run review:kai                       # 生成 reports/kai-roots/文楷字根-核对.{html,tsv}
+```
+
+- 打开 `文楷字根-核对.html`：逐行显示 黑体 → 楷体、当前猜测、6 个备选（都是文楷字形），
+  **每行自带「对 / 错」按钮 + 答案 + 备注输入框**；核对完点右下角「复制结果」，把文本贴回对话即可
+  （判定存在浏览器 localStorage，刷新/重新生成都不会丢）。
+- **行号 = 按 PUA 码位升序，固定不变**（修完重建也不会改号，和 `docs/kai-roots-map.md` 一致）；
+  要按可疑度看，用「排序 → 形似度低→高」；已核对的行标「人工」，默认被「只看未判定」筛掉。
+  顶部三个筛选勾选框（站内 ●／低中置信／形似度 < 0.25）可以只看需要处理的行；
+  页面顶部的「部件字表 P1–P194」只是反馈时用的词汇表，不用逐条核对——开头 P1–P36 是 CJK 笔画（㇐横 ㇑竖 ㇒撇 ㇔点 ㇀提 ㇙竖提 …），
+  正是「提、撇横、竖折」这类笔画型字根的准确写法。笔画型行（「轮廓」列为 1）的形似度天然偏低，看形状别看数字。
+- TSV 版同样可用（`文楷字根-核对.tsv` 的「你的答案」列），写法：
+  `3`（用候选 3）、`龶`（直接指定汉字）、`无`（确认没有楷体对应字，留空）、
+  `黑体`（没有楷体对应字，保留黑体轮廓）、`P3`（用部件字表第 3 个）、
+  `组丶`（这个字根是若干独立笔画，按黑体里每个笔画的框用「丶」逐个合成——如鬯/鹵/滷 的四点）。
+- 写回并重建：
+
+```bash
+.venv/bin/python scripts/apply-kai-roots-review.py reports/kai-roots/文楷字根-核对.tsv
+WENKAI_TTF=/path/LXGWWenKai-Regular.ttf npm run font:kai
+```
+
+`scripts/kai-roots-map.json` 里每个码位可以写成 `"龶"`、`""`（确认留空）或
+`{"ch": "", "keep_hei": true, "note": "…"}`；手改同样会被保留。
 
 ## 数据
 
@@ -47,6 +83,7 @@
 | `data-src/data-wubi-v86.tsv` 等 | [sdcb/search-wubi](https://github.com/sdcb/search-wubi) 字根拆解、识别码 |
 | `data-src/hanzi-writer-data/` | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) 笔画矢量（Arphic Public License） |
 | `data-src/黑体字根.ttf` | 字根字形；**来源不详、无授权信息**（见 [docs/font-provenance.md](docs/font-provenance.md)） |
+| `data-src/文楷字根.ttf` | 由 `黑体字根.ttf` + LXGW WenKai 生成的楷体版本（SIL OFL 1.1），`npm run font:kai` 可重建 |
 | `scripts/root-names.json` | 非成字字根的中文名称（如“青字头”） |
 
 候选顺序：词库每条记录带有权重，同一编码下按权重升序（与输入法候选顺序一致）。
@@ -63,6 +100,9 @@ search-wubi 只为约 2,500 字提供了“笔画 → 字根”的对应关系�
 npm install
 npm run extract   # 仅在 Windows 上、词库更新时需要
 npm run data      # 生成 public/data 分片 JSON
+# 重建 data-src/文楷字根.ttf（文楷 TTF 自行下载，见 scripts/requirements-font.txt）
+python3 -m venv .venv && .venv/bin/pip install -r scripts/requirements-font.txt
+WENKAI_TTF=/path/LXGWWenKai-Regular.ttf npm run font:kai
 npm run dev
 ```
 

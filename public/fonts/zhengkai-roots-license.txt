@@ -1,0 +1,8 @@
+ZhengKai Roots / 正楷字根（webfont 子集）
+=====================================
+字形轮廓来自 Make Me a Hanzi（https://github.com/skishore/makemeahanzi），
+其轮廓又取自文鼎科技发布的 PL 楷书系列（AR PL UKai），按 Arphic Public License 分发。
+本文件是上述字形的衍生子集（仅保留 wubi86-viewer 命名字根用到的字），
+须与 Arphic Public License 一同分发：https://www.arphic.com/ 提供的 APL 1.0 全文，
+或见 Make Me a Hanzi 仓库内的 LICENSE 说明。
+本字体的字体名不得使用文鼎（Arphic）的保留名称。

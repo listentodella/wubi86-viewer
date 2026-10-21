@@ -108,3 +108,15 @@ export function getCodeShard(code: string): Promise<Record<string, string[]>> {
 export const getRoots = () => fetchJson<Record<string, RootInfo>>('roots.json')
 export const getMeta = () => fetchJson<Meta>('meta.json')
 export const getTiers = () => fetchJson<TiersFile>('tiers.json')
+
+/** 反查：某字根出现在多少个字里，以及按「可重绘优先 + 常用度」排好的例字。 */
+export interface RootReverse {
+  /** 含有该字根的字数 */
+  n: number
+  /** 例字里前 k 个有 MMH 笔画数据（可以照它抽笔画重绘） */
+  k: number
+  /** 例字（最多 80 个，前 k 个可重绘） */
+  c: string[]
+}
+
+export const getRootReverse = () => fetchJson<Record<string, RootReverse>>('rev.json')
