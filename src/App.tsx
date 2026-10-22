@@ -9,7 +9,7 @@ import { HistoryPanel } from './components/HistoryPanel'
 import { RootsPage } from './components/RootsPage'
 import { ReviewPage } from './components/ReviewPage'
 import { PracticePage } from './components/PracticePage'
-import { RootPicker } from './components/RootPicker'
+import { PICK_DEFAULT, RootPicker, type PickState } from './components/RootPicker'
 
 import { BottomNav } from './components/BottomNav'
 import { isCoarsePointer } from './lib/mobile'
@@ -54,6 +54,10 @@ export default function App() {
   const [meta, setMeta] = useState<Meta | null>(null)
   const [result, setResult] = useState<SearchResult | null>(null)
   const [historyOpen, setHistoryOpen] = useState(false)
+  /** 反查面板的状态放在这里，去查例字再回来时键位和所选字根都还在。 */
+  const [pick, setPick] = useState<PickState>(PICK_DEFAULT)
+  /** 当前这屏是从反查里点进来的，给一个「返回字根反查」。 */
+  const [fromPick, setFromPick] = useState(false)
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
   const composing = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -124,7 +128,26 @@ export default function App() {
 
   const onInput = (v: string) => {
     setInput(v)
+    setFromPick(false)
     if (!composing.current) navigate('search', v.trim(), true)
+  }
+
+  /** 从反查里点例字：记住来路，详情页顶上给一个返回入口。 */
+  const openFromPick = (ch: string) => {
+    search(ch)
+    setFromPick(true)
+  }
+
+  const backToPick = () => {
+    setFromPick(false)
+    setInput('')
+    navigate('search', '')
+    // 面板要等这一屏渲染出来才在 DOM 里，等两帧再滚过去。
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() =>
+        document.getElementById('root-picker')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      ),
+    )
   }
 
   const toggleTheme = () => {
@@ -252,9 +275,16 @@ export default function App() {
               )}
             </div>
 
-            {!q && <RootPicker roots={roots} onSearch={search} />}
+            {!q && <RootPicker roots={roots} state={pick} onState={setPick} onPickChar={openFromPick} />}
 
             <div className="mt-8 space-y-5">
+              {q && fromPick && (
+                <div className="mx-auto max-w-2xl">
+                  <button className="btn text-sm" onClick={backToPick}>
+                    ← 返回字根反查
+                  </button>
+                </div>
+              )}
               {q && !roots && <p className="text-center text-ink-2">加载字根数据…</p>}
               {roots && result && result.q === q && (
                 <>
