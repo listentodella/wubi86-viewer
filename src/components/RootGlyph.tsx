@@ -16,8 +16,23 @@ interface Props {
 
 export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', className = '', title }: Props) {
   const info = id ? roots[id] : undefined
-  const { mode } = useRootFont()
+  const { mode, zheng } = useRootFont()
   const name = info?.n?.trim()
+  // 有抽笔画正楷字形的槽位按 PUA 码位渲染（见 scripts/build-zhengkai-font.py 的 DERIVED）。
+  if (mode === 'zheng' && id && zheng.has(id.toLowerCase())) {
+    const pua = String.fromCodePoint(parseInt(id, 16))
+    return (
+      <span
+        className={`inline-block text-center leading-none ${className}`}
+        style={{ color, fontSize: size, fontFamily: 'var(--font-zhengkai-roots)', verticalAlign: '-0.12em' }}
+        title={title ?? info?.a ?? pua}
+        role="img"
+        aria-label={title ?? info?.a ?? pua}
+      >
+        {pua}
+      </span>
+    )
+  }
   if (mode !== 'hei' && name && KAI_CHAR.test(name)) {
     return (
       <span

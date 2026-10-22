@@ -10,7 +10,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: false,
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'fonts/zhengkai-roots.json'],
       manifest: {
         name: '五笔字根图解 · 86 版',
         short_name: '五笔图解',

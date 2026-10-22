@@ -162,7 +162,7 @@ def extra_rows(fonts) -> list[dict]:
         if not ref.lower().startswith("uni"):        # "e002" -> "uniE002"
             ref = "uni" + ref.upper()
         # ch 为空 = 还没有对得上的单字：文楷先留空，只靠正楷派生字形
-        seg = fonts.placed_segments(ch, ref, extra_scale=float(ex.get("scale") or 1.0)) if ch else []
+        seg = fonts.placed_segments(ch, ref, extra_scale=float(ex.get("scale") or 1.0)) if (fonts and ch) else []
         if ex.get("squeeze"):
             seg = kf.squeeze_x(seg, float(ex["squeeze"]))
         if ex.get("raise_bottom"):
@@ -172,9 +172,9 @@ def extra_rows(fonts) -> list[dict]:
             "state": "drawn" if seg else "todo",
             "why": "新增（字根表专有）",
             "mnemonic_at": -2, "idcode": False, "extra": True, "key": ex["key"],
-            "after": ex.get("after"), "seg": seg, "note": ex.get("note", ""),
+            "after": ex.get("after"), "after_pua": ex.get("after_pua"),
+            "seg": seg, "note": ex.get("note", ""),
         })
-    return out
     return out
 
 
@@ -233,17 +233,24 @@ def build_rows() -> tuple[dict, list[str]]:
             groups["#"].append(row)
         else:
             groups[key].append(row)
-    try:
-        extras = extra_rows(kf.Fonts(hei_path=str(REPO / "data-src" / "黑体字根.ttf"),
-                                     kai_path=kai_path()))
-    except Exception as exc:      # 没有文楷源字体时照常出表，只少了新增行
-        print(f"WARNING: 新增字根跳过（{exc}）")
-        extras = []
+    extras_data = load(EXTRAS) if EXTRAS.exists() else []
+    fonts = None
+    if any(ex.get("ch") for ex in extras_data):
+        try:
+            fonts = kf.Fonts(hei_path=str(REPO / "data-src" / "黑体字根.ttf"), kai_path=kai_path())
+        except Exception as exc:  # 没有文楷源字体时照常出表，只少了新增行的文楷字形
+            print(f"WARNING: 文楷源字体不可用，新增字根只出正楷（{exc}）")
+    extras = extra_rows(fonts)
     for row in extras:
         bucket = groups.setdefault(row["key"], [])
         anchor = None
+        want_pua = row.get("after_pua")
         for r in bucket:
-            if row.get("after") and r["label"] == row["after"]:
+            if want_pua:
+                if r["pua"] == want_pua:
+                    anchor = r
+                    break
+            elif row.get("after") and r["label"] == row["after"]:
                 anchor = r
                 break
         if anchor is not None:
