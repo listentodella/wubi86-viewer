@@ -879,16 +879,20 @@
   "confirmed": true
  },
  "e112": {
-  "ch": "癶",
-  "confirmed": true
+  "ch": "登",
+  "label": "登（一~五笔）",
+  "confirmed": true,
+  "note": "登的前 5 笔 = 癶（祭登头）；正楷取自 MMH 抽笔画（登 strokes 1–5），按 E112 槽位字形框等比放置"
  },
  "e113": {
   "ch": "几",
   "confirmed": true
  },
  "e114": {
-  "ch": "八",
-  "rejected": true
+  "ch": "祭",
+  "label": "祭（一~六笔）",
+  "confirmed": true,
+  "note": "祭的前 6 笔 = 肉 + 又（祭头）；正楷取自 MMH 抽笔画（祭 strokes 1–6），按 E114 槽位字形框等比放置"
  },
  "e115": {
   "label": "风（前两笔）",
@@ -900,12 +904,16 @@
   "rejected": true
  },
  "e117": {
-  "ch": "殳",
-  "rejected": true
+  "ch": "段",
+  "label": "段（一~二笔）",
+  "confirmed": true,
+  "note": "段的前 2 笔（撇 + 长竖）；正楷取自 MMH 抽笔画（段 strokes 1–2），按 E117 槽位字形框等比放置"
  },
  "e118": {
-  "ch": "八",
-  "rejected": true
+  "ch": "只",
+  "label": "只（四~五笔）",
+  "confirmed": true,
+  "note": "只的第 4、5 笔 = 八；正楷取自 MMH 抽笔画（只 strokes 4–5），按 E118 槽位字形框等比放置"
  },
  "e121": {
   "ch": "金",
@@ -1795,5 +1803,11 @@
   "label": "退（四~六笔）",
   "confirmed": true,
   "note": "退的第 4~6 笔；正楷取自 MMH 抽笔画（退 strokes 4–6）"
+ },
+ "e917": {
+  "ch": "从",
+  "label": "从（一~二笔）",
+  "confirmed": true,
+  "note": "新增：从的第 1、2 笔（左人的撇 + 点）；正楷取自 MMH 抽笔画（从 strokes 1–2），按 E10F 槽位字形框等比放置"
  }
 }
