@@ -819,6 +819,96 @@
       "note": "",
       "reportId": "39e2be1140e1dfad02fa9cf410a8c22e3e5fa7f0543b9a69d3c18167863933e6",
       "decision": "keep"
+    },
+    "e0fa": {
+      "confirmed": true,
+      "key": "v",
+      "note": "",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb",
+      "decision": "keep"
+    },
+    "e1fb": {
+      "confirmed": true,
+      "key": "v",
+      "note": "",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb",
+      "decision": "keep"
+    },
+    "e1fc": {
+      "confirmed": true,
+      "key": "v",
+      "note": "新增变体好字左半部",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb",
+      "decision": "keep"
+    },
+    "e1fd": {
+      "confirmed": true,
+      "key": "v",
+      "note": "",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb",
+      "decision": "keep"
+    },
+    "e1fe": {
+      "confirmed": true,
+      "key": "v",
+      "note": "新增变体鸠字前两笔",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb",
+      "decision": "keep"
+    },
+    "e1ff": {
+      "confirmed": true,
+      "key": "v",
+      "note": "",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb",
+      "decision": "keep"
+    },
+    "e202": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "v",
+      "source": "禄",
+      "strokes": [4, 5, 6],
+      "sourceHash": "0f72b3e96ea0c586f1a9ffd286b81596e877218e7ace47dabc094e7b714378eb",
+      "fit": "e202",
+      "quality": "exact",
+      "note": "",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb"
+    },
+    "e201": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "v",
+      "source": "伊",
+      "strokes": [2, 3, 4],
+      "sourceHash": "a4e1cfd387ffd5d1e939caf278aa9748eb3e33ba8194686c73aed30443abb5d9",
+      "fit": "e201",
+      "quality": "source",
+      "note": "",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb"
+    },
+    "e926": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "v",
+      "source": "好",
+      "strokes": [0, 1, 2],
+      "sourceHash": "c9f085fe6519e2b2c9653c7edf51bdbc78339fcc0b10f94c1f33c7f4f4d4a3a5",
+      "fit": "e1fc",
+      "quality": "source",
+      "note": "用户 V 键审核：保留 E1FC 当前女，新增好字左半部（第 1–3 笔）作为女旁变体。",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb"
+    },
+    "e927": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "v",
+      "source": "鸠",
+      "strokes": [0, 1],
+      "sourceHash": "8c42557601a647c393f595de2cc31b65ddc204a2a57e22ecd981037336650bf0",
+      "fit": "e1fe",
+      "quality": "exact",
+      "note": "用户 V 键审核：保留 E1FE 当前九，新增鸠字前两笔作为九旁变体。",
+      "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb"
     }
   }
 }

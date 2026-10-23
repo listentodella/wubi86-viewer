@@ -395,5 +395,27 @@
   "after_pua": "U+E18B",
   "cp": "E925",
   "note": "用户 O 键审核：保留 E18B 当前米，新增粗字左半部（第 1–6 笔）为米旁变体；按 E18B 参考框等比放置，文楷暂留空。"
+ },
+ {
+  "id": "v-hao-left-variant",
+  "key": "v",
+  "label": "女旁（好左半部）",
+  "ch": "",
+  "ref": "e1fc",
+  "variant_of": "e1fc",
+  "after_pua": "U+E1FC",
+  "cp": "E926",
+  "note": "用户 V 键审核：保留 E1FC 当前女，新增好字左半部（第 1–3 笔）为女旁变体；按 E1FC 参考框等比放置，文楷暂留空。"
+ },
+ {
+  "id": "v-jiu-1-2-variant",
+  "key": "v",
+  "label": "九旁（鸠前两笔）",
+  "ch": "",
+  "ref": "e1fe",
+  "variant_of": "e1fe",
+  "after_pua": "U+E1FE",
+  "cp": "E927",
+  "note": "用户 V 键审核：保留 E1FE 当前九，新增鸠字前两笔为九旁变体；按 E1FE 参考框等比放置，文楷暂留空。"
  }
 ]
