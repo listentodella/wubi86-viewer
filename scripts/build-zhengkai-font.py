@@ -8,7 +8,8 @@ App 现在的「楷体」是拿文楷渲染命名字根；本脚本再造一支*
   1. 收齐 roots.json 与 root-names.json 里的命名字根（单字），共 165 个；
   2. 每个字从 data-src/hanzi-writer-data/<字>.json 取笔画路径（M/L/Q/C/Z，1024 em，y 向上）；
   3. 曲线展平成折线、统一轮廓绕向，写成一个 glyf 字形；
-  4. 生成 woff2 子集 -> public/fonts/zhengkai-roots.woff2。
+  4. 生成 woff2 子集 -> public/fonts/zhengkai-roots.woff2；
+  5. 按 黑体字根.ttf 的槽位再出一支等码位 TTF -> data-src/正楷字根.ttf（没有正楷的槽位留空）。
 
 授权
   轮廓来自 Make Me a Hanzi（文鼎 PL 字体，Arphic Public License）。
@@ -29,11 +30,13 @@ from fontTools.fontBuilder import FontBuilder
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 
-from lib.zhengkai_mapping import REVIEW_MAP, merge_derived
+from lib.zhengkai_mapping import REVIEW_MAP, merge_derived, resolve_current
 
 REPO = Path(__file__).resolve().parent.parent
 MMH = REPO / "data-src" / "hanzi-writer-data"
+HEI = REPO / "data-src" / "黑体字根.ttf"
 OUT_DEFAULT = REPO / "public" / "fonts" / "zhengkai-roots.woff2"
+TTF_DEFAULT = REPO / "data-src" / "正楷字根.ttf"
 LICENSE_OUT = REPO / "public" / "fonts" / "zhengkai-roots-license.txt"
 CJK = re.compile(r"^[\u3007\u3400-\u9fff]$")
 
@@ -177,6 +180,9 @@ DERIVED = {
 LEGACY_DERIVED = DERIVED
 DERIVED = merge_derived(LEGACY_DERIVED)
 UPEM = 1024
+# FontBuilder 默认把 head.created/modified 写成当前时间，会让同样的输入出不同的字节。
+# 固定成 2026-01-01，重建后 git 里就不会出现只差时间戳的二进制 diff。
+BUILD_EPOCH = 1767225600
 CMD = re.compile(r"[MLQCZmlqcz]|-?\d+\.?\d*")
 
 
@@ -298,11 +304,87 @@ def collect_chars() -> list[str]:
     return sorted(chars)
 
 
+def build_slot_ttf(out: Path, derived: dict[int, tuple], have: list[str]) -> None:
+    """按 黑体字根.ttf 的槽位出一支等码位 TTF，字形换成正楷。
+
+    与 woff2 子集不同，这支字体保留黑体字根的全部 687 个槽位、advance 宽度与字形顺序，
+    只把有正楷的槽位换成对应字形，其余留空——所以可以像 文楷字根.ttf 那样逐槽对比或直接替换。
+    """
+    hei = TTFont(str(HEI), lazy=False)
+    hei.recalcTimestamp = False                    # 同样的输入要出同样的字节
+    slots = hei.getBestCmap()
+    roots = json.loads((REPO / "public" / "data" / "roots.json").read_text(encoding="utf-8"))
+    names = json.loads((REPO / "scripts" / "root-names.json").read_text(encoding="utf-8"))
+    mapping = json.loads((REPO / "scripts" / "kai-roots-map.json").read_text(encoding="utf-8"))
+    # resolve_current 用同一套「PUA 优先，再按汉字」的判定，和字根表报告保持一致
+    subset_cmap = {ord(c): f"uni{ord(c):04X}" for c in have}
+    subset_cmap.update({cp: f"uni{cp:04X}" for cp in derived})
+
+    k = 2.0                                        # 子集是 1024 em，黑体字根是 2048 em
+    filled = 0
+    for cp, gname in sorted(slots.items()):
+        rid = f"{cp:04x}"
+        advance = hei["hmtx"][gname][0]
+        res = resolve_current(rid, roots.get(rid, {}), mapping, names, subset_cmap)
+        entry = mapping.get(rid)
+        # 标了 removed 的槽位在字根表里已经撤下，字体里也留空（与 文楷字根.ttf 一致）
+        if isinstance(entry, dict) and entry.get("removed"):
+            res = {"present": False}
+        if not res["present"]:
+            # 没有正楷的槽位必须留空：这支字体里不该混进黑体轮廓
+            hei["glyf"][gname] = TTGlyphPen(None).glyph()
+            hei["hmtx"][gname] = (advance, 0)
+            continue
+        pen = TTGlyphPen(None)
+        if cp in derived:
+            src, idx = derived[cp][0], derived[cp][1]
+            opts = derived[cp][2] if len(derived[cp]) > 2 else {}
+            data = json.loads((MMH / f"{src}.json").read_text(encoding="utf-8"))
+            strokes = [data["strokes"][i] for i in idx]
+            scale, dx, dy = 1.0, 0.0, 0.0
+            if isinstance(opts, dict) and opts.get("fit"):
+                scale, dx, dy = fit_to_hei(strokes, str(opts["fit"]))
+            build_glyph(strokes, pen, scale * k, dx * k, dy * k)
+        else:
+            data = json.loads((MMH / f"{chr(res['codepoint'])}.json").read_text(encoding="utf-8"))
+            build_glyph(data["strokes"], pen, k, 0.0, 0.0)
+        glyph = pen.glyph()
+        glyph.recalcBounds(hei["glyf"])            # 新字形还没算过 bbox，lsb 要用 xMin
+        hei["glyf"][gname] = glyph
+        advance = hei["hmtx"][gname][0]
+        hei["hmtx"][gname] = (advance, glyph.xMin if glyph.numberOfContours else 0)
+        filled += 1
+
+    name = hei["name"]
+    name.names = [n for n in name.names if n.nameID not in (0, 1, 2, 3, 4, 5, 6, 13, 14)]
+    for nid, value in {
+        0: ("Glyph outlines derived from Make Me a Hanzi (https://github.com/skishore/makemeahanzi), "
+            "which is derived from the Arphic PL fonts; redistributed under the Arphic Public License. "
+            "Reserved font names of Arphic must not be used."),
+        1: "正楷字根",
+        2: "Regular",
+        3: "正楷字根 Regular 1.000; derived from Make Me a Hanzi (Arphic PL)",
+        4: "正楷字根 Regular",
+        5: "Version 1.000",
+        6: "ZhengKaiZiGen-Regular",
+        13: ("This Font Software is derived from Make Me a Hanzi / the Arphic PL fonts and is "
+             "distributed under the Arphic Public License. Glyph outlines are a subset of those fonts."),
+        14: "https://github.com/skishore/makemeahanzi",
+    }.items():
+        name.setName(value, nid, 3, 1, 0x409)
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    hei.save(str(out))
+    print(f"wrote {out} ({out.stat().st_size/1024:.0f} KB, {len(slots)} 槽位里 {filled} 个有正楷字形)")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=OUT_DEFAULT)
     ap.add_argument("--review-map", type=Path, default=REVIEW_MAP,
                     help="人工确认的正楷映射；候选报告不能直接作为映射")
+    ap.add_argument("--ttf-out", type=Path, default=TTF_DEFAULT,
+                    help="等码位 TTF（与 黑体字根.ttf 同槽位）；给 none 则不生成")
     args = ap.parse_args()
 
     chars = collect_chars()
@@ -359,17 +441,23 @@ def main() -> None:
     fb.setupOS2(sTypoAscender=880, sTypoDescender=-144, usWinAscent=880, usWinDescent=144,
                 sxHeight=500, sCapHeight=700, usWeightClass=400)
     fb.setupPost()
+    fb.font.recalcTimestamp = False
+    fb.font["head"].created = fb.font["head"].modified = BUILD_EPOCH
     args.out.parent.mkdir(parents=True, exist_ok=True)
     tmp = args.out.with_suffix(".ttf")
     fb.save(str(tmp))
 
     font = TTFont(str(tmp))
     font.flavor = "woff2"
+    font.recalcTimestamp = False                   # 否则转 woff2 时又把 modified 改成当前时间
     args.out.parent.mkdir(parents=True, exist_ok=True)
     font.save(str(args.out))
     tmp.unlink()
     size = args.out.stat().st_size
     print(f"wrote {args.out} ({size/1024:.0f} KB, {len(have)} 字 + {len(derived)} 个抽笔画部件)")
+
+    if str(args.ttf_out).lower() != "none":
+        build_slot_ttf(args.ttf_out, derived, have)
 
     # 前端用它判断哪些 PUA 槽位有正楷抽笔画字形；有则按码位渲染，没有才回落到黑体路径。
     manifest = args.out.with_suffix(".json")

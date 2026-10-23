@@ -86,8 +86,13 @@
 - 正楷字体 `public/fonts/zhengkai-roots.woff2`（159 字，1024 em）由
   `npm run font:zhengkai` 生成：取 `data-src/hanzi-writer-data/<字>.json` 的笔画路径，
   展平后按统一绕向写进 glyf，再转 woff2。
+- 同一条命令还产出等码位 TTF `data-src/正楷字根.ttf`：槽位、字形顺序与 advance 宽度都和
+  `data-src/黑体字根.ttf` 完全一致（687 cmap / 690 字形 / 2048 em），有正楷的槽位换成正楷字形，
+  其余留空，标 `removed` 的槽位也留空——所以可以和 `黑体字根.ttf`、`文楷字根.ttf` 逐槽对比或直接互换。
+  `--ttf-out none` 可只出 woff2。
 - 覆盖：命名字根 165 个里 159 个有正楷字形；缺的 6 个（〇䒑丆朩龰龷）回落到文楷（font-family 里排在后面）。
-- 另用**抽笔画**造了 117 个部件字形（用户指定取法，同样来自 MMH），以
+- 另用**抽笔画**造了 205 个部件字形（用户指定取法，同样来自 MMH；其中 117 条写在脚本里，
+  88 条来自 `scripts/zhengkai-roots-review.json` 的人工确认表），以
   `scripts/build-zhengkai-font.py` 的 `DERIVED` 表为准（码位 → 源字 + 保留的笔序，笔序从 1 起算给用户看）：
   G 键 王旁←环前 4 笔、青字头←青/静前 4 笔、雨字头←雪前 8 笔、提←打第 3 笔；F 键 土旁←坏前 3 笔、
   寸去点←寸前 2 笔、革去廿←革第 5–9 笔；D 键 达去辶←达前 3 笔、倏的犬←倏第 7–10 笔、羊去两点←羊第 3–6 笔、
