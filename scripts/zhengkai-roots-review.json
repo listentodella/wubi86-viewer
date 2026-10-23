@@ -909,6 +909,94 @@
       "quality": "exact",
       "note": "用户 V 键审核：保留 E1FE 当前九，新增鸠字前两笔作为九旁变体。",
       "reportId": "355cbde3737e0ae8417a1c08d72cd9e91dfc6737c99aad263ae891a42c01afbb"
+    },
+    "e213": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "c",
+      "source": "邻",
+      "strokes": [3, 4],
+      "sourceHash": "be6e0c04b51ccd5e44da9479e53f77e4ce96339ec99fef00e147d3775f7f54fb",
+      "fit": "e213",
+      "quality": "source",
+      "note": "",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd"
+    },
+    "e218": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "c",
+      "source": "即",
+      "strokes": [3, 4],
+      "sourceHash": "db01dd0321c9b710631028b492b947833daf224c0e97646cf16ec4cb0178e49c",
+      "fit": "e218",
+      "quality": "source",
+      "note": "",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd"
+    },
+    "e20e": {
+      "confirmed": true,
+      "key": "c",
+      "note": "新增变体A",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd",
+      "decision": "keep"
+    },
+    "e20f": {
+      "confirmed": true,
+      "key": "c",
+      "note": "",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd",
+      "decision": "keep"
+    },
+    "e210": {
+      "confirmed": true,
+      "key": "c",
+      "note": "",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd",
+      "decision": "keep"
+    },
+    "e212": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "c",
+      "source": "陉",
+      "strokes": [2, 3],
+      "sourceHash": "5a29e626c51d0ad56794776ea52382abe9b0c5f04903f223755e727e723fcee6",
+      "fit": "e212",
+      "quality": "exact",
+      "note": "用户后续确认：E212 没有变体，保留陉第 3–4 笔；撤销误增的 E929。",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd"
+    },
+    "e216": {
+      "confirmed": true,
+      "key": "c",
+      "note": "新增变体驶字前三笔",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd",
+      "decision": "keep"
+    },
+    "e928": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "c",
+      "source": "戏",
+      "strokes": [0, 1],
+      "sourceHash": "9b11dfb36f5ab2341833c0f9600d4e51fd19f8726076316461780e609573f172",
+      "fit": "e20e",
+      "quality": "source",
+      "note": "用户 C 键审核：保留 E20E 当前又，并新增原候选 A（戏第 1–2 笔）为又旁变体。",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd"
+    },
+    "e92a": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "c",
+      "source": "驶",
+      "strokes": [0, 1, 2],
+      "sourceHash": "dfc4e157bfc5860ebd9bdd1f1fab72f1d2ae3a12aef4b878ec9e0008bd0569b0",
+      "fit": "e216",
+      "quality": "source",
+      "note": "用户 C 键审核：保留 E216 当前马，新增驶第 1–3 笔为马旁变体。",
+      "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd"
     }
   }
 }
