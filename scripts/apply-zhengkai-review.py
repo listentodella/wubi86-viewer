@@ -159,7 +159,7 @@ def main() -> None:
             if live != before:
                 raise ValueError("确认表在处理期间发生变化，已停止写入")
             write_atomic(args.map, planned)
-            print(f"wrote {args.map}\n下一步：npm run font:zhengkai，然后 npm run review:zheng:y 查看最终字体。")
+            print(f"wrote {args.map}\n下一步：npm run font:zhengkai，然后 npm run review:zheng -- --key {export['key']} 查看最终字体。")
         elif not args.write:
             print("只预览，未修改文件。确认无误后加 --write，再单独重建正楷字体。")
         else:

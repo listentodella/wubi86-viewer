@@ -112,6 +112,192 @@
       "quality": "source",
       "note": "用户确认 E144 保留当前，并把原报告候选 A（闵第 4–7 笔）新增为文字变体。",
       "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c"
+    },
+    "e156": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "头",
+      "strokes": [
+        0,
+        1
+      ],
+      "sourceHash": "3be11ae6a2e035f7a949c948279ad3f4d456a87e2ee0469d583e22648759901d",
+      "fit": "e156",
+      "quality": "source",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e158": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "北",
+      "strokes": [
+        0,
+        1,
+        2
+      ],
+      "sourceHash": "580cb19cf0714405c78f9bc1076622281c3a9de23f1e6608dfa4e9d69e913eea",
+      "fit": "e158",
+      "quality": "source",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e15e": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "夹",
+      "strokes": [
+        1,
+        2,
+        3
+      ],
+      "sourceHash": "92563ae618a51974c92d6d73d27bd5d721ff056dd1dc06d9d2213f226ec2dff2",
+      "fit": "e15e",
+      "quality": "source",
+      "note": "新增变体彭字7~9笔",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e167": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "每",
+      "strokes": [
+        4,
+        6
+      ],
+      "sourceHash": "bcbbd765c9a10e92cd61fb2067c038146c25e3cc7f129e727368fa82ed69e22a",
+      "fit": "e167",
+      "quality": "source",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e157": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "飞",
+      "strokes": [
+        1,
+        2
+      ],
+      "sourceHash": "dbc770bc5fa91957ce1b1b171a493dcff730f430c1df765c1ce59cf7d3496ba4",
+      "fit": "e157",
+      "quality": "source",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e168": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "商",
+      "strokes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceHash": "75bd5dc4f2d847527a0dd0f8674a4fa0b3cce132af72ca1d3234240b383850c1",
+      "fit": "e168",
+      "quality": "source",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e15a": {
+      "confirmed": true,
+      "key": "u",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e15b": {
+      "confirmed": true,
+      "key": "u",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e15c": {
+      "confirmed": true,
+      "key": "u",
+      "note": "新增站字左半部",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e15d": {
+      "confirmed": true,
+      "key": "u",
+      "note": "新增变体辨字左半部",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e160": {
+      "confirmed": true,
+      "key": "u",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e161": {
+      "confirmed": true,
+      "key": "u",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e163": {
+      "confirmed": true,
+      "key": "u",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e166": {
+      "confirmed": true,
+      "key": "u",
+      "note": "",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014",
+      "decision": "keep"
+    },
+    "e91b": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "彭",
+      "strokes": [6, 7, 8],
+      "sourceHash": "01ba61919463394c270645dd9a25679abb4b0382e00fa142a8a41ea6ddabe54c",
+      "fit": "e15e",
+      "quality": "source",
+      "note": "用户 U 键审核：保留 E15E 的夹第 2–4 笔，并新增彭第 7–9 笔作为变体。",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e91c": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "站",
+      "strokes": [0, 1, 2, 3, 4],
+      "sourceHash": "f9197f8e5679e005e768ac10df064072b3fd0a15f5a5ab66ee4b8749b3edebed",
+      "fit": "e15c",
+      "quality": "source",
+      "note": "用户 U 键审核：保留 E15C 当前立，新增站字左半部（第 1–5 笔）作为立旁变体。",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e91d": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "u",
+      "source": "辨",
+      "strokes": [0, 1, 2, 3, 4, 5, 6],
+      "sourceHash": "c85b616fb7952479308f2267d2f2f6a1a364b5ba2c2a65273ce88ad558961a78",
+      "fit": "e15d",
+      "quality": "approx",
+      "note": "用户 U 键审核明确指定：保留 E15D 当前辛，新增辨字左半部（第 1–7 笔）；末笔为撇，非完整辛字。",
+      "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
     }
   }
 }
