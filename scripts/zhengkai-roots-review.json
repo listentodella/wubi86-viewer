@@ -997,6 +997,265 @@
       "quality": "source",
       "note": "用户 C 键审核：保留 E216 当前马，新增驶第 1–3 笔为马旁变体。",
       "reportId": "70ad80e3aa4c481f6683e25d210d7cd1fd09a9d84f8cd0860bc9e0933e35fffd"
+    },
+    "e1ed": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "b",
+      "source": "顾",
+      "strokes": [
+        2,
+        3
+      ],
+      "sourceHash": "61261e8c6a5e086819138498bcc8cee452744d937172729ef1abf13802232ec1",
+      "fit": "e1ed",
+      "quality": "source",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227"
+    },
+    "e1ef": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "b",
+      "source": "节",
+      "strokes": [
+        3,
+        4
+      ],
+      "sourceHash": "5eee7dda2180a3fab348d178c7cac9bd153e3d5ac6ae51e1f66753b90a797935",
+      "fit": "e1ef",
+      "quality": "source",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227"
+    },
+    "e1e1": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1e2": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1f0": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "b",
+      "source": "予",
+      "strokes": [
+        2,
+        3
+      ],
+      "sourceHash": "dbcd7777407d086234b2959f4ee8c1527073cd9ecfc97c7eaab9f487ce20ee1f",
+      "fit": "e1f0",
+      "quality": "source",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227"
+    },
+    "e1e3": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1e4": {
+      "confirmed": true,
+      "key": "b",
+      "note": "新增变体聪字左半部",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1e5": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1e8": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1e6": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1e7": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1e9": {
+      "confirmed": true,
+      "key": "b",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227",
+      "decision": "keep"
+    },
+    "e1ee": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "b",
+      "source": "报",
+      "strokes": [
+        3,
+        4
+      ],
+      "sourceHash": "cd76834773d55064dc46f895ec7a431256705b4b00c4d74eac3b775dbd914f40",
+      "fit": "e1ee",
+      "quality": "source",
+      "note": "",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227"
+    },
+    "e1e0": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "b",
+      "source": "粼",
+      "strokes": [12, 13],
+      "sourceHash": "0bec375cfedf7d766ca52619b24e1d4d27f84f74dc1f61ef95df79ef4ec332d8",
+      "fit": "e1e0",
+      "quality": "manual",
+      "note": "用户 B 键审核：候选 A 粼原取第 12–14 笔多了一笔，只保留最后两笔，即第 13–14 笔。",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227"
+    },
+    "e92b": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "b",
+      "source": "聪",
+      "strokes": [0, 1, 2, 3, 4, 5],
+      "sourceHash": "c6c0a23dc15e7f21bea7851c66fb9f4025da3ec436e574035af6f361f763ec46",
+      "fit": "e1e4",
+      "quality": "exact",
+      "note": "用户 B 键审核：保留 E1E4 当前耳，新增聪字左半部（第 1–6 笔）为耳旁变体。",
+      "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227"
+    },
+    "e22a": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "x",
+      "source": "化",
+      "strokes": [2, 3],
+      "sourceHash": "a3cfd826e62d43d51fdf0321d7aaf1d66592e552dce198acd11a29b03d4ebf27",
+      "fit": "e22a",
+      "quality": "source",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
+    },
+    "e22f": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "x",
+      "source": "曳",
+      "strokes": [4, 5],
+      "sourceHash": "d11010ec0089c56ea7a17f6845644770d68c6c4f5606056986c6b6e3489791e0",
+      "fit": "e22f",
+      "quality": "source",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
+    },
+    "e230": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "x",
+      "source": "贯",
+      "strokes": [0, 1],
+      "sourceHash": "1493bf98fa29ff5b8f5b14c97da34a27f5694e3ea2f2a705251e2290fe7e1c41",
+      "fit": "e230",
+      "quality": "approx",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
+    },
+    "e22d": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "x",
+      "source": "毒",
+      "strokes": [4, 5],
+      "sourceHash": "2eeef7b98f8b729b80d811d467eaf2ca4592143f6edaf1132941c426ec22f3f4",
+      "fit": "e22d",
+      "quality": "source",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
+    },
+    "e22e": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "x",
+      "source": "篆",
+      "strokes": [6, 7],
+      "sourceHash": "260b8119e45b6d78f824096a5f607bba4414d4cf57826b7e2df361a9dda72151",
+      "fit": "e22e",
+      "quality": "exact",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
+    },
+    "e220": {
+      "confirmed": true,
+      "key": "x",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3",
+      "decision": "keep"
+    },
+    "e229": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "x",
+      "source": "芗",
+      "strokes": [3, 4],
+      "sourceHash": "b31c7942f0b83ae838429bb6a2a0830d392b0abd314147abb82299e57ce4a012",
+      "fit": "e229",
+      "quality": "exact",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
+    },
+    "e221": {
+      "confirmed": true,
+      "key": "x",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3",
+      "decision": "keep"
+    },
+    "e223": {
+      "confirmed": true,
+      "key": "x",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3",
+      "decision": "keep"
+    },
+    "e225": {
+      "confirmed": true,
+      "key": "x",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3",
+      "decision": "keep"
+    },
+    "e22b": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "x",
+      "source": "比",
+      "strokes": [0, 1],
+      "sourceHash": "4dc980796f5251417cd1a2ebf706e94bfcabb05d1b275cff28721aeb190fd12e",
+      "fit": "e22b",
+      "quality": "source",
+      "note": "",
+      "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
     }
   }
 }

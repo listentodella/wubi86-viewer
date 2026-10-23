@@ -11,6 +11,7 @@ import sys
 import tempfile
 import unittest
 import warnings
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -235,6 +236,92 @@ class ApprovalTests(unittest.TestCase):
         proc = subprocess.run(command + ["--write"], cwd=ROOT, text=True, capture_output=True)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertEqual(json.loads(path.read_text())["roots"]["e140"]["decision"], "keep")
+
+class ReportCompatibilityTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(dir=os.environ.get("PI_SCRATCH_DIR"))
+        self.root = Path(self.temp.name)
+        self.font = self.root / "public/fonts/zhengkai-roots.woff2"
+        self.font.parent.mkdir(parents=True)
+        self.font.write_bytes(b"original font")
+        self.source = self.root / "data-src/hanzi-writer-data/高.json"
+        self.source.parent.mkdir(parents=True)
+        self.source.write_bytes(b"original MMH source")
+        self.report = {"version": 1, "key": "n", "options": {"chars": 48, "top": 3},
+                       "rows": [{"id": "e1b2", "current": {"svg": "unchanged glyph"},
+                                 "candidates": [{"source": "高", "strokes": [0, 1], "sourceHash": "same"}],
+                                 "baseline": {"reviewEntry": None}}],
+                       "inputs": {"public/fonts/zhengkai-roots.woff2": digest_bytes(self.font.read_bytes()),
+                                  "data-src/hanzi-writer-data/高.json": digest_bytes(self.source.read_bytes())}}
+        self.seal(self.report)
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    @staticmethod
+    def seal(report):
+        report["reportId"] = canonical_digest({k: v for k, v in report.items() if k != "reportId"})
+
+    def fresh(self):
+        report = copy.deepcopy(self.report)
+        report["inputs"]["public/fonts/zhengkai-roots.woff2"] = digest_bytes(self.font.read_bytes())
+        self.seal(report)
+        return report
+
+    def test_equivalent_font_update_is_opt_in_and_does_not_rewrite_report(self):
+        self.font.write_bytes(b"new font with unrelated B glyphs")
+        before = copy.deepcopy(self.report)
+        with self.assertRaisesRegex(ValueError, "输入已变化"):
+            apply.verify_report(self.report, self.root)
+        with patch.object(apply, "regenerate_report", return_value=self.fresh()):
+            self.assertTrue(apply.verify_report(self.report, self.root, allow_equivalent=True))
+        self.assertEqual(before, self.report)
+
+    def test_changed_glyph_candidate_or_baseline_cannot_reuse_old_decisions(self):
+        self.font.write_bytes(b"new font")
+        for mutate in [lambda r: r["rows"][0]["current"].update(svg="changed glyph"),
+                       lambda r: r["rows"][0]["candidates"][0].update(strokes=[1, 2]),
+                       lambda r: r["rows"][0]["baseline"].update(reviewEntry={"confirmed": True})]:
+            report = self.fresh(); mutate(report)
+            with patch.object(apply, "regenerate_report", return_value=report):
+                with self.assertRaisesRegex(ValueError, "不能复用"):
+                    apply.verify_report(self.report, self.root, allow_equivalent=True)
+
+    def test_changed_mmh_bytes_are_never_rebased(self):
+        self.font.write_bytes(b"new font")
+        self.source.write_bytes(b"changed MMH source")
+        with patch.object(apply, "regenerate_report") as regenerate:
+            with self.assertRaisesRegex(ValueError, "输入已变化"):
+                apply.verify_report(self.report, self.root, allow_equivalent=True)
+            regenerate.assert_not_called()
+
+    def test_unrelated_extra_update_requires_same_complete_review_content(self):
+        extra = self.root / "scripts/kai-roots-extras.json"
+        extra.parent.mkdir(); extra.write_bytes(b"old extras")
+        self.report["inputs"]["scripts/kai-roots-extras.json"] = digest_bytes(extra.read_bytes())
+        self.seal(self.report)
+        extra.write_bytes(b"new B extra")
+        fresh = self.fresh()
+        fresh["inputs"]["scripts/kai-roots-extras.json"] = digest_bytes(extra.read_bytes())
+        self.seal(fresh)
+        with patch.object(apply, "regenerate_report", return_value=fresh):
+            self.assertTrue(apply.verify_report(self.report, self.root, allow_equivalent=True))
+
+    def test_added_input_or_changed_generator_requires_new_review(self):
+        self.font.write_bytes(b"new font")
+        fresh = self.fresh(); fresh["inputs"]["another-source.json"] = "new source"
+        with patch.object(apply, "regenerate_report", return_value=fresh):
+            with self.assertRaisesRegex(ValueError, "不能复用"):
+                apply.verify_report(self.report, self.root, allow_equivalent=True)
+        script = self.root / "scripts/make-zhengkai-review.py"
+        script.parent.mkdir(); script.write_bytes(b"original generator")
+        self.report["inputs"]["scripts/make-zhengkai-review.py"] = digest_bytes(script.read_bytes())
+        self.seal(self.report); script.write_bytes(b"changed generator")
+        with patch.object(apply, "regenerate_report") as regenerate:
+            with self.assertRaisesRegex(ValueError, "输入已变化"):
+                apply.verify_report(self.report, self.root, allow_equivalent=True)
+            regenerate.assert_not_called()
+
 
 
 if __name__ == "__main__":

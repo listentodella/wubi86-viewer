@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import importlib.util
 import os
 from pathlib import Path
 import re
@@ -19,6 +20,24 @@ from lib.zhengkai_mapping import (REPO, REVIEW_MAP, canonical_digest, digest_byt
 
 KEYS = set("gfdsahjklmtrewqyuiopnbvcx")
 
+# These shared files can change when another key in the same review batch is applied.
+# MMH sources, character shards and generator code must still match byte-for-byte.
+EQUIVALENT_INPUTS = {
+    "public/fonts/zhengkai-roots.woff2", "public/data/roots.json",
+    "scripts/kai-roots-map.json", "scripts/kai-roots-extras.json", "scripts/root-names.json",
+}
+
+
+def regenerate_report(report: dict) -> dict:
+    options = report.get("options")
+    if (not isinstance(options, dict) or type(options.get("chars")) is not int or
+            options["chars"] < 1 or type(options.get("top")) is not int or options["top"] not in (1, 2, 3)):
+        raise ValueError("旧报告缺少有效的生成参数，不能安全复用")
+    spec = importlib.util.spec_from_file_location("_current_zhengkai_review", REPO / "scripts" / "make-zhengkai-review.py")
+    generator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(generator)
+    return generator.make_report(report["key"], options["chars"], options["top"])
+
 
 def validate_export(value: dict) -> None:
     if (not isinstance(value, dict) or type(value.get("version")) is not int or value["version"] != 1 or
@@ -27,7 +46,7 @@ def validate_export(value: dict) -> None:
         raise ValueError("判断文件格式错误：需要 version=1、key、reportId 和 decisions")
 
 
-def verify_report(report: dict, root: Path = REPO) -> None:
+def verify_report(report: dict, root: Path = REPO, *, allow_equivalent: bool = False) -> bool:
     if not isinstance(report, dict):
         raise ValueError("候选报告格式错误")
     body = {k: v for k, v in report.items() if k != "reportId"}
@@ -38,14 +57,28 @@ def verify_report(report: dict, root: Path = REPO) -> None:
     inputs = report.get("inputs")
     if not isinstance(inputs, dict) or not inputs:
         raise ValueError("候选报告缺少输入数据指纹")
+    changed = []
     for relative, expected in inputs.items():
         if not isinstance(relative, str) or not isinstance(expected, str):
             raise ValueError("候选报告的数据指纹格式错误")
         path = (root / relative).resolve()
         if not path.is_relative_to(root.resolve()):
             raise ValueError("候选报告的输入路径越出项目目录")
-        if not path.is_file() or digest_bytes(path.read_bytes()) != expected:
+        if not path.is_file():
             raise ValueError(f"输入已变化：{relative}；请重新生成审阅页后确认")
+        if digest_bytes(path.read_bytes()) != expected:
+            changed.append(relative)
+    if not changed:
+        return False
+    if not allow_equivalent or any(path not in EQUIVALENT_INPUTS for path in changed):
+        raise ValueError(f"输入已变化：{changed[0]}；请重新生成审阅页后确认")
+    fresh = regenerate_report(report)
+    # Preserve the old report ID and decisions only when every user-visible review
+    # field, candidate recipe and per-root approval baseline is exactly unchanged.
+    content = lambda value: {k: v for k, v in value.items() if k not in ("inputs", "reportId")}
+    if (set(fresh.get("inputs", {})) != set(inputs) or content(fresh) != content(report)):
+        raise ValueError("旧报告的本键字形、候选或审核基线已变化，不能复用；请重新审核")
+    return True
 
 
 def plan_decisions(export: dict, report: dict, current: dict, mmh: Path,
@@ -142,13 +175,16 @@ def main() -> None:
     mode.add_argument("--write", action="store_true", help="显式写入；不加此选项只预览")
     mode.add_argument("--dry-run", action="store_true", help="只预览（默认）")
     ap.add_argument("--overwrite-confirmed", action="store_true", help="允许明确覆盖已有人工正楷取法")
+    ap.add_argument("--allow-equivalent-report", action="store_true",
+                    help="同批次其他键更新后，仅当本页内容、候选和取笔完全一致时允许复用旧报告")
     args = ap.parse_args()
     try:
         export = json.loads(args.judgments.read_text(encoding="utf-8"))
         validate_export(export)
         report_path = args.report or REPO / "reports" / "zhengkai-review" / f"{export['key']}.json"
         report = json.loads(report_path.read_text(encoding="utf-8"))
-        verify_report(report)
+        if verify_report(report, allow_equivalent=args.allow_equivalent_report):
+            print("已校验本键全部审核内容与候选未变，安全复用旧报告；原始报告文件未改写。")
         before = args.map.read_bytes() if args.map.exists() else None
         current = load_review_map(args.map)
         planned, changes = plan_decisions(export, report, current, REPO / "data-src" / "hanzi-writer-data",
