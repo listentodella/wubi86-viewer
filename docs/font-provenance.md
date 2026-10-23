@@ -54,13 +54,18 @@
   版权与许可声明写入 `name` 表，许可全文随字体放在 `data-src/文楷字根-OFL.txt`。
 - 码位分配与字宽沿用 `黑体字根.ttf`（该字体授权不明）：写进新字体的是 PUA 码位、advance width 与包围盒测量值，
   不含其轮廓数据。
+- 文楷没有对应汉字的部件（抽笔画槽位）**用 Make Me a Hanzi 的楷书轮廓补齐**：`npm run font:kai` 会读
+  `data-src/正楷字根.ttf`（先跑 `npm run font:zhengkai`），把该槽位的正楷字形直接搬过来——两支字体槽位与
+  upem 完全一致，不需要换算。当前补了 107 个，**正楷的 296 个槽位在文楷里 100% 有字形**；`--no-mmh-fill` 可关掉。
+  这些补齐字形属于 Arphic PL，所以 `name` 表按「逐字形双许可」声明：LXGW 部分 OFL 1.1，MMH 部分 Arphic PL。
 
 ## 本站现状
 
 - `roots.json` 的 `p` 是构建时从 `黑体字根.ttf` 提取的 SVG 路径；页面不加载 TTF，但路径是字体的衍生数据。
 - `public/fonts/lxgw-wenkai-roots.woff2` 是 LXGW WenKai 的子集（SIL OFL 1.1），用于命名根的楷体显示；许可文件同目录。
-- 页面上的「楷体 / 黑体」切换目前只影响 138 个命名字根（走 woff2 子集）；整份字根表要切换，可直接改用
-  `data-src/文楷字根.ttf`——码位与黑体版一致，数据无需改动。
+- 字形切换现在三档都完整：文楷模式用 woff2 子集画命名字根，抽笔画槽位回落到正楷 woff2
+  （`font-family: var(--font-kai-roots), var(--font-zhengkai-roots)`），不再露出黑体轮廓。
+  整份字根表要换字体，可直接改用 `data-src/文楷字根.ttf`——码位与黑体版一致，数据无需改动。
 
 ## 字根表（可选的第二支字体）
 

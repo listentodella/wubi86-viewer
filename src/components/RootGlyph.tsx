@@ -51,6 +51,27 @@ export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', 
       </span>
     )
   }
+  // 文楷没有对应汉字的部件（抽笔画槽位）：用正楷的 MMH 楷书补，别退回黑体。
+  // 两个字体族并列，浏览器会逐字回落到正楷那一支。
+  if (mode === 'kai' && id && zheng.has(id.toLowerCase())) {
+    const pua = String.fromCodePoint(parseInt(id, 16))
+    return (
+      <span
+        className={`inline-block text-center leading-none ${className}`}
+        style={{
+          color,
+          fontSize: size,
+          fontFamily: 'var(--font-kai-roots), var(--font-zhengkai-roots)',
+          verticalAlign: '-0.12em',
+        }}
+        title={title ?? info?.a ?? pua}
+        role="img"
+        aria-label={title ?? info?.a ?? pua}
+      >
+        {pua}
+      </span>
+    )
+  }
   if (!info?.p) {
     const ch = info?.n || (id ? String.fromCodePoint(parseInt(id, 16)) : '?')
     return (
