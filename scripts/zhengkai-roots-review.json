@@ -635,6 +635,143 @@
       "quality": "source",
       "note": "用户 I 键审核：保留 E181 的检第 8–11 笔，另新增剑第 4–7 笔为变体。",
       "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e18e": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "亦",
+      "strokes": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "a88f940a19263a12dfdbb1d71588b80b75c2d6be6f53127790d00f35d3be37e8",
+      "fit": "e18e",
+      "quality": "source",
+      "note": "",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e18f": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "恋",
+      "strokes": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "3d17df2ceeffc119df2ae58d00a0e2507e364caead3908dc03b104a2d2fd1ecc",
+      "fit": "e18f",
+      "quality": "exact",
+      "note": "新增变体：1. 兼字7~10笔 2. 歉字7~10笔",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e192": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "鬯",
+      "strokes": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "aec8454c13e804c9cefc4834321b552ed160054fcb47f91b79356e1646a02d08",
+      "fit": "e192",
+      "quality": "source",
+      "note": "",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e193": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "亚",
+      "strokes": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceHash": "4b4e8bbb012ce5355f2cb9050dfaa1248bdff89db39250203e78b9ce50ef7b0d",
+      "fit": "e193",
+      "quality": "source",
+      "note": "",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e189": {
+      "confirmed": true,
+      "key": "o",
+      "note": "",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b",
+      "decision": "keep"
+    },
+    "e18a": {
+      "confirmed": true,
+      "key": "o",
+      "note": "新增变体灶字左半部",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b",
+      "decision": "keep"
+    },
+    "e18b": {
+      "confirmed": true,
+      "key": "o",
+      "note": "新增变体粗字左半部",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b",
+      "decision": "keep"
+    },
+    "e922": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "兼",
+      "strokes": [6, 7, 8, 9],
+      "sourceHash": "a7f1da1cb03ce76123201a15649644e939aa9b7154bbe5edb40c605fedbf1870",
+      "fit": "e18f",
+      "quality": "source",
+      "note": "用户 O 键审核：保留 E18F 的恋第 3–6 笔，并新增兼第 7–10 笔为变体。",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e923": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "歉",
+      "strokes": [6, 7, 8, 9],
+      "sourceHash": "af63da958c9c2e0116529dbc638fd5c2a6d53a3519c77125cfc50bb056b46a79",
+      "fit": "e18f",
+      "quality": "exact",
+      "note": "用户 O 键审核：保留 E18F 的恋第 3–6 笔，另新增歉第 7–10 笔为变体。",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e924": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "灶",
+      "strokes": [0, 1, 2, 3],
+      "sourceHash": "6ac1ffa8960c09e378892d1db63ee0bfd085a7b1bfdfe925cf9d43e8a46b18f2",
+      "fit": "e18a",
+      "quality": "exact",
+      "note": "用户 O 键审核：保留 E18A 当前火，新增灶字左半部（第 1–4 笔）作为火旁变体。",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e925": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "o",
+      "source": "粗",
+      "strokes": [0, 1, 2, 3, 4, 5],
+      "sourceHash": "f8e6b55df988a123c7da25bd5fd26f7ec43d66e0eaefbc94e2dfc9b8de42d802",
+      "fit": "e18b",
+      "quality": "source",
+      "note": "用户 O 键审核：保留 E18B 当前米，新增粗字左半部（第 1–6 笔）作为米旁变体。",
+      "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
     }
   }
 }
