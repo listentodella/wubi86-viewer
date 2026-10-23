@@ -75,6 +75,29 @@ WENKAI_TTF=/path/LXGWWenKai-Regular.ttf npm run font:kai
 `scripts/kai-roots-map.json` 里每个码位可以写成 `"龶"`、`""`（确认留空）或
 `{"ch": "", "keep_hei": true, "note": "…"}`；手改同样会被保留。
 
+### 正楷自动初审（Y 键试验）
+
+```bash
+npm run review:zheng:y    # 生成 reports/zhengkai-review/y.{html,json}
+```
+
+打开 `reports/zhengkai-review/y.html`：逐行对照黑体、当前正楷与 A/B/C 候选。
+候选直接读取主页高亮用的 `r/seg`，附源字高亮、笔序与槽位适配预览；不需要来回反查。
+判断支持浏览器本地保存、键盘选择、JSON 导入导出；**自动建议不等于人工确认，也不会自动改字体**。
+
+确认后下载「判断 JSON」，先预览，再显式写入并重建：
+
+```bash
+npm run review:zheng:apply -- /path/zhengkai-review-y.json           # 只预览
+npm run review:zheng:apply -- /path/zhengkai-review-y.json --write   # 写入确认表
+npm run font:zhengkai
+npm run review:zheng:y                                            # 检查最终字形
+npm run roots:key                                                # 刷新原字根表（可选）
+```
+
+正楷确认单独存在 `scripts/zhengkai-roots-review.json`，不改文楷映射或既有人工取法；
+报告过期或源数据变化时拒绝应用。完整说明见 [正楷自动初审](docs/zhengkai-review.md)。
+
 ## 数据
 
 | 文件 | 来源 |

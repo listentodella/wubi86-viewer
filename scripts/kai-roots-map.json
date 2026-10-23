@@ -1001,7 +1001,9 @@
  },
  "e13e": {
   "ch": "丶",
-  "rejected": true
+  "rejected": true,
+  "removed": true,
+  "note": "用户 Y 键初审：与 E13F 可合并，没有绝对区别；从学习字根表撤下，底层汉字拆分数据和原码位保留。"
  },
  "e13f": {
   "ch": "㇏",

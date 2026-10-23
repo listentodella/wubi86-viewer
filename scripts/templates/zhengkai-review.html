@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Y 键 · 正楷初审</title>
+  <style>__REVIEW_STYLE__</style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">五笔字根 · MMH 候选工作台</p>
+        <h1 id="page-title">Y 键 · 正楷初审</h1>
+        <p class="lead">不再往返反查。对照原形，挑一个更容易联想到手写的字根。</p>
+      </div>
+      <div class="safe-note"><span aria-hidden="true">◎</span><div><strong>先审阅，再应用</strong><small>本页只保存判断，绝不自动改字体。</small></div></div>
+    </header>
+
+    <section class="overview" aria-label="审阅进度">
+      <div class="progress-card"><span class="muted">本次已判断</span><strong id="progress-count">0 / 11</strong><progress id="review-progress" value="0" max="11">0%</progress><small id="progress-caption">判断保存在当前浏览器，建议下载备份。</small></div>
+      <div class="metric"><span>待审字根</span><strong id="pending-count">11</strong><small>没有任何预先选中的答案</small></div>
+      <div class="metric"><span>正楷缺字</span><strong id="missing-count">3</strong><small>不把文楷回落算作正楷</small></div>
+      <div class="metric"><span>结构提示</span><strong id="structure-count">1</strong><small>优先核对取笔数量差异</small></div>
+    </section>
+
+    <details class="help">
+      <summary>怎么审阅与应用？<span class="muted">快捷键 · 数据来源 · 安全写回</span></summary>
+      <div class="help-body">
+        <p>先比较黑体与当前正楷：匹配就<strong>保留当前</strong>；缺字或形状不对，就比较 A/B/C。蓝色是源字中保留的笔画，橙色小数字是笔序。<strong>形状分数只是排序参考，不是正确率。</strong></p>
+        <p><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd> 选 A/B/C，<kbd>0</kbd> 保留，<kbd>X</kbd> 都不对，<kbd>J</kbd> / <kbd>K</kbd> 或上下键移动。输入备注时不触发快捷键。选择后当前行不会自动消失。</p>
+        <p>「适配原槽位」只等比缩放和平移；取消可看源字中的原位置。完成后下载判断 JSON，先预览，再显式写入并重建。已有人工作出的正楷取法默认保护。</p>
+        <div id="help-commands" class="command-list"></div>
+      </div>
+    </details>
+
+    <div id="storage-notice" class="notice" role="status" hidden></div>
+    <nav class="toolbar" aria-label="筛选与导入导出">
+      <div class="filters" role="group" aria-label="字根筛选">
+        <button type="button" data-filter="pending" aria-pressed="true">待审</button>
+        <button type="button" data-filter="missing" aria-pressed="false">缺字</button>
+        <button type="button" data-filter="all" aria-pressed="false">全部</button>
+        <button type="button" data-filter="confirmed" aria-pressed="false">已判断</button>
+      </div>
+      <div class="query-controls">
+        <label class="search"><span class="sr-only">搜索字根编号、名称或源字</span><input id="root-search" type="search" placeholder="搜索 E149、高头、源字…" autocomplete="off"></label>
+        <label class="order"><span class="sr-only">字根排序</span><select id="root-order"><option value="priority">优先处理缺失</option><option value="id">按原编号排序</option></select></label>
+      </div>
+      <div class="file-actions">
+        <button id="download-decisions" type="button" class="primary">下载判断 JSON</button>
+        <button id="copy-decisions" type="button">复制判断 JSON</button>
+        <label class="button import-button" for="import-decisions">导入判断<input id="import-decisions" type="file" accept=".json,application/json" aria-label="导入判断"></label>
+        <button id="reset-decisions" type="button" class="quiet">重置本页判断</button>
+      </div>
+    </nav>
+
+    <div class="list-caption"><span id="visible-caption">展示 11 个字根</span><span id="active-caption">点选一行开始</span></div>
+    <main id="root-list" aria-label="字根候选对照"></main>
+    <section id="empty-state" class="empty-state" hidden><h2>没有符合条件的字根</h2><p>尝试清空搜索，或切换到「全部」。未确认的疑难项会保留在待审列表。</p><button id="show-all" type="button">查看全部字根</button></section>
+    <footer class="footer"><span>轮廓：Make Me a Hanzi · Arphic Public License</span><span id="report-caption"></span></footer>
+  </div>
+
+  <div id="feedback" role="status" aria-live="polite" class="feedback" hidden></div>
+  <dialog id="copy-dialog"><form method="dialog"><h2>复制判断 JSON</h2><p>自动复制不可用，请手动复制下面内容。</p><textarea id="copy-text" readonly aria-label="判断 JSON"></textarea><button type="submit" class="primary">关闭</button></form></dialog>
+  <script id="review-data" type="application/json">__REVIEW_DATA__</script>
+  <script>__REVIEW_SCRIPT__</script>
+</body>
+</html>

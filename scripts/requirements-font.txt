@@ -4,3 +4,5 @@ fonttools>=4.40
 numpy>=1.21
 scipy>=1.7
 scikit-image>=0.20
+# MMH 正楷审阅需要读取 WOFF2，正楷构建也需要压缩输出 WOFF2。
+brotli>=1.0.9

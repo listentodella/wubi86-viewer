@@ -161,7 +161,9 @@ def shape_distance(a, b, size=MATCH_SIZE):
         return 0.0
     chamfer = 1 - (a.dt[b.hard].mean() + b.dt[a.hard].mean()) / 2 / (size * 1.4)
     bonus = -0.06 * abs(a.holes - b.holes) - 0.10 * abs(math.log((a.aspect + 1e-3) / (b.aspect + 1e-3)))
-    return 0.55 * float(a.blur @ b.blur) + 0.45 * chamfer + bonus
+    # Element-wise reduction avoids platform BLAS warnings on these small float32 vectors.
+    similarity = float(np.sum(a.blur.astype(np.float64) * b.blur.astype(np.float64)))
+    return 0.55 * similarity + 0.45 * chamfer + bonus
 
 
 # ------------------------------------------------------------- font loader --

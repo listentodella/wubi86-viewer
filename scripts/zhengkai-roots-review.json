@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "roots": {
+    "e13f": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "y",
+      "source": "入",
+      "strokes": [
+        1
+      ],
+      "sourceHash": "28e84eb75ecc641c2819d0377f2111a90d0cb998534bb295b75fb6f3003f6909",
+      "fit": "e13f",
+      "quality": "source",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c"
+    },
+    "e149": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "y",
+      "source": "蒿",
+      "strokes": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "sourceHash": "d1ba91fca01039539be19e98a37944ab0e079b05d8adee45dc100cd79254291e",
+      "fit": "e149",
+      "quality": "source",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c"
+    },
+    "e148": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "y",
+      "source": "集",
+      "strokes": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "sourceHash": "e2fb67965264456e0800750036d30db30773ecb98bd956ffd5fa1b798f8bf18e",
+      "fit": "e148",
+      "quality": "source",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c"
+    },
+    "e140": {
+      "confirmed": true,
+      "key": "y",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c",
+      "decision": "keep"
+    },
+    "e142": {
+      "confirmed": true,
+      "key": "y",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c",
+      "decision": "keep"
+    },
+    "e143": {
+      "confirmed": true,
+      "key": "y",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c",
+      "decision": "keep"
+    },
+    "e144": {
+      "confirmed": true,
+      "key": "y",
+      "note": "保留当前，并新增字根A，因为这是一个变体",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c",
+      "decision": "keep"
+    },
+    "e145": {
+      "confirmed": true,
+      "key": "y",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c",
+      "decision": "keep"
+    },
+    "e147": {
+      "confirmed": true,
+      "key": "y",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c",
+      "decision": "keep"
+    },
+    "e18c": {
+      "confirmed": true,
+      "key": "y",
+      "note": "",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c",
+      "decision": "keep"
+    },
+    "e91a": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "y",
+      "source": "闵",
+      "strokes": [3, 4, 5, 6],
+      "sourceHash": "f9dc0cd5607d6ee7dd0d513df3bb6e9f26081f2c7ae040855f91ee6eddfb588e",
+      "fit": "e144",
+      "quality": "source",
+      "note": "用户确认 E144 保留当前，并把原报告候选 A（闵第 4–7 笔）新增为文字变体。",
+      "reportId": "23cf8c5504bdcc471d2130295b85d90329dc043b6c1d9c91a51b955bb30f409c"
+    }
+  }
+}

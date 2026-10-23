@@ -23,6 +23,8 @@ from pathlib import Path
 import numpy as np
 from fontTools.ttLib import TTFont
 
+from lib.zhengkai_mapping import resolve_current
+
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts" / "lib"))
 import kai_font as kf  # noqa: E402
@@ -138,7 +140,7 @@ def main() -> None:
     ap.add_argument("--top", type=int, default=5, help="每个字根给出几个候选")
     ap.add_argument("--chars", type=int, default=24, help="每个字根试多少个反查例字")
     ap.add_argument("--maxlen", type=int, default=9, help="候选最多取几笔")
-    ap.add_argument("--floor", type=float, default=0.80, help="现正楷 IoU 低于此值才算可疑")
+    ap.add_argument("--floor", type=float, default=0.80, help="现正楷容差 F1 低于此值才算可疑（仅作参考）")
     ap.add_argument("--only", default="", help="只查这些码位，逗号分隔，如 E0D8,E0D0")
     args = ap.parse_args()
 
@@ -149,6 +151,7 @@ def main() -> None:
     roots = json.loads(ROOTS.read_text(encoding="utf-8"))
     rev = json.loads(REV.read_text(encoding="utf-8"))
     mapping = json.loads(MAP.read_text(encoding="utf-8"))
+    names = json.loads((REPO / "scripts" / "root-names.json").read_text(encoding="utf-8"))
 
     rows = [(rid, r) for rid, r in roots.items() if r.get("k") == args.key and not r.get("id")]
     rows.sort(key=lambda x: -int(rev.get(x[0], {}).get("n", 0)))
@@ -168,18 +171,13 @@ def main() -> None:
             continue
         entry = mapping.get(rid) if isinstance(mapping.get(rid), dict) else {}
         derived = build.DERIVED.get(cp)
-        # 正楷字体的 cmap：抽笔画部件挂 PUA，整字挂汉字的 Unicode —— 依次退
-        zname = zcm.get(cp)
-        if zname is None:
-            for cand in (entry.get("ch"), info.get("a"), info.get("n")):
-                if isinstance(cand, str) and len(cand) == 1 and ord(cand) in zcm:
-                    zname = zcm[ord(cand)]
-                    break
-        zheng_m = mask_of_font(zk, zname)
+        # 和实际字根表使用同一读取规则：不把 rejected 的文楷猜测当成已有正楷。
+        resolved = resolve_current(rid, info, mapping, names, zcm)
+        zheng_m = mask_of_font(zk, resolved["glyph"])
         if derived:
             src = f"{derived[0]}[{'、'.join(str(i + 1) for i in derived[1])}]"
         else:
-            src = entry.get("ch") or info.get("n") or "-"
+            src = resolved["label"]
         if zheng_m is None:
             print(f"{rid.upper():7s} {info.get('n') or info.get('a') or '-':8s} {src:16s}   --    缺失")
             suspects.append((rid, info, src, 0.0, hei_m, None))

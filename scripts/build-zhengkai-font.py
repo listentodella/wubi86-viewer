@@ -7,7 +7,7 @@ App 现在的「楷体」是拿文楷渲染命名字根；本脚本再造一支*
 做法
   1. 收齐 roots.json 与 root-names.json 里的命名字根（单字），共 165 个；
   2. 每个字从 data-src/hanzi-writer-data/<字>.json 取笔画路径（M/L/Q/C/Z，1024 em，y 向上）；
-  3. 三次曲线用 Cu2QuPen 转二次，写成一个 glyf 字形；
+  3. 曲线展平成折线、统一轮廓绕向，写成一个 glyf 字形；
   4. 生成 woff2 子集 -> public/fonts/zhengkai-roots.woff2。
 
 授权
@@ -29,14 +29,16 @@ from fontTools.fontBuilder import FontBuilder
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 
+from lib.zhengkai_mapping import REVIEW_MAP, merge_derived
+
 REPO = Path(__file__).resolve().parent.parent
 MMH = REPO / "data-src" / "hanzi-writer-data"
 OUT_DEFAULT = REPO / "public" / "fonts" / "zhengkai-roots.woff2"
 LICENSE_OUT = REPO / "public" / "fonts" / "zhengkai-roots-license.txt"
 CJK = re.compile(r"^[\u3007\u3400-\u9fff]$")
 
-# 由整字里抽笔画拼出的部件（用户指定取法）：
-#   码位 -> (源字, 起始笔, 结束笔)  —— 笔序从 0 起，切片 [起, 止)
+# 既有人工指定取法保持不变；新的批量确认存 scripts/zhengkai-roots-review.json。
+# 码位 -> (源字, [要保留的笔序，0 起], 可选摆放参数)
 DERIVED = {
     # 码位: (源字, [要保留的笔序，0 起])
     0xE005: ("打", [2]),                    # 提（㇀）：扌 的提
@@ -172,6 +174,8 @@ DERIVED = {
     0xE916: ("退", [3, 4, 5]),              # 退的第 4~6 笔 —— 新增
     0xE910: ("气", [0, 1]),                 # 气的前两笔（撇 + 横）—— 新增
 }
+LEGACY_DERIVED = DERIVED
+DERIVED = merge_derived(LEGACY_DERIVED)
 UPEM = 1024
 CMD = re.compile(r"[MLQCZmlqcz]|-?\d+\.?\d*")
 
@@ -297,6 +301,8 @@ def collect_chars() -> list[str]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=OUT_DEFAULT)
+    ap.add_argument("--review-map", type=Path, default=REVIEW_MAP,
+                    help="人工确认的正楷映射；候选报告不能直接作为映射")
     args = ap.parse_args()
 
     chars = collect_chars()
@@ -304,7 +310,8 @@ def main() -> None:
     missing = [c for c in chars if c not in have]
     print(f"命名字根 {len(chars)} 个，MMH 覆盖 {len(have)}，缺 {len(missing)}：{''.join(missing)}")
 
-    derived = {cp: v for cp, v in DERIVED.items() if (MMH / f"{v[0]}.json").exists()}
+    effective = merge_derived(LEGACY_DERIVED, args.review_map)
+    derived = {cp: v for cp, v in effective.items() if (MMH / f"{v[0]}.json").exists()}
     order = [".notdef"] + [f"uni{ord(c):04X}" for c in have] + [f"uni{cp:04X}" for cp in derived]
     fb = FontBuilder(UPEM, isTTF=True)
     fb.setupGlyphOrder(order)
@@ -352,6 +359,7 @@ def main() -> None:
     fb.setupOS2(sTypoAscender=880, sTypoDescender=-144, usWinAscent=880, usWinDescent=144,
                 sxHeight=500, sCapHeight=700, usWeightClass=400)
     fb.setupPost()
+    args.out.parent.mkdir(parents=True, exist_ok=True)
     tmp = args.out.with_suffix(".ttf")
     fb.save(str(tmp))
 
@@ -364,13 +372,14 @@ def main() -> None:
     print(f"wrote {args.out} ({size/1024:.0f} KB, {len(have)} 字 + {len(derived)} 个抽笔画部件)")
 
     # 前端用它判断哪些 PUA 槽位有正楷抽笔画字形；有则按码位渲染，没有才回落到黑体路径。
-    manifest = REPO / "public" / "fonts" / "zhengkai-roots.json"
+    manifest = args.out.with_suffix(".json")
     manifest.write_text(
         json.dumps({"pua": sorted(f"{cp:04x}" for cp in derived)}, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8")
     print(f"wrote {manifest}")
 
-    LICENSE_OUT.write_text(
+    license_out = args.out.with_name(args.out.stem + "-license.txt")
+    license_out.write_text(
         "ZhengKai Roots / 正楷字根（webfont 子集）\n"
         "=====================================\n"
         "字形轮廓来自 Make Me a Hanzi（https://github.com/skishore/makemeahanzi），\n"
@@ -379,7 +388,7 @@ def main() -> None:
         "须与 Arphic Public License 一同分发：https://www.arphic.com/ 提供的 APL 1.0 全文，\n"
         "或见 Make Me a Hanzi 仓库内的 LICENSE 说明。\n"
         "本字体的字体名不得使用文鼎（Arphic）的保留名称。\n", encoding="utf-8")
-    print(f"wrote {LICENSE_OUT}")
+    print(f"wrote {license_out}")
 
 
 if __name__ == "__main__":

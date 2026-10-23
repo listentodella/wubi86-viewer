@@ -151,11 +151,36 @@ def pentopath(font: TTFont, gname: str, tf: tuple[float, float, float]) -> str:
     return "".join(out)
 
 
+def cached_extra_segments(ex: dict, rows: dict) -> list:
+    """Without the WenKai source, retain an unchanged previously generated extra."""
+    old = rows.get(f"U+{int(ex['cp'], 16):04X}")
+    if not old or not old.get("seg"):
+        return []
+    if old.get("extra_spec") is not None:
+        if old["extra_spec"] != ex:
+            return []
+    else:
+        # Older reports predate extra_spec; match all recorded identity fields.
+        for field in ("label", "key", "note", "after", "after_pua"):
+            if old.get(field) != ex.get(field):
+                return []
+        if old.get("ch", "") != (ex.get("ch") or ""):
+            return []
+    return old["seg"]
+
+
 def extra_rows(fonts) -> list[dict]:
     """新增字根（原数据无槽位）：只进字根表，不动等码位字体。"""
     if not EXTRAS.exists():
         return []
     out = []
+    cached = {}
+    cache_path = OUT_DIR / "roots-by-key.json"
+    if fonts is None and cache_path.is_file():
+        previous = load(cache_path)
+        cached = {row["pua"]: row for group in previous.get("groups", {}).values()
+                  for row in group if row.get("extra")}
+    reused = 0
     for ex in json.loads(EXTRAS.read_text(encoding="utf-8")):
         ch, cp = ex.get("ch") or "", int(ex["cp"], 16)
         ref = str(ex.get("ref") or "uniE002")
@@ -163,9 +188,14 @@ def extra_rows(fonts) -> list[dict]:
             ref = "uni" + ref.upper()
         # ch 为空 = 还没有对得上的单字：文楷先留空，只靠正楷派生字形
         seg = fonts.placed_segments(ch, ref, extra_scale=float(ex.get("scale") or 1.0)) if (fonts and ch) else []
-        if ex.get("squeeze"):
+        if not fonts and ch:
+            seg = cached_extra_segments(ex, cached)
+            if not seg:
+                raise FileNotFoundError(f"新增字根 {ex['cp']} 的文楷源字体和可复用轮廓都缺失；停止以免丢失已有字形")
+            reused += 1
+        if fonts and ex.get("squeeze"):
             seg = kf.squeeze_x(seg, float(ex["squeeze"]))
-        if ex.get("raise_bottom"):
+        if fonts and ex.get("raise_bottom"):
             seg = kf.raise_bottom(seg, float(ex["raise_bottom"]))
         out.append({
             "pua": f"U+{cp:04X}", "cp": cp, "label": ex["label"], "name": ex["label"], "ch": ch,
@@ -174,7 +204,10 @@ def extra_rows(fonts) -> list[dict]:
             "mnemonic_at": -2, "idcode": False, "extra": True, "key": ex["key"],
             "after": ex.get("after"), "after_pua": ex.get("after_pua"),
             "seg": seg, "note": ex.get("note", ""),
+            "extra_spec": ex,
         })
+    if reused:
+        print(f"复用 {reused} 个未变化的文楷新增轮廓（源字体不可用，保留原字形）")
     return out
 
 
