@@ -772,6 +772,53 @@
       "quality": "source",
       "note": "用户 O 键审核：保留 E18B 当前米，新增粗字左半部（第 1–6 笔）作为米旁变体。",
       "reportId": "9f29c982471c76b7c7bf9a57cb495746664adb797d390aa8c02c64d78d774c7b"
+    },
+    "e1a3": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "p",
+      "source": "礻",
+      "strokes": [0, 1, 2],
+      "sourceHash": "0a5c337a4979969e1a9ef0695eef0a1925834489057731dfb92c0ce04ed53ac3",
+      "fit": "e1a3",
+      "quality": "source",
+      "note": "用户后续确认：显示名恢复为礻衤，沿用口诀；正楷仍取礻第 1–3 笔，衤按现有 P、U 两根拆分。",
+      "reportId": "39e2be1140e1dfad02fa9cf410a8c22e3e5fa7f0543b9a69d3c18167863933e6"
+    },
+    "e19c": {
+      "confirmed": true,
+      "key": "p",
+      "note": "",
+      "reportId": "39e2be1140e1dfad02fa9cf410a8c22e3e5fa7f0543b9a69d3c18167863933e6",
+      "decision": "keep"
+    },
+    "e19d": {
+      "confirmed": true,
+      "key": "p",
+      "note": "",
+      "reportId": "39e2be1140e1dfad02fa9cf410a8c22e3e5fa7f0543b9a69d3c18167863933e6",
+      "decision": "keep"
+    },
+    "e19e": {
+      "confirmed": true,
+      "key": "p",
+      "note": "",
+      "reportId": "39e2be1140e1dfad02fa9cf410a8c22e3e5fa7f0543b9a69d3c18167863933e6",
+      "decision": "keep"
+    },
+    "e19f": {
+      "confirmed": true,
+      "key": "p",
+      "note": "",
+      "reportId": "39e2be1140e1dfad02fa9cf410a8c22e3e5fa7f0543b9a69d3c18167863933e6",
+      "decision": "keep"
+    },
+    "e1a0": {
+      "confirmed": true,
+      "key": "p",
+      "note": "",
+      "reportId": "39e2be1140e1dfad02fa9cf410a8c22e3e5fa7f0543b9a69d3c18167863933e6",
+      "decision": "keep"
     }
   }
 }
