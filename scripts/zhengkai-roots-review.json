@@ -106,7 +106,12 @@
       "confirmed": true,
       "key": "y",
       "source": "闵",
-      "strokes": [3, 4, 5, 6],
+      "strokes": [
+        3,
+        4,
+        5,
+        6
+      ],
       "sourceHash": "f9dc0cd5607d6ee7dd0d513df3bb6e9f26081f2c7ae040855f91ee6eddfb588e",
       "fit": "e144",
       "quality": "source",
@@ -268,7 +273,11 @@
       "confirmed": true,
       "key": "u",
       "source": "彭",
-      "strokes": [6, 7, 8],
+      "strokes": [
+        6,
+        7,
+        8
+      ],
       "sourceHash": "01ba61919463394c270645dd9a25679abb4b0382e00fa142a8a41ea6ddabe54c",
       "fit": "e15e",
       "quality": "source",
@@ -280,7 +289,13 @@
       "confirmed": true,
       "key": "u",
       "source": "站",
-      "strokes": [0, 1, 2, 3, 4],
+      "strokes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
       "sourceHash": "f9197f8e5679e005e768ac10df064072b3fd0a15f5a5ab66ee4b8749b3edebed",
       "fit": "e15c",
       "quality": "source",
@@ -292,7 +307,15 @@
       "confirmed": true,
       "key": "u",
       "source": "辨",
-      "strokes": [0, 1, 2, 3, 4, 5, 6],
+      "strokes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
       "sourceHash": "c85b616fb7952479308f2267d2f2f6a1a364b5ba2c2a65273ce88ad558961a78",
       "fit": "e15d",
       "quality": "approx",
@@ -593,7 +616,13 @@
       "confirmed": true,
       "key": "i",
       "source": "泰",
-      "strokes": [5, 6, 7, 8, 9],
+      "strokes": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
       "sourceHash": "8f13fa35e1b4b10ec4af1ff3c97387aebb39867f12e7b60a182fa7e68e142e45",
       "fit": "e17b",
       "quality": "manual",
@@ -605,7 +634,11 @@
       "confirmed": true,
       "key": "i",
       "source": "粑",
-      "strokes": [3, 4, 5],
+      "strokes": [
+        3,
+        4,
+        5
+      ],
       "sourceHash": "dae193e8084e919445d2bfdbd4672f48538e228757993d53a4713d4a3473b014",
       "fit": "e17f",
       "quality": "manual",
@@ -617,7 +650,12 @@
       "confirmed": true,
       "key": "i",
       "source": "兴",
-      "strokes": [0, 1, 2, 3],
+      "strokes": [
+        0,
+        1,
+        2,
+        3
+      ],
       "sourceHash": "4138d58275de5a75c66be925ce5f789a1e90cad3bf897deaa454c5054f660713",
       "fit": "e181",
       "quality": "source",
@@ -629,7 +667,12 @@
       "confirmed": true,
       "key": "i",
       "source": "剑",
-      "strokes": [3, 4, 5, 6],
+      "strokes": [
+        3,
+        4,
+        5,
+        6
+      ],
       "sourceHash": "0dcb93616cbf433e2d0a81f8c980121be2ba8e27d51fd85917424ce0db95685b",
       "fit": "e181",
       "quality": "source",
@@ -730,7 +773,12 @@
       "confirmed": true,
       "key": "o",
       "source": "兼",
-      "strokes": [6, 7, 8, 9],
+      "strokes": [
+        6,
+        7,
+        8,
+        9
+      ],
       "sourceHash": "a7f1da1cb03ce76123201a15649644e939aa9b7154bbe5edb40c605fedbf1870",
       "fit": "e18f",
       "quality": "source",
@@ -742,7 +790,12 @@
       "confirmed": true,
       "key": "o",
       "source": "歉",
-      "strokes": [6, 7, 8, 9],
+      "strokes": [
+        6,
+        7,
+        8,
+        9
+      ],
       "sourceHash": "af63da958c9c2e0116529dbc638fd5c2a6d53a3519c77125cfc50bb056b46a79",
       "fit": "e18f",
       "quality": "exact",
@@ -754,7 +807,12 @@
       "confirmed": true,
       "key": "o",
       "source": "灶",
-      "strokes": [0, 1, 2, 3],
+      "strokes": [
+        0,
+        1,
+        2,
+        3
+      ],
       "sourceHash": "6ac1ffa8960c09e378892d1db63ee0bfd085a7b1bfdfe925cf9d43e8a46b18f2",
       "fit": "e18a",
       "quality": "exact",
@@ -766,7 +824,14 @@
       "confirmed": true,
       "key": "o",
       "source": "粗",
-      "strokes": [0, 1, 2, 3, 4, 5],
+      "strokes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
       "sourceHash": "f8e6b55df988a123c7da25bd5fd26f7ec43d66e0eaefbc94e2dfc9b8de42d802",
       "fit": "e18b",
       "quality": "source",
@@ -778,7 +843,11 @@
       "confirmed": true,
       "key": "p",
       "source": "礻",
-      "strokes": [0, 1, 2],
+      "strokes": [
+        0,
+        1,
+        2
+      ],
       "sourceHash": "0a5c337a4979969e1a9ef0695eef0a1925834489057731dfb92c0ce04ed53ac3",
       "fit": "e1a3",
       "quality": "source",
@@ -867,7 +936,11 @@
       "confirmed": true,
       "key": "v",
       "source": "禄",
-      "strokes": [4, 5, 6],
+      "strokes": [
+        4,
+        5,
+        6
+      ],
       "sourceHash": "0f72b3e96ea0c586f1a9ffd286b81596e877218e7ace47dabc094e7b714378eb",
       "fit": "e202",
       "quality": "exact",
@@ -879,7 +952,11 @@
       "confirmed": true,
       "key": "v",
       "source": "伊",
-      "strokes": [2, 3, 4],
+      "strokes": [
+        2,
+        3,
+        4
+      ],
       "sourceHash": "a4e1cfd387ffd5d1e939caf278aa9748eb3e33ba8194686c73aed30443abb5d9",
       "fit": "e201",
       "quality": "source",
@@ -891,7 +968,11 @@
       "confirmed": true,
       "key": "v",
       "source": "好",
-      "strokes": [0, 1, 2],
+      "strokes": [
+        0,
+        1,
+        2
+      ],
       "sourceHash": "c9f085fe6519e2b2c9653c7edf51bdbc78339fcc0b10f94c1f33c7f4f4d4a3a5",
       "fit": "e1fc",
       "quality": "source",
@@ -903,7 +984,10 @@
       "confirmed": true,
       "key": "v",
       "source": "鸠",
-      "strokes": [0, 1],
+      "strokes": [
+        0,
+        1
+      ],
       "sourceHash": "8c42557601a647c393f595de2cc31b65ddc204a2a57e22ecd981037336650bf0",
       "fit": "e1fe",
       "quality": "exact",
@@ -915,7 +999,10 @@
       "confirmed": true,
       "key": "c",
       "source": "邻",
-      "strokes": [3, 4],
+      "strokes": [
+        3,
+        4
+      ],
       "sourceHash": "be6e0c04b51ccd5e44da9479e53f77e4ce96339ec99fef00e147d3775f7f54fb",
       "fit": "e213",
       "quality": "source",
@@ -927,7 +1014,10 @@
       "confirmed": true,
       "key": "c",
       "source": "即",
-      "strokes": [3, 4],
+      "strokes": [
+        3,
+        4
+      ],
       "sourceHash": "db01dd0321c9b710631028b492b947833daf224c0e97646cf16ec4cb0178e49c",
       "fit": "e218",
       "quality": "source",
@@ -960,7 +1050,10 @@
       "confirmed": true,
       "key": "c",
       "source": "陉",
-      "strokes": [2, 3],
+      "strokes": [
+        2,
+        3
+      ],
       "sourceHash": "5a29e626c51d0ad56794776ea52382abe9b0c5f04903f223755e727e723fcee6",
       "fit": "e212",
       "quality": "exact",
@@ -979,7 +1072,10 @@
       "confirmed": true,
       "key": "c",
       "source": "戏",
-      "strokes": [0, 1],
+      "strokes": [
+        0,
+        1
+      ],
       "sourceHash": "9b11dfb36f5ab2341833c0f9600d4e51fd19f8726076316461780e609573f172",
       "fit": "e20e",
       "quality": "source",
@@ -991,7 +1087,11 @@
       "confirmed": true,
       "key": "c",
       "source": "驶",
-      "strokes": [0, 1, 2],
+      "strokes": [
+        0,
+        1,
+        2
+      ],
       "sourceHash": "dfc4e157bfc5860ebd9bdd1f1fab72f1d2ae3a12aef4b878ec9e0008bd0569b0",
       "fit": "e216",
       "quality": "source",
@@ -1126,7 +1226,10 @@
       "confirmed": true,
       "key": "b",
       "source": "粼",
-      "strokes": [12, 13],
+      "strokes": [
+        12,
+        13
+      ],
       "sourceHash": "0bec375cfedf7d766ca52619b24e1d4d27f84f74dc1f61ef95df79ef4ec332d8",
       "fit": "e1e0",
       "quality": "manual",
@@ -1138,19 +1241,48 @@
       "confirmed": true,
       "key": "b",
       "source": "聪",
-      "strokes": [0, 1, 2, 3, 4, 5],
+      "strokes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
       "sourceHash": "c6c0a23dc15e7f21bea7851c66fb9f4025da3ec436e574035af6f361f763ec46",
       "fit": "e1e4",
       "quality": "exact",
       "note": "用户 B 键审核：保留 E1E4 当前耳，新增聪字左半部（第 1–6 笔）为耳旁变体。",
       "reportId": "1a9923c39f8961d91dbe08e127cd39456851ed4d3af2aec980b2b6f29dd44227"
     },
+    "e92c": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "翌",
+      "strokes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "66d86f0d81d3e85acbe7cbc1e0a5f6ea0dff1050eef26978cedadc984a7a637e",
+      "fit": "e1b6",
+      "quality": "exact",
+      "note": "用户 N 键审核：保留 E1B6 当前羽，新增翌字上半部（第 1–6 笔）为羽字头变体。",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
     "e22a": {
       "decision": "replace",
       "confirmed": true,
       "key": "x",
       "source": "化",
-      "strokes": [2, 3],
+      "strokes": [
+        2,
+        3
+      ],
       "sourceHash": "a3cfd826e62d43d51fdf0321d7aaf1d66592e552dce198acd11a29b03d4ebf27",
       "fit": "e22a",
       "quality": "source",
@@ -1162,7 +1294,10 @@
       "confirmed": true,
       "key": "x",
       "source": "曳",
-      "strokes": [4, 5],
+      "strokes": [
+        4,
+        5
+      ],
       "sourceHash": "d11010ec0089c56ea7a17f6845644770d68c6c4f5606056986c6b6e3489791e0",
       "fit": "e22f",
       "quality": "source",
@@ -1174,7 +1309,10 @@
       "confirmed": true,
       "key": "x",
       "source": "贯",
-      "strokes": [0, 1],
+      "strokes": [
+        0,
+        1
+      ],
       "sourceHash": "1493bf98fa29ff5b8f5b14c97da34a27f5694e3ea2f2a705251e2290fe7e1c41",
       "fit": "e230",
       "quality": "approx",
@@ -1186,7 +1324,10 @@
       "confirmed": true,
       "key": "x",
       "source": "毒",
-      "strokes": [4, 5],
+      "strokes": [
+        4,
+        5
+      ],
       "sourceHash": "2eeef7b98f8b729b80d811d467eaf2ca4592143f6edaf1132941c426ec22f3f4",
       "fit": "e22d",
       "quality": "source",
@@ -1198,7 +1339,10 @@
       "confirmed": true,
       "key": "x",
       "source": "篆",
-      "strokes": [6, 7],
+      "strokes": [
+        6,
+        7
+      ],
       "sourceHash": "260b8119e45b6d78f824096a5f607bba4414d4cf57826b7e2df361a9dda72151",
       "fit": "e22e",
       "quality": "exact",
@@ -1217,7 +1361,10 @@
       "confirmed": true,
       "key": "x",
       "source": "芗",
-      "strokes": [3, 4],
+      "strokes": [
+        3,
+        4
+      ],
       "sourceHash": "b31c7942f0b83ae838429bb6a2a0830d392b0abd314147abb82299e57ce4a012",
       "fit": "e229",
       "quality": "exact",
@@ -1250,12 +1397,405 @@
       "confirmed": true,
       "key": "x",
       "source": "比",
-      "strokes": [0, 1],
+      "strokes": [
+        0,
+        1
+      ],
       "sourceHash": "4dc980796f5251417cd1a2ebf706e94bfcabb05d1b275cff28721aeb190fd12e",
       "fit": "e22b",
       "quality": "source",
       "note": "",
       "reportId": "bdd5ca226b175bc6d93420b3844b4e463e2118ef5b5f5a95313fa87037af41d3"
+    },
+    "e1b5": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "慕",
+      "strokes": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "sourceHash": "18ca5a6f1caf9fbd874c0a0150a87140d2fd3e6c485178cb2baada87997b7fac",
+      "fit": "e1b5",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1b7": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "买",
+      "strokes": [
+        0
+      ],
+      "sourceHash": "bc317b3af63af2e775ba0f0dd1086a5eed65abb98f726f86acbfe35740572174",
+      "fit": "e1b7",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1b9": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "凯",
+      "strokes": [
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "4190f118f2e6bad654481f904ba8af3f6bcb7ff929b29e5cbb32edffbeb3ac0a",
+      "fit": "e1b9",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1bb": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "距",
+      "strokes": [
+        8,
+        9
+      ],
+      "sourceHash": "ea469219a28c2bd49deb0d0a27513ad846c5c9aea32f476b2eca9a2faaa8c1f4",
+      "fit": "e1bb",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1bc": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "快",
+      "strokes": [
+        3,
+        4
+      ],
+      "sourceHash": "6fc5f91ce08bf4fd5cb968ff7153a140a28e8b6e8656018505fd8b3c6bade87c",
+      "fit": "e1bc",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1c0": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "片",
+      "strokes": [
+        3
+      ],
+      "sourceHash": "6952beb0745e6dc5a1d56ea31a80c271986d2af59e0cda16c7e478ea6c2de640",
+      "fit": "e1c0",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1c2": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "瓮",
+      "strokes": [
+        6
+      ],
+      "sourceHash": "31ad1aa5819d196db32b20e5b4fa324b3c2e3c6a87b4c58623fa86ee18bbf3d0",
+      "fit": "e1c2",
+      "quality": "exact",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1c5": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "荡",
+      "strokes": [
+        6
+      ],
+      "sourceHash": "996dda9f7205d22aa7355bfe52a7cbf6e116b0b4b0e1ea38b4ae7a8c6c0c5a0b",
+      "fit": "e1c5",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1c8": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "饥",
+      "strokes": [
+        2
+      ],
+      "sourceHash": "d6f6aeb5853b4e066deadb5fcb71bf1debb9f9aa6791588d1cefc00ca6b2539b",
+      "fit": "e1c8",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1cb": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "专",
+      "strokes": [
+        2
+      ],
+      "sourceHash": "ba845bf88c60daa15516ce4279a0c83df00a4e76bd067ecc15b76a4dbc1a1325",
+      "fit": "e1cb",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1cc": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "鸟",
+      "strokes": [
+        3
+      ],
+      "sourceHash": "2d62bee9f3dce68cead54e04298b7ca9be109f8ebe9c59d356d2f89c38184a33",
+      "fit": "e1cc",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1cd": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "鼎",
+      "strokes": [
+        5
+      ],
+      "sourceHash": "fcee8f53a91633b7953a254403dd9a568cae612059bc7789c23be36b5e94f709",
+      "fit": "e1cd",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1ce": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "叼",
+      "strokes": [
+        3
+      ],
+      "sourceHash": "bdcb179d0be9abad49258e5183b6ce8f6b95080c071c9807dc7200ee8f0b905b",
+      "fit": "e1ce",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1cf": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "孩",
+      "strokes": [
+        5
+      ],
+      "sourceHash": "6fa9400ce8f719a6a6fb46784fb92faacd0244e2096adacaab36412cae755950",
+      "fit": "e1cf",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1d0": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "乜",
+      "strokes": [
+        0
+      ],
+      "sourceHash": "59a9b0981721469181068cce2d7f7bfc8f7acacf56a306190adab4fe98f40881",
+      "fit": "e1d0",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1d1": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "屉",
+      "strokes": [
+        7
+      ],
+      "sourceHash": "76abb9fb7e35fcfac93b9cf040c86451791c4b96faf855dc21d2186b2ba4aa98",
+      "fit": "e1d1",
+      "quality": "exact",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1d3": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "氰",
+      "strokes": [
+        3
+      ],
+      "sourceHash": "6a25c1ab5d044c0512364e47590014e0cc4b845941bf726833fc0c6c8b6e3daf",
+      "fit": "e1d3",
+      "quality": "exact",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1d4": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "刁",
+      "strokes": [
+        0
+      ],
+      "sourceHash": "4bd486eda9126e72f34a28f46240d7d8fa540113bf52cc72fddc0366408eda28",
+      "fit": "e1d4",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1d7": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "岑",
+      "strokes": [
+        6
+      ],
+      "sourceHash": "b7b31b106a23462fe12381363172c664bbd7148a96f58949e16236741f9878ea",
+      "fit": "e1d7",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1bd": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "眉",
+      "strokes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceHash": "cf4c0e365fdc5d322bee168e747daa7bdc9921e0d6991693ad351c6f19a7dc46",
+      "fit": "e1bd",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1ae": {
+      "confirmed": true,
+      "key": "n",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1af": {
+      "confirmed": true,
+      "key": "n",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1b0": {
+      "confirmed": true,
+      "key": "n",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1b1": {
+      "confirmed": true,
+      "key": "n",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1b2": {
+      "confirmed": true,
+      "key": "n",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1b3": {
+      "confirmed": true,
+      "key": "n",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1b4": {
+      "confirmed": true,
+      "key": "n",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1b6": {
+      "confirmed": true,
+      "key": "n",
+      "note": "新增变体翌字上半部",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03",
+      "decision": "keep"
+    },
+    "e1ba": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "苠",
+      "strokes": [
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "a5807422cce7cb66584ed68ac03df1386854a99e725bbfc10174b46db75ebf74",
+      "fit": "e1ba",
+      "quality": "exact",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1ca": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "鼠",
+      "strokes": [
+        12
+      ],
+      "sourceHash": "180a95537e64f9c749102e2341ef9e1b9fff345d9373fcc236cff9eb5ced1f8e",
+      "fit": "e1ca",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
+    },
+    "e1d2": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "n",
+      "source": "电",
+      "strokes": [
+        4
+      ],
+      "sourceHash": "bbf199bee650b38f1d1b1da68a0c8f0eed59bdfce2302cd2abe0c5a115896850",
+      "fit": "e1d2",
+      "quality": "source",
+      "note": "",
+      "reportId": "2f6ac1b17e9bac0b05069fef1dcbd466862366f524474d436213199116098c03"
     }
   }
 }
