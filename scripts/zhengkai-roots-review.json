@@ -298,6 +298,343 @@
       "quality": "approx",
       "note": "用户 U 键审核明确指定：保留 E15D 当前辛，新增辨字左半部（第 1–7 笔）；末笔为撇，非完整辛字。",
       "reportId": "e08d30a68830f13092e3075350d07266664959edfe2fc6396020bf9bc4b38014"
+    },
+    "e073": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "陟",
+      "strokes": [
+        6,
+        7,
+        8
+      ],
+      "sourceHash": "241ce6c951910185dfdf5b9c0a4e516b4bbb993f0b09daa3cfa581747b77461a",
+      "fit": "e073",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e174": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "隶",
+      "strokes": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "sourceHash": "7b1170350783f53f50bb0df87bd7d08b89b10cae42b3baf52cc3b98155865b34",
+      "fit": "e174",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e175": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "少",
+      "strokes": [
+        0,
+        1,
+        2
+      ],
+      "sourceHash": "de5cd9d5b1bbd468411f82f7d57881b11b3a9b9c7bb812ff891ac66c06b31ef7",
+      "fit": "e175",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e177": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "尝",
+      "strokes": [
+        0,
+        1,
+        2
+      ],
+      "sourceHash": "7553211ea5f4fd56b6ee45c3bbdb68fb8484c67bd1a6546b53d51fcd1096f0b6",
+      "fit": "e177",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e17a": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "喾",
+      "strokes": [
+        0,
+        1,
+        2
+      ],
+      "sourceHash": "33f02945aa3c982c0128f9f29dd091f2787208f67e9752047a9c0509f0acee81",
+      "fit": "e17a",
+      "quality": "exact",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e17b": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "犀",
+      "strokes": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "sourceHash": "4b5fdfae3cd2e3d5dd691e2c5e76157fb101c4cf175bccbda8b934bb9f5fd1ff",
+      "fit": "e17b",
+      "quality": "source",
+      "note": "新增变体泰字6~10笔",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e17c": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "永",
+      "strokes": [
+        2,
+        3,
+        4
+      ],
+      "sourceHash": "009b7fd5b2fc186a0cdaa314fb4f88fe768c3c3ee4e98681ff8ff109c8c160cd",
+      "fit": "e17c",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e17d": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "函",
+      "strokes": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "6e812bbd6375038c99094198dada94f761079c4e804b8a8d1704f0093903e1a0",
+      "fit": "e17d",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e17e": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "鳏",
+      "strokes": [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "sourceHash": "1e43dd002089c7ce89f4c434672012d36156632aaa48dad8dfd527ab32c124cb",
+      "fit": "e17e",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e17f": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "萧",
+      "strokes": [
+        6,
+        9,
+        10
+      ],
+      "sourceHash": "b7e89937ec89714639b7ed672871495c01b259bca9a01e64fdf326f1eb0d5eea",
+      "fit": "e17f",
+      "quality": "source",
+      "note": "新增变体粑字4~6笔",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e180": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "光",
+      "strokes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceHash": "8f993892d1e521df7b62ad9ea3fc0e8aa567c2bb9bc5597ddc8c0ad16ab7d89f",
+      "fit": "e180",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e181": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "检",
+      "strokes": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "sourceHash": "00bbdfe6c31e05d497ce4b7442c1461224fbf7815e8441c62dc8c101f7aebc86",
+      "fit": "e181",
+      "quality": "source",
+      "note": "新增2个变体：兴字前四笔，剑字4~7笔",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e182": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "还",
+      "strokes": [
+        1,
+        2,
+        3
+      ],
+      "sourceHash": "77864aaf3e6d0d31f184a55083b9be223f0bb8c1a9fee89b5f59ff7314a94890",
+      "fit": "e182",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e183": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "求",
+      "strokes": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "caa0dbf549ba76d852010c1bb7949629b29b1756fbd05fc1a4d0077b902d5182",
+      "fit": "e183",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e184": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "朱",
+      "strokes": [
+        3,
+        4,
+        5
+      ],
+      "sourceHash": "87f5dd264abdf9b04ba84438bdf9220be0d9254ad94a00a56eea2ae9b8a45e65",
+      "fit": "e184",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e185": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "聚",
+      "strokes": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "sourceHash": "c184cb5cace8e77f4968258e658760111297a41fb17f0fef0bfa97fd0f12e73d",
+      "fit": "e185",
+      "quality": "source",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e172": {
+      "confirmed": true,
+      "key": "i",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1",
+      "decision": "keep"
+    },
+    "e173": {
+      "confirmed": true,
+      "key": "i",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1",
+      "decision": "keep"
+    },
+    "e176": {
+      "confirmed": true,
+      "key": "i",
+      "note": "",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1",
+      "decision": "keep"
+    },
+    "e91e": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "泰",
+      "strokes": [5, 6, 7, 8, 9],
+      "sourceHash": "8f13fa35e1b4b10ec4af1ff3c97387aebb39867f12e7b60a182fa7e68e142e45",
+      "fit": "e17b",
+      "quality": "manual",
+      "note": "用户 I 键审核明确指定：保留 E17B，并新增泰第 6–10 笔为变体；这是人工关联，原始拆分归入 E174。",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e91f": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "粑",
+      "strokes": [3, 4, 5],
+      "sourceHash": "dae193e8084e919445d2bfdbd4672f48538e228757993d53a4713d4a3473b014",
+      "fit": "e17f",
+      "quality": "manual",
+      "note": "用户 I 键审核明确指定：保留 E17F，并新增粑第 4–6 笔为变体；这是米旁的部分笔画，不是原始 E17F 自动拆分。",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e920": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "兴",
+      "strokes": [0, 1, 2, 3],
+      "sourceHash": "4138d58275de5a75c66be925ce5f789a1e90cad3bf897deaa454c5054f660713",
+      "fit": "e181",
+      "quality": "source",
+      "note": "用户 I 键审核：保留 E181 的检第 8–11 笔，并新增兴前 4 笔为变体。",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
+    },
+    "e921": {
+      "decision": "replace",
+      "confirmed": true,
+      "key": "i",
+      "source": "剑",
+      "strokes": [3, 4, 5, 6],
+      "sourceHash": "0dcb93616cbf433e2d0a81f8c980121be2ba8e27d51fd85917424ce0db95685b",
+      "fit": "e181",
+      "quality": "source",
+      "note": "用户 I 键审核：保留 E181 的检第 8–11 笔，另新增剑第 4–7 笔为变体。",
+      "reportId": "927215e3fb60a83ac5a1d362138af4193c1f27937bfac4e7c9513f7ff3f6e4e1"
     }
   }
 }
