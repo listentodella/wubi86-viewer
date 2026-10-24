@@ -24,7 +24,7 @@ KEYS = set("gfdsahjklmtrewqyuiopnbvcx")
 # MMH sources, character shards and generator code must still match byte-for-byte.
 EQUIVALENT_INPUTS = {
     "public/fonts/zhengkai-roots.woff2", "public/data/roots.json",
-    "scripts/kai-roots-map.json", "scripts/kai-roots-extras.json", "scripts/root-names.json",
+    "scripts/roots-map.json", "scripts/roots-extras.json", "scripts/root-names.json",
 }
 
 

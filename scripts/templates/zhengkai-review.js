@@ -200,7 +200,7 @@
     const blackCaption = row.blackReference && row.blackReference !== row.id ? `黑体参考 ${row.blackReference.toUpperCase()}` : '黑体原形';
     referenceGrid.append(figure(blackCaption, row.blackSvg), figure('当前正楷', row.current.svg));
     const referenceMeta = element('div', 'reference-meta');
-    referenceMeta.append(element('div', '', row.current.present ? `现用：${row.current.label}${row.current.strokeCount ? ` · ${row.current.strokeCount} 笔` : ''}` : '当前正楷缺字，不展示文楷回落'),
+    referenceMeta.append(element('div', '', row.current.present ? `现用：${row.current.label}${row.current.strokeCount ? ` · ${row.current.strokeCount} 笔` : ''}` : '当前正楷缺字'),
       element('div', '', `可取笔 ${row.stats.available} 组 · 比较 ${row.stats.compared} 组`));
     reference.append(referenceGrid, referenceMeta);
     const candidateGrid = element('div', 'candidate-grid');

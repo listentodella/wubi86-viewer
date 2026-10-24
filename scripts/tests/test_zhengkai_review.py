@@ -97,15 +97,6 @@ class ExtractionTests(unittest.TestCase):
         self.assertEqual(len(chosen), 2)
         self.assertEqual(chosen[0]["support"], 2)
 
-    def test_cached_wenkai_extra_is_reused_only_when_unchanged(self):
-        chart = load_script("make-roots-by-key")
-        ex = {"cp": "E900", "key": "g", "label": "王旁", "ch": "⺩", "ref": "e002"}
-        segments = [["moveTo", [[0, 0]]], ["lineTo", [[1, 0]]], ["lineTo", [[1, 1]]], ["closePath", []]]
-        cache = {"U+E900": {"seg": segments, "extra_spec": ex}}
-        self.assertEqual(chart.cached_extra_segments(ex, cache), segments)
-        self.assertEqual(chart.cached_extra_segments({**ex, "squeeze": .8}, cache), [])
-        self.assertEqual(chart.cached_extra_segments({**ex, "cp": "E901"}, cache), [])
-
     def test_shape_score_is_finite_without_runtime_warnings(self):
         import numpy as np
         check = make.load_checker()
@@ -296,13 +287,13 @@ class ReportCompatibilityTests(unittest.TestCase):
             regenerate.assert_not_called()
 
     def test_unrelated_extra_update_requires_same_complete_review_content(self):
-        extra = self.root / "scripts/kai-roots-extras.json"
+        extra = self.root / "scripts/roots-extras.json"
         extra.parent.mkdir(); extra.write_bytes(b"old extras")
-        self.report["inputs"]["scripts/kai-roots-extras.json"] = digest_bytes(extra.read_bytes())
+        self.report["inputs"]["scripts/roots-extras.json"] = digest_bytes(extra.read_bytes())
         self.seal(self.report)
         extra.write_bytes(b"new B extra")
         fresh = self.fresh()
-        fresh["inputs"]["scripts/kai-roots-extras.json"] = digest_bytes(extra.read_bytes())
+        fresh["inputs"]["scripts/roots-extras.json"] = digest_bytes(extra.read_bytes())
         self.seal(fresh)
         with patch.object(apply, "regenerate_report", return_value=fresh):
             self.assertTrue(apply.verify_report(self.report, self.root, allow_equivalent=True))

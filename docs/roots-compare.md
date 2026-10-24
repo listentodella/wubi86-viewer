@@ -13,9 +13,10 @@
 
 按区分成 5 张对照图（左：本站字形；右：书中键框图）：见 [`roots-side-by-side/`](roots-side-by-side/README.md)。
 
-## 楷体显示
+## 字形显示
 
-字根表页已支持「楷体 / 黑体」切换：命名根用 LXGW WenKai 子集渲染，无名字形仍为书中黑体路径。对比效果见 [`roots-font-compare.jpg`](roots-font-compare.jpg)（左楷体、右黑体）。
+字根表页只有「正楷 / 黑体」两种字形，**正楷是默认**。逐槽对照（左黑体、右正楷）见
+`npm run roots:compare` 生成的 [`reports/roots-by-key/index.html`](../reports/roots-by-key/index.html)。
 
 ## 逐键对照
 

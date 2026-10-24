@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""用 Make Me a Hanzi 的笔画数据造一支「正楷」字根字体（给 App 的第三种字形用）。
+"""用 Make Me a Hanzi 的笔画数据造「正楷」字根字体（App 的字根默认字形）。
 
-App 现在的「楷体」是拿文楷渲染命名字根；本脚本再造一支**正楷**（Make Me a Hanzi
-的笔画来自文鼎 PL 楷书），这样界面上可以三选一：黑体（书中字形）/ 文楷 / 正楷。
+字根在页面上只有两种写法：**正楷**（本脚本生成，Make Me a Hanzi 的笔画来自文鼎 PL 楷书）
+与**黑体**（书中原字形，走 roots.json 里的 SVG 路径）。
 
 做法
   1. 收齐 roots.json 与 root-names.json 里的命名字根（单字），共 165 个；
@@ -315,7 +315,7 @@ def build_slot_ttf(out: Path, derived: dict[int, tuple], have: list[str]) -> Non
     slots = hei.getBestCmap()
     roots = json.loads((REPO / "public" / "data" / "roots.json").read_text(encoding="utf-8"))
     names = json.loads((REPO / "scripts" / "root-names.json").read_text(encoding="utf-8"))
-    mapping = json.loads((REPO / "scripts" / "kai-roots-map.json").read_text(encoding="utf-8"))
+    mapping = json.loads((REPO / "scripts" / "roots-map.json").read_text(encoding="utf-8"))
     # resolve_current 用同一套「PUA 优先，再按汉字」的判定，和字根表报告保持一致
     subset_cmap = {ord(c): f"uni{ord(c):04X}" for c in have}
     subset_cmap.update({cp: f"uni{cp:04X}" for cp in derived})

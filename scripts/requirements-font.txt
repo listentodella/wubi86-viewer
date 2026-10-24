@@ -1,4 +1,4 @@
-# 重建 data-src/文楷字根.ttf 所需的 Python 依赖
+# 重建 data-src/正楷字根.ttf 与正楷审阅页所需的 Python 依赖
 # python3 -m venv .venv && .venv/bin/pip install -r scripts/requirements-font.txt
 fonttools>=4.40
 numpy>=1.21

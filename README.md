@@ -45,8 +45,10 @@
 - `public/fonts/zhengkai-roots.woff2`：网页用的正楷子集（159 字 + 205 个抽笔画部件）；
   `public/fonts/zhengkai-roots.json` 列出哪些 PUA 槽位有正楷字形。
 - 字根表页在「正楷 / 黑体」之间切换，**正楷是默认**；黑体是书中原字形，用于对照。
-- 文楷（LXGW WenKai）已于 2026-10 下线，不再随仓库分发；`data-src/文楷字根*.ttf` 与
-  `scripts/build-kai-roots-font.py` 等仅作历史保留，不再参与构建。
+- `data-src/正楷字根.ttf` 与 `public/fonts/zhengkai-roots.woff2` 之外没有别的字根字体。
+  文楷（LXGW WenKai）已于 2026-10 下线，字体、构建脚本与审核工具一并删除，只在 git 历史里保留。
+- 正楷 / 黑体逐槽对照表：`npm run roots:compare` → `reports/roots-by-key/index.html`（另出
+  `docs/roots-by-key.md`）。
 
 ### 正楷自动初审（Y 键试验）
 
@@ -65,10 +67,10 @@ npm run review:zheng:apply -- /path/zhengkai-review-y.json           # 只预览
 npm run review:zheng:apply -- /path/zhengkai-review-y.json --write   # 写入确认表
 npm run font:zhengkai
 npm run review:zheng:y                                            # 检查最终字形
-npm run roots:key                                                # 刷新原字根表（可选）
+npm run roots:compare                                            # 刷新正楷/黑体对照表（可选）
 ```
 
-正楷确认单独存在 `scripts/zhengkai-roots-review.json`，不改文楷映射或既有人工取法；
+正楷确认单独存在 `scripts/zhengkai-roots-review.json`，不改既有人工取法；
 报告过期或源数据变化时拒绝应用。完整说明见 [正楷自动初审](docs/zhengkai-review.md)。
 
 ## 数据
@@ -79,7 +81,7 @@ npm run roots:key                                                # 刷新原字�
 | `data-src/data-wubi-v86.tsv` 等 | [sdcb/search-wubi](https://github.com/sdcb/search-wubi) 字根拆解、识别码 |
 | `data-src/hanzi-writer-data/` | [Make Me a Hanzi](https://github.com/skishore/makemeahanzi) 笔画矢量（Arphic Public License） |
 | `data-src/黑体字根.ttf` | 字根字形；**来源不详、无授权信息**（见 [docs/font-provenance.md](docs/font-provenance.md)） |
-| `data-src/文楷字根.ttf` | 由 `黑体字根.ttf` + LXGW WenKai 生成的楷体版本（SIL OFL 1.1），`npm run font:kai` 可重建 |
+| `data-src/正楷字根.ttf` | 由 `黑体字根.ttf` 槽位 + Make Me a Hanzi 生成的楷体版本（Arphic PL），`npm run font:zhengkai` 可重建 |
 | `scripts/root-names.json` | 非成字字根的中文名称（如“青字头”） |
 
 候选顺序：词库每条记录带有权重，同一编码下按权重升序（与输入法候选顺序一致）。
@@ -96,9 +98,9 @@ search-wubi 只为约 2,500 字提供了“笔画 → 字根”的对应关系�
 npm install
 npm run extract   # 仅在 Windows 上、词库更新时需要
 npm run data      # 生成 public/data 分片 JSON
-# 重建 data-src/文楷字根.ttf（文楷 TTF 自行下载，见 scripts/requirements-font.txt）
+# 重建正楷字体（需要 fontTools 等，见 scripts/requirements-font.txt）
 python3 -m venv .venv && .venv/bin/pip install -r scripts/requirements-font.txt
-WENKAI_TTF=/path/LXGWWenKai-Regular.ttf npm run font:kai
+npm run font:zhengkai
 npm run dev
 ```
 

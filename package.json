@@ -10,15 +10,12 @@
     "preview": "wrangler pages dev dist",
     "extract": "node scripts/extract-ms-lex.mjs",
     "data": "node scripts/build-data.mjs && npm run data:rev",
-    "font:kai": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/build-kai-roots-font.py'",
-    "review:kai": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-kai-review.py --out-dir ${KAI_REVIEW_DIR:-reports/kai-roots}'",
-    "roots:key": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-by-key.py'",
-    "kai:table": "npm run font:kai && npm run roots:key && sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-raise-preview.py && \"$P\" scripts/make-raise-preview.py --set wang && \"$P\" scripts/make-f-parts.py'",
     "font:zhengkai": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/build-zhengkai-font.py'",
     "review:zheng": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-zhengkai-review.py \"$@\"' --",
     "review:zheng:y": "npm run review:zheng -- --key y",
     "review:zheng:apply": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/apply-zhengkai-review.py \"$@\"' --",
     "test:zheng": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" -m unittest discover -s scripts/tests -p \"test_zhengkai*.py\"'",
+    "roots:compare": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-compare.py'",
     "data:rev": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/build-root-reverse.py'"
   },
   "dependencies": {
