@@ -36,6 +36,16 @@ export interface RootInfo {
   /** descriptive alias for non-character roots, e.g. 青字头 */
   a?: string
   id: number
+  /** 已忽略：不在字根表显示 */
+  rm?: number
+  /** 已合并到这个字根（本格不显示，例字并过去） */
+  mg?: string
+  /** 变体：保留显示，反查借本体的例字 */
+  vof?: string
+  /** 键内显示顺序（人工排的） */
+  o?: number
+  /** 新增字根：原书没有这个槽位，字形只有正楷 */
+  x?: number
 }
 
 export interface Meta {

@@ -95,6 +95,24 @@ for (const u of usedUnits) {
   if (!r.n && aliases[hex(u)]) r.a = aliases[hex(u)]
   roots[hex(u)] = r
 }
+
+// 新增字根（原书没有的槽位，E900 起）也写进 roots.json：前端只需一份数据。
+// 它们没有黑体路径（p 为空），字形由正楷 webfont 的 PUA 提供。
+for (const ex of JSON.parse(readFileSync('scripts/roots-extras.json', 'utf8'))) {
+  const rid = String(ex.cp).toLowerCase()
+  roots[rid] = { k: ex.key, p: '', n: '', a: ex.label ?? '', id: 0, x: 1 }
+}
+
+// 人工调整（reports/roots-review 导出后整理）：忽略 / 合并 / 变体 / 键内顺序
+const adjust = JSON.parse(readFileSync('scripts/roots-adjust.json', 'utf8'))
+for (const rid of adjust.ignored ?? []) if (roots[rid]) roots[rid].rm = 1
+for (const [from, to] of Object.entries(adjust.merged ?? {})) if (roots[from]) roots[from].mg = to
+for (const [from, to] of Object.entries(adjust.variant ?? {})) if (roots[from]) roots[from].vof = to
+for (const list of Object.values(adjust.order ?? {})) {
+  list.forEach((rid, i) => {
+    if (roots[rid]) roots[rid].o = i
+  })
+}
 write('roots.json', roots)
 
 // ---- char details (by codepoint >> 4)

@@ -26,9 +26,18 @@ def load_roots() -> dict:
     return json.loads((DATA / "roots.json").read_text(encoding="utf-8"))
 
 
+def load_merges() -> dict[str, str]:
+    """被合并掉的字根：它们的例字要并进目标，否则合并后反查会漏字。"""
+    path = REPO / "scripts" / "roots-adjust.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8")).get("merged", {})
+
+
 def scan() -> dict[str, list[tuple[int, int, str]]]:
     """root id -> [(freq, codepoint, char)]"""
     hits: dict[str, list[tuple[int, int, str]]] = {}
+    merge = load_merges()
     files = sorted((DATA / "c").glob("*.json"))
     for path in files:
         try:
@@ -42,7 +51,7 @@ def scan() -> dict[str, list[tuple[int, int, str]]]:
             freq = int(rec.get("freq") or 0)
             cp = ord(ch)
             for rid in rs:
-                hits.setdefault(rid, []).append((freq, cp, ch))
+                hits.setdefault(merge.get(rid, rid), []).append((freq, cp, ch))
     return hits
 
 

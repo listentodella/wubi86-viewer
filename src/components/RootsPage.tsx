@@ -31,10 +31,12 @@ export function RootsPage({
   const pickedId = picked && picked.key === sel ? picked.id : null
   const byKey = new Map<string, [string, RootInfo][]>()
   for (const [id, r] of Object.entries(roots)) {
-    if (r.id || !r.p || !r.k) continue
+    // 识别码格、已忽略、已合并掉的都不显示；新增字根没有黑体路径但有正楷字形，要显示
+    if (r.id || !r.k || r.rm || r.mg) continue
     if (!byKey.has(r.k)) byKey.set(r.k, [])
     byKey.get(r.k)!.push([id, r])
   }
+  for (const list of byKey.values()) list.sort((a, b) => (a[1].o ?? 999) - (b[1].o ?? 999))
 
   return (
     <div className="space-y-6">

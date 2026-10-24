@@ -60,20 +60,14 @@ export function RootPicker({
   const rootsByKey = useMemo(() => {
     const byKey = new Map<string, [string, RootInfo][]>()
     for (const [id, r] of Object.entries(roots ?? {})) {
-      if (r.id || !r.k) continue
+      if (r.id || !r.k || r.rm || r.mg) continue
       if (!byKey.has(r.k)) byKey.set(r.k, [])
       byKey.get(r.k)!.push([id, r])
     }
-    for (const [k, of] of byKey) {
-      const keyName = KEYS[k]?.name
-      of.sort(
-        (a, b) =>
-          Number(a[1].n !== keyName) - Number(b[1].n !== keyName) ||
-          (rev?.[b[0]]?.n ?? 0) - (rev?.[a[0]]?.n ?? 0),
-      )
-    }
+    // 键内顺序以数据里的 o 为准（人工排过），没有的排到最后
+    for (const of of byKey.values()) of.sort((a, b) => (a[1].o ?? 999) - (b[1].o ?? 999))
     return byKey
-  }, [roots, rev])
+  }, [roots])
 
   const list = rootsByKey.get(key) ?? []
   /** 自动匹配：没手动选过字根时，落在该键第一个有例字的字根上（通常就是键名根）。 */
@@ -177,7 +171,7 @@ export function RootPicker({
           {rev && !revMissing && (
             <div className="mt-3 flex flex-wrap gap-1.5">
               {list.map(([id, r]) => {
-                const n = rev[id]?.n ?? 0
+                const n = rev[id]?.n ?? (r.vof ? rev[r.vof]?.n : 0) ?? 0
                 const on = sel === id
                 return (
                   <button

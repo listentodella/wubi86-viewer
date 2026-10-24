@@ -39,46 +39,26 @@ def load(path: Path, default=None):
 
 def collect() -> dict[str, list[dict]]:
     roots = load(DATA / 'roots.json', {})
-    mapping = load(REPO / 'scripts' / 'roots-map.json', {})
-    extras = load(REPO / 'scripts' / 'roots-extras.json', [])
     zheng = set(load(REPO / 'public' / 'fonts' / 'zhengkai-roots.json', {'pua': []})['pua'])
     rev = load(DATA / 'rev.json', {})
 
+    # 新增字根已并入 roots.json（x=1），键内顺序以 o 为准
     groups: dict[str, list[dict]] = {k: [] for k in KEY_ORDER}
     for rid, r in roots.items():
         if not r.get('k'):
             continue
-        entry = mapping.get(rid) if isinstance(mapping.get(rid), dict) else {}
         groups.setdefault(r['k'], []).append({
             'id': rid,
             'label': (r.get('n') or r.get('a') or '').strip(),
             'idcode': bool(r.get('id')),
-            'extra': False,
+            'extra': bool(r.get('x')),
             'zheng': rid in zheng,
-            'removed': bool(entry.get('removed')),
+            'removed': bool(r.get('rm')),
             'n': rev.get(rid, {}).get('n', 0),
-            'after': None,
+            'o': r.get('o', 999),
         })
-    for ex in extras:
-        cp = int(ex['cp'], 16)
-        rid = f'{cp:04x}'
-        groups.setdefault(ex.get('key', ''), []).append({
-            'id': rid,
-            'label': ex.get('label', ''),
-            'idcode': False,
-            'extra': True,
-            'zheng': rid in zheng,
-            'removed': False,
-            'n': rev.get(rid, {}).get('n', 0),
-            'after': (int(ex['after_pua'][2:], 16) if str(ex.get('after_pua', '')).startswith('U+') else None),
-        })
-
-    for key, items in groups.items():
-        items.sort(key=lambda x: int(x['id'], 16))
-        for it in [x for x in items if x['extra'] and x['after'] is not None]:
-            items.remove(it)
-            at = next((i for i, o in enumerate(items) if int(o['id'], 16) == it['after']), None)
-            items.insert(len(items) if at is None else at + 1, it)
+    for items in groups.values():
+        items.sort(key=lambda x: x['o'])
     return {k: v for k, v in groups.items() if v}
 
 

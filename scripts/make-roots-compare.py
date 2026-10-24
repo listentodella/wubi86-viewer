@@ -87,26 +87,20 @@ def font_paths(path: Path) -> dict[int, str]:
 def collect() -> list[dict]:
     roots = load(DATA / 'roots.json', {})
     names = load(NAMES, {})
-    extras = load(EXTRAS, [])
     hei = font_paths(HEI)
     zheng = font_paths(ZHENG)
 
+    # 新增字根（E900 起）现在也写在 roots.json 里（x=1），不再单独读 extras
     rows = []
     for rid, r in roots.items():
         cp = int(rid, 16)
         rows.append({
-            'cp': cp, 'id': rid, 'key': r.get('k') or '', 'label': (r.get('n') or r.get('a') or names.get(rid) or ''),
-            'idcode': bool(r.get('id')), 'extra': False,
+            'cp': cp, 'id': rid, 'key': r.get('k') or '',
+            'label': (r.get('n') or r.get('a') or names.get(rid) or ''),
+            'idcode': bool(r.get('id')), 'extra': bool(r.get('x')),
             'hei': r.get('p') or hei.get(cp, ''), 'zheng': zheng.get(cp, ''),
+            'hidden': bool(r.get('rm') or r.get('mg')),
             'after': None,
-        })
-    for ex in extras:
-        cp = int(ex['cp'], 16)
-        rows.append({
-            'cp': cp, 'id': f'{cp:04x}', 'key': ex.get('key', ''), 'label': ex.get('label', ''),
-            'idcode': False, 'extra': True,
-            'hei': hei.get(cp, ''), 'zheng': zheng.get(cp, ''),
-            'after': (int(ex['after_pua'][2:], 16) if ex.get('after_pua', '').startswith('U+') else None),
         })
     for r in rows:
         r['state'] = ('both' if r['hei'] and r['zheng'] else

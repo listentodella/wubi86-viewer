@@ -20,7 +20,8 @@ export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', 
   // 有些槽位只有别名（a），没有正式名（n）——它们同样是单个汉字，能直接用正楷渲染。
   const name = (info?.n || info?.a)?.trim()
   // 正楷是教学主字形：有抽笔画字形的槽位按 PUA 码位渲染（见 scripts/build-zhengkai-font.py 的 DERIVED）。
-  if (mode === 'zheng' && id && zheng.has(id.toLowerCase())) {
+  // 新增字根（没有黑体路径）只有正楷字形，黑体模式下也只能用它。
+  if (id && zheng.has(id.toLowerCase()) && (mode === 'zheng' || !info?.p)) {
     const pua = String.fromCodePoint(parseInt(id, 16))
     return (
       <span

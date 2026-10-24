@@ -35,7 +35,10 @@ export function ReverseList({
   if (!rootId) return null
   const info = roots?.[rootId]
   const label = info?.n || info?.a || ''
-  const data = rev?.[rootId]
+  // 变体没有自己的例字，借本体的（同一个字根的不同写法，包含它的字是同一批）
+  const borrowed = !rev?.[rootId] && info?.vof ? rev?.[info.vof] : undefined
+  const data = rev?.[rootId] ?? borrowed
+  const parentLabel = borrowed ? roots?.[info?.vof ?? '']?.n || roots?.[info?.vof ?? '']?.a || '' : ''
 
   if (!rev) return <p className={`text-sm text-ink-2 dark:text-white/50 ${className}`}>加载例字…</p>
   // rev.json 没生成时整张表是空的——别让它静默地显示成「0 个例字」。
@@ -66,6 +69,11 @@ export function ReverseList({
           <>
             这个字根出现在 <b>{data.n}</b> 个字里
           </>
+        )}
+        {borrowed && (
+          <span className="text-ink-2 dark:text-white/45">
+            （这是「{parentLabel || '本体'}」的变体，例字同本体）
+          </span>
         )}
         {data.k > 0 && (
           <span className="text-ink-2 dark:text-white/45">
