@@ -278,8 +278,15 @@ function KeyButton({
           {k}
         </span>
         <span
-          className="font-kai leading-none"
-          style={{ color: tint, fontSize: compact ? 15 : 18 }}
+          className="grid shrink-0 place-items-center rounded-full border font-kai leading-none"
+          style={{
+            color: tint,
+            borderColor: `color-mix(in srgb, ${tint} 50%, transparent)`,
+            width: compact ? 22 : 28,
+            height: compact ? 22 : 28,
+            fontSize: compact ? 12 : 14,
+            paddingBottom: 1,
+          }}
           title={`笔画字根：${stroke}`}
         >
           {stroke}
