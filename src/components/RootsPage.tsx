@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { RootInfo } from '../lib/data'
 import { KEYS, KEYBOARD_ROWS, ZONE_NAMES } from '../lib/keys'
 import { useMediaQuery } from '../lib/useMediaQuery'
@@ -26,6 +26,29 @@ export function RootsPage({
   const [sel, setSel] = useState<string | null>(null)
   /** 点了哪个字根（连带记住它属于哪个键，换键时自然失效）。 */
   const [picked, setPicked] = useState<{ key: string; id: string } | null>(null)
+  // 直接敲字母就能锁定该键（和查询页的反查面板一致），Esc 取消
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = document.activeElement?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.key === 'Escape') {
+        setSel(null)
+        return
+      }
+      const k = e.key.toLowerCase()
+      if (!/^[a-y]$/.test(k) || !KEYS[k]) return
+      e.preventDefault()
+      setSel(k)
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() =>
+          document.getElementById('key-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+        ),
+      )
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   const isDesktop = useMediaQuery('(min-width: 640px)')
   /** 只有还停在这个键上时，之前点的字根才算数。 */
   const pickedId = picked && picked.key === sel ? picked.id : null
@@ -45,7 +68,7 @@ export function RootsPage({
           <h2 className="font-kai text-2xl">86 版五笔字根键盘</h2>
         </div>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
-          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根，再点某个字根可反查包含它的汉字；右上角「字形」按钮可在正楷（默认）/ 黑体之间切换，黑体是书中原字形。
+          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根，再点某个字根可反查包含它的汉字；也可以直接敲字母 A–Y 锁定键位（Esc 取消）。右上角「字形」按钮可在正楷（默认）/ 黑体之间切换，黑体是书中原字形。
         </p>
 
         {isDesktop ? (
