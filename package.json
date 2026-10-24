@@ -16,6 +16,7 @@
     "review:zheng:apply": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/apply-zhengkai-review.py \"$@\"' --",
     "test:zheng": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" -m unittest discover -s scripts/tests -p \"test_zhengkai*.py\"'",
     "roots:compare": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-compare.py'",
+    "roots:review": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-review.py'",
     "data:rev": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/build-root-reverse.py'"
   },
   "dependencies": {
