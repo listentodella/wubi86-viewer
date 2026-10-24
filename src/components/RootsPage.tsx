@@ -6,8 +6,7 @@ import { ReverseList } from './ReverseList'
 import { RootGlyph } from './RootGlyph'
 
 const ZONE_TINT = ['', 'var(--root-0)', 'var(--root-1)', 'var(--root-2)', 'var(--root-3)', 'var(--root-4)']
-const KEY_GLYPHS = 6
-const MOBILE_GLYPHS = 3
+const ZONE_STROKE = ['', '一', '丨', '丿', '丶', '乙']
 const ZONE_ORDER = [
   ['g', 'f', 'd', 's', 'a'],
   ['h', 'j', 'k', 'l', 'm'],
@@ -68,7 +67,7 @@ export function RootsPage({
           <h2 className="font-kai text-2xl">86 版五笔字根键盘</h2>
         </div>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
-          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根，再点某个字根可反查包含它的汉字；也可以直接敲字母 A–Y 锁定键位（Esc 取消）。右上角「字形」按钮可在正楷（默认）/ 黑体之间切换，黑体是书中原字形。
+          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。每个键显示键名、起笔、一级简码、区位与字母；点击后展开该键的全部字根与书中键图，再点某个字根可反查包含它的汉字。也可以直接敲字母 A–Y 锁定键位（Esc 取消）。右上角「字形」按钮可在正楷（默认）/ 黑体之间切换。
         </p>
 
         {isDesktop ? (
@@ -79,10 +78,7 @@ export function RootsPage({
                   <KeyButton
                     key={k}
                     k={k}
-                    list={byKey.get(k) ?? []}
-                    roots={roots}
                     selected={sel === k}
-                    glyphs={KEY_GLYPHS}
                     onClick={() => setSel(sel === k ? null : k)}
                   />
                 ))}
@@ -111,10 +107,7 @@ export function RootsPage({
                     <KeyButton
                       key={k}
                       k={k}
-                      list={byKey.get(k) ?? []}
-                      roots={roots}
                       selected={sel === k}
-                      glyphs={MOBILE_GLYPHS}
                       onClick={() => setSel(sel === k ? null : k)}
                       compact
                     />
@@ -249,18 +242,12 @@ export function RootsPage({
 
 function KeyButton({
   k,
-  list,
-  roots,
   selected,
-  glyphs,
   onClick,
   compact,
 }: {
   k: string
-  list: [string, RootInfo][]
-  roots: Record<string, RootInfo>
   selected: boolean
-  glyphs: number
   onClick: () => void
   compact?: boolean
 }) {
@@ -286,17 +273,21 @@ function KeyButton({
         </span>
       </div>
       <span className={`font-kai leading-tight ${compact ? 'text-xl' : 'text-2xl'}`}>{info.name}</span>
-      <span
-        className={`mt-auto flex flex-wrap content-end items-end gap-x-0.5 pt-1 text-ink-2 dark:text-white/70 ${
-          compact ? 'gap-y-0' : ''
-        }`}
-      >
-        {list.slice(0, glyphs).map(([id]) => (
-          <RootGlyph key={id} id={id} roots={roots} size={compact ? 14 : 17} className="!align-baseline" />
-        ))}
-        {list.length > glyphs && (
-          <span className={`text-[10px] leading-[17px] text-ink-2/60 dark:text-white/35`}>+{list.length - glyphs}</span>
-        )}
+      <span className="mt-auto flex items-end justify-between gap-1 pt-1">
+        <span
+          className="font-kai text-ink-2/80 dark:text-white/45"
+          style={{ fontSize: compact ? 13 : 15 }}
+          title={`${ZONE_NAMES[info.zone]}起笔`}
+        >
+          {ZONE_STROKE[info.zone]}
+        </span>
+        <span
+          className="rounded-md bg-black/[0.06] px-1 font-kai text-ink-2 dark:bg-white/10 dark:text-white/60"
+          style={{ fontSize: compact ? 12 : 14 }}
+          title={`一级简码：${info.code1}`}
+        >
+          {info.code1}
+        </span>
       </span>
     </button>
   )
