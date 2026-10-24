@@ -17,7 +17,8 @@ interface Props {
 export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', className = '', title }: Props) {
   const info = id ? roots[id] : undefined
   const { mode, zheng } = useRootFont()
-  const name = info?.n?.trim()
+  // 有些槽位只有别名（a），没有正式名（n）——它们同样是单个汉字，能直接用正楷渲染。
+  const name = (info?.n || info?.a)?.trim()
   // 正楷是教学主字形：有抽笔画字形的槽位按 PUA 码位渲染（见 scripts/build-zhengkai-font.py 的 DERIVED）。
   if (mode === 'zheng' && id && zheng.has(id.toLowerCase())) {
     const pua = String.fromCodePoint(parseInt(id, 16))
