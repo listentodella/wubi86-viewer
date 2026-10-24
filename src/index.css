@@ -8,13 +8,6 @@
   font-weight: 400;
   font-style: normal;
 }
-@font-face {
-  font-family: 'LXGW WenKai Roots';
-  src: url('/fonts/lxgw-wenkai-roots.woff2') format('woff2');
-  font-display: swap;
-  font-weight: 400;
-  font-style: normal;
-}
 
 
 @theme {
@@ -22,8 +15,7 @@
   --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
   --font-kai: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', 'KaiTi', 'Noto Serif SC', serif;
   --font-mono: 'JetBrains Mono', 'Cascadia Code', 'SF Mono', Consolas, monospace;
-  --font-kai-roots: 'LXGW WenKai Roots', 'Kaiti SC', 'STKaiti', 'KaiTi', 'Noto Serif SC', serif;
-  --font-zhengkai-roots: 'ZhengKai Roots', 'LXGW WenKai Roots', 'Kaiti SC', 'STKaiti', 'KaiTi', 'Noto Serif SC', serif;
+  --font-zhengkai-roots: 'ZhengKai Roots', 'Kaiti SC', 'STKaiti', 'KaiTi', 'Noto Serif SC', serif;
 
   --color-paper: #f7f3ea;
   --color-paper-2: #efe8d9;

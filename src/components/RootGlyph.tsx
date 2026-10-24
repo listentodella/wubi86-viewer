@@ -18,7 +18,7 @@ export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', 
   const info = id ? roots[id] : undefined
   const { mode, zheng } = useRootFont()
   const name = info?.n?.trim()
-  // 有抽笔画正楷字形的槽位按 PUA 码位渲染（见 scripts/build-zhengkai-font.py 的 DERIVED）。
+  // 正楷是教学主字形：有抽笔画字形的槽位按 PUA 码位渲染（见 scripts/build-zhengkai-font.py 的 DERIVED）。
   if (mode === 'zheng' && id && zheng.has(id.toLowerCase())) {
     const pua = String.fromCodePoint(parseInt(id, 16))
     return (
@@ -33,42 +33,16 @@ export function RootGlyph({ id, roots, size = '1.25em', color = 'currentColor', 
       </span>
     )
   }
-  if (mode !== 'hei' && name && KAI_CHAR.test(name)) {
+  if (mode === 'zheng' && name && KAI_CHAR.test(name)) {
     return (
       <span
         className={`inline-block text-center leading-none ${className}`}
-        style={{
-          color,
-          fontSize: size,
-          fontFamily: mode === 'zheng' ? 'var(--font-zhengkai-roots)' : 'var(--font-kai-roots)',
-          verticalAlign: '-0.12em',
-        }}
+        style={{ color, fontSize: size, fontFamily: 'var(--font-zhengkai-roots)', verticalAlign: '-0.12em' }}
         title={title ?? name}
         role="img"
         aria-label={title ?? name}
       >
         {name}
-      </span>
-    )
-  }
-  // 文楷没有对应汉字的部件（抽笔画槽位）：用正楷的 MMH 楷书补，别退回黑体。
-  // 两个字体族并列，浏览器会逐字回落到正楷那一支。
-  if (mode === 'kai' && id && zheng.has(id.toLowerCase())) {
-    const pua = String.fromCodePoint(parseInt(id, 16))
-    return (
-      <span
-        className={`inline-block text-center leading-none ${className}`}
-        style={{
-          color,
-          fontSize: size,
-          fontFamily: 'var(--font-kai-roots), var(--font-zhengkai-roots)',
-          verticalAlign: '-0.12em',
-        }}
-        title={title ?? info?.a ?? pua}
-        role="img"
-        aria-label={title ?? info?.a ?? pua}
-      >
-        {pua}
       </span>
     )
   }

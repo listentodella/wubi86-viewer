@@ -36,13 +36,13 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
             type="button"
             className="btn text-xs"
             onClick={() => setMode(nextRootFont(mode))}
-            title="切换命名根的字形：文楷（霞鹜文楷）/ 正楷（文鼎 PL 楷书）/ 黑体（书中字根字体）"
+            title="切换字根字形：正楷（文鼎 PL 楷书，默认）/ 黑体（书中字根字体）"
           >
             字形：{ROOT_FONT_LABEL[mode]}
           </button>
         </div>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
-          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根；命名根可在文楷 / 正楷 / 黑体之间切换，无名字形仍为书中字根字形。
+          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根；字根可在正楷（默认）/ 黑体之间切换，黑体是书中原字形。
         </p>
 
         {isDesktop ? (

@@ -8,7 +8,10 @@
 - 开源输入法项目 `huanfeng/WindInput` 的 `NOTICE.md` 明确写道：`HeiTiZiGen.ttf`「来源不详，无授权信息」；`qwertyyb/Fire` 也直接打包了同一文件。
 - 结论：**不是有明确开源许可的字体**，来源与授权不明。仓库目前把它作为 `data-src` 数据源分发，存在许可风险；长期应替换。
 
-## 楷体字根字体 `data-src/文楷字根.ttf`
+## 楷体字根字体 `data-src/文楷字根.ttf`（2026-10 已下线）
+
+> 本站现在只用**正楷 / 黑体**两种字根字形，正楷是默认。文楷（LXGW WenKai）不再随仓库分发，
+> `public/fonts/lxgw-wenkai-roots.woff2` 已删除；下面几节保留当时的溯源与许可记录，仅供追溯。
 
 - 在 GitHub 上检索 `楷体字根`、`KaiTiZiGen`、`五笔字根 楷体` 等，没有找到开源的楷体字根 TTF；书中字根图
   （PDF 第 20 页）没有嵌入字体，全部是矢量轮廓，也无法直接抽出楷体字根字体。
@@ -62,10 +65,10 @@
 ## 本站现状
 
 - `roots.json` 的 `p` 是构建时从 `黑体字根.ttf` 提取的 SVG 路径；页面不加载 TTF，但路径是字体的衍生数据。
-- `public/fonts/lxgw-wenkai-roots.woff2` 是 LXGW WenKai 的子集（SIL OFL 1.1），用于命名根的楷体显示；许可文件同目录。
-- 字形切换现在三档都完整：文楷模式用 woff2 子集画命名字根，抽笔画槽位回落到正楷 woff2
-  （`font-family: var(--font-kai-roots), var(--font-zhengkai-roots)`），不再露出黑体轮廓。
-  整份字根表要换字体，可直接改用 `data-src/文楷字根.ttf`——码位与黑体版一致，数据无需改动。
+- 页面只有两种字根字形：**正楷（默认）** 与 **黑体（书中原字形）**。正楷走
+  `public/fonts/zhengkai-roots.woff2`（159 字 + 205 个抽笔画部件），黑体走 `roots.json` 里的 SVG 路径。
+- 文楷已下线：`public/fonts/lxgw-wenkai-roots.woff2` 与 `LXGW-WenKai-OFL.txt` 已删除，
+  `src/index.css` 里也不再声明 `LXGW WenKai Roots`。
 
 ## 字根表（可选的第二支字体）
 

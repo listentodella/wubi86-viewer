@@ -38,42 +38,15 @@
 
 ## 字体
 
-- `data-src/文楷字根.ttf`：**黑体字根.ttf 的楷体版本**——码位（677 个 PUA + 9F 段）、字形数、字宽与 `黑体字根.ttf` 完全一致，
-  字形取自 LXGW WenKai（霞鹜文楷，SIL OFL 1.1），15 个识别码字形由文楷笔画合成。可直接替换 `黑体字根.ttf` 使用。
-  生成脚本 `scripts/build-kai-roots-font.py`，映射表 `scripts/kai-roots-map.json`，逐字来源与置信度见
-  [docs/kai-roots-map.md](docs/kai-roots-map.md)；许可见 `data-src/文楷字根-OFL.txt`。
-- `public/fonts/lxgw-wenkai-roots.woff2`：LXGW WenKai（霞鹜文楷）子集，仅含 138 个命名字根，SIL OFL 1.1；许可见 `public/fonts/LXGW-WenKai-OFL.txt`。
-- 字根表页可在「楷体 / 黑体」之间切换；无名字形仍使用书中黑体字根路径。
-
-### 核对与修正文楷字根
-
-402 个 PUA 里有一部分是自动按轮廓匹配的，可能对不上。核对方式：
-
-```bash
-npm run review:kai                       # 生成 reports/kai-roots/文楷字根-核对.{html,tsv}
-```
-
-- 打开 `文楷字根-核对.html`：逐行显示 黑体 → 楷体、当前猜测、6 个备选（都是文楷字形），
-  **每行自带「对 / 错」按钮 + 答案 + 备注输入框**；核对完点右下角「复制结果」，把文本贴回对话即可
-  （判定存在浏览器 localStorage，刷新/重新生成都不会丢）。
-- **行号 = 按 PUA 码位升序，固定不变**（修完重建也不会改号，和 `docs/kai-roots-map.md` 一致）；
-  要按可疑度看，用「排序 → 形似度低→高」；已核对的行标「人工」，默认被「只看未判定」筛掉。
-  顶部三个筛选勾选框（站内 ●／低中置信／形似度 < 0.25）可以只看需要处理的行；
-  页面顶部的「部件字表 P1–P194」只是反馈时用的词汇表，不用逐条核对——开头 P1–P36 是 CJK 笔画（㇐横 ㇑竖 ㇒撇 ㇔点 ㇀提 ㇙竖提 …），
-  正是「提、撇横、竖折」这类笔画型字根的准确写法。笔画型行（「轮廓」列为 1）的形似度天然偏低，看形状别看数字。
-- TSV 版同样可用（`文楷字根-核对.tsv` 的「你的答案」列），写法：
-  `3`（用候选 3）、`龶`（直接指定汉字）、`无`（确认没有楷体对应字，留空）、
-  `黑体`（没有楷体对应字，保留黑体轮廓）、`P3`（用部件字表第 3 个）、
-  `组丶`（这个字根是若干独立笔画，按黑体里每个笔画的框用「丶」逐个合成——如鬯/鹵/滷 的四点）。
-- 写回并重建：
-
-```bash
-.venv/bin/python scripts/apply-kai-roots-review.py reports/kai-roots/文楷字根-核对.tsv
-WENKAI_TTF=/path/LXGWWenKai-Regular.ttf npm run font:kai
-```
-
-`scripts/kai-roots-map.json` 里每个码位可以写成 `"龶"`、`""`（确认留空）或
-`{"ch": "", "keep_hei": true, "note": "…"}`；手改同样会被保留。
+- `data-src/正楷字根.ttf`：**黑体字根.ttf 的正楷版本**——687 个槽位、字形数、advance 宽度与 `黑体字根.ttf` 完全一致，
+  字形取自 Make Me a Hanzi（文鼎 PL 楷书，Arphic Public License），没有正楷的槽位留空。
+  生成脚本 `scripts/build-zhengkai-font.py`（`npm run font:zhengkai`），人工确认表
+  `scripts/zhengkai-roots-review.json`，逐键审核流程见 [docs/zhengkai-review.md](docs/zhengkai-review.md)。
+- `public/fonts/zhengkai-roots.woff2`：网页用的正楷子集（159 字 + 205 个抽笔画部件）；
+  `public/fonts/zhengkai-roots.json` 列出哪些 PUA 槽位有正楷字形。
+- 字根表页在「正楷 / 黑体」之间切换，**正楷是默认**；黑体是书中原字形，用于对照。
+- 文楷（LXGW WenKai）已于 2026-10 下线，不再随仓库分发；`data-src/文楷字根*.ttf` 与
+  `scripts/build-kai-roots-font.py` 等仅作历史保留，不再参与构建。
 
 ### 正楷自动初审（Y 键试验）
 
