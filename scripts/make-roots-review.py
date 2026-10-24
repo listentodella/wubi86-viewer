@@ -101,7 +101,10 @@ section>header b{font:600 16px/1 ui-monospace,monospace;color:var(--red)}
 section>header span{color:var(--ink2);font-size:12px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(134px,1fr));gap:8px}
 .card{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 5px 5px;
-  margin:0;background:#fff;border:1px solid var(--line);border-radius:10px}
+  margin:0;background:#fff;border:1px solid var(--line);border-radius:10px;cursor:grab}
+.card.dragging{opacity:.45;outline:2px dashed var(--red);outline-offset:-2px}
+.card.dropbefore{box-shadow:-3px 0 0 0 var(--red)}
+.card.dropafter{box-shadow:3px 0 0 0 var(--red)}
 .card.ignored{opacity:.38;background:repeating-linear-gradient(45deg,#fff,#fff 6px,#f6f1e6 6px,#f6f1e6 12px)}
 .card.extra{background:#fffdf5;border-style:dashed}
 .pair{display:flex;gap:4px;align-items:center;justify-content:center;min-height:38px}
@@ -129,11 +132,13 @@ textarea{width:100%;height:220px;font:12px/1.5 ui-monospace,monospace;padding:10
 JS = r"""
 const DEFAULT = JSON.parse(document.getElementById('default-order').textContent);
 const INIT_IGNORED = JSON.parse(document.getElementById('init-ignored').textContent);
-const state = { ignored: new Set(INIT_IGNORED), merged: {}, order: JSON.parse(JSON.stringify(DEFAULT)) };
+const INIT_VARIANT = JSON.parse(document.getElementById('init-variant').textContent);
+const state = { ignored: new Set(INIT_IGNORED), merged: {}, variant: { ...INIT_VARIANT },
+  order: JSON.parse(JSON.stringify(DEFAULT)) };
 const SKEY = 'roots-review-v1';
 
 function save() {
-  localStorage.setItem(SKEY, JSON.stringify({ ignored: [...state.ignored], merged: state.merged, order: state.order }));
+  localStorage.setItem(SKEY, JSON.stringify({ ignored: [...state.ignored], merged: state.merged, variant: state.variant, order: state.order }));
   renderCount();
 }
 function loadState() {
@@ -142,6 +147,7 @@ function loadState() {
     if (!s) return;
     state.ignored = new Set(s.ignored || []);
     state.merged = s.merged || {};
+    state.variant = s.variant || {};
     if (s.order) for (const k of Object.keys(state.order)) if (s.order[k]) state.order[k] = s.order[k];
   } catch (e) {}
 }
@@ -154,7 +160,8 @@ function applyState() {
     const box = c.querySelector('input[type=checkbox]');
     if (box) box.checked = state.ignored.has(id);
     const sel = c.querySelector('select');
-    if (sel) sel.value = state.merged[id] || '';
+    if (sel) sel.value = state.merged[id] ? 'merge:' + state.merged[id]
+      : state.variant[id] ? 'variant:' + state.variant[id] : '';
   });
   for (const k of Object.keys(state.order)) {
     const grid = document.querySelector(`.grid[data-key="${k}"]`);
@@ -168,7 +175,7 @@ function applyState() {
 }
 function renderCount() {
   document.getElementById('count').textContent =
-    `已标记忽略 ${state.ignored.size} 个 · 合并 ${Object.keys(state.merged).length} 组`;
+    `已标记忽略 ${state.ignored.size} 个 · 合并 ${Object.keys(state.merged).length} 组 · 变体 ${Object.keys(state.variant).length} 组`;
 }
 function move(id, dir) {
   const c = cardOf(id);
@@ -188,6 +195,9 @@ function exportText() {
   lines.push('', '## 合并（前面的并到后面）');
   const mg = Object.entries(state.merged);
   lines.push(mg.length ? mg.map(([a, b]) => `${a.toUpperCase()} -> ${b.toUpperCase()}`).join('\n') : '（无）');
+  lines.push('', '## 变体（保留显示，反查用本体的）');
+  const vr = Object.entries(state.variant);
+  lines.push(vr.length ? vr.map(([a, b]) => `${a.toUpperCase()} ~ ${b.toUpperCase()}`).join('\n') : '（无）');
   lines.push('', '## 顺序（按显示顺序，只列有改动的键）');
   let changed = 0;
   for (const k of Object.keys(state.order)) {
@@ -197,9 +207,42 @@ function exportText() {
   }
   if (!changed) lines.push('（无）');
   lines.push('', '## JSON（可选）');
-  lines.push(JSON.stringify({ ignored: ign, merged: state.merged, order: state.order }, null, 1));
+  lines.push(JSON.stringify({ ignored: ign, merged: state.merged, variant: state.variant, order: state.order }, null, 1));
   return lines.join('\n');
 }
+let dragId = null;
+function syncOrder() {
+  document.querySelectorAll('.grid').forEach((g) => {
+    state.order[g.dataset.key] = [...g.querySelectorAll('.card')].map((c) => c.dataset.id);
+  });
+  save();
+}
+document.addEventListener('dragstart', (e) => {
+  const c = e.target.closest('.card');
+  if (!c) return;
+  dragId = c.dataset.id;
+  c.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  try { e.dataTransfer.setData('text/plain', dragId); } catch (err) {}
+});
+document.addEventListener('dragend', (e) => {
+  const c = e.target.closest('.card');
+  if (c) c.classList.remove('dragging');
+  document.querySelectorAll('.dropbefore,.dropafter').forEach((x) => x.classList.remove('dropbefore', 'dropafter'));
+  if (dragId) { syncOrder(); dragId = null; }
+});
+document.addEventListener('dragover', (e) => {
+  const c = e.target.closest('.card');
+  if (!c || !dragId || c.dataset.id === dragId) return;
+  e.preventDefault();
+  const r = c.getBoundingClientRect();
+  const after = e.clientX - r.left > r.width / 2;
+  const dragged = cardOf(dragId);
+  if (!dragged) return;
+  c.parentNode.insertBefore(dragged, after ? c.nextSibling : c);
+  document.querySelectorAll('.dropbefore,.dropafter').forEach((x) => x.classList.remove('dropbefore', 'dropafter'));
+  c.classList.add(after ? 'dropafter' : 'dropbefore');
+});
 document.addEventListener('click', (e) => {
   const b = e.target.closest('button[data-act]');
   if (!b) return;
@@ -215,8 +258,11 @@ document.addEventListener('change', (e) => {
     e.target.checked ? state.ignored.add(id) : state.ignored.delete(id);
     if (e.target.checked) delete state.merged[id];
   } else if (e.target.tagName === 'SELECT') {
-    if (e.target.value) state.merged[id] = e.target.value;
-    else delete state.merged[id];
+    const v = e.target.value;
+    delete state.merged[id];
+    delete state.variant[id];
+    if (v.startsWith('merge:')) state.merged[id] = v.slice(6);
+    else if (v.startsWith('variant:')) state.variant[id] = v.slice(8);
   }
   applyState(); save();
 });
@@ -238,7 +284,28 @@ document.getElementById('copy').onclick = async () => {
   catch (err) { ta.select(); document.execCommand('copy'); }
   setTimeout(() => (document.getElementById('copy').textContent = '复制'), 1200);
 };
-loadState(); applyState();
+const SLOTS = JSON.parse(document.getElementById('slots').textContent);
+function fillOptions() {
+  document.querySelectorAll('select.mg').forEach((sel) => {
+    const k = sel.dataset.key;
+    const self = sel.closest('.card').dataset.id;
+    const others = (SLOTS[k] || []).filter((o) => o.id !== self);
+    const mk = (label, prefix) => {
+      const g = document.createElement('optgroup');
+      g.label = label;
+      for (const o of others) {
+        const op = document.createElement('option');
+        op.value = `${prefix}:${o.id}`;
+        op.textContent = `${o.id.toUpperCase()} ${o.label}`;
+        g.appendChild(op);
+      }
+      return g;
+    };
+    sel.appendChild(mk('合并（隐藏这个字根）', 'merge'));
+    sel.appendChild(mk('变体（保留显示，反查借本体的）', 'variant'));
+  });
+}
+loadState(); fillOptions(); applyState();
 """
 
 
@@ -250,6 +317,9 @@ def main() -> None:
     groups = collect()
     default = {k: [c['id'] for c in v] for k, v in groups.items()}
     init_ignored = sorted(c['id'] for v in groups.values() for c in v if c['removed'])
+    slots = {k: [{'id': c['id'], 'label': c['label']} for c in v] for k, v in groups.items()}
+    extras_by_id = {f"{int(e['cp'], 16):04x}": e for e in load(REPO / 'scripts' / 'roots-extras.json', [])}
+    init_variant = {rid: e['variant_of'] for rid, e in extras_by_id.items() if e.get('variant_of')}
     zk = b64(REPO / 'public' / 'fonts' / 'zhengkai-roots.woff2', 'font/woff2')
     ht = b64(REPO / 'data-src' / '黑体字根.ttf', 'font/ttf')
 
@@ -264,10 +334,7 @@ def main() -> None:
             cp = int(c['id'], 16)
             tag = '识别码' if c['idcode'] else ('新增' if c['extra'] else '')
             zk_glyph = f'<span class="g zk">&#x{cp:04X};</span>' if c['zheng'] else '<span class="g miss">—</span>'
-            others = [o for o in items if o['id'] != c['id']]
-            opts = ''.join(
-                f'<option value="{o["id"]}">{o["id"].upper()} {o["label"]}</option>' for o in others)
-            cards.append(f'''<figure class="card{' extra' if c['extra'] else ''}" data-id="{c['id']}" data-key="{k}">
+            cards.append(f'''<figure class="card{' extra' if c['extra'] else ''}" data-id="{c['id']}" data-key="{k}" draggable="true">
 {f'<span class="tag">{tag}</span>' if tag else ''}
 <span class="n">{c['n'] or ''}</span>
 <div class="pair">{zk_glyph}<span class="g ht">&#x{cp:04X};</span></div>
@@ -277,7 +344,7 @@ def main() -> None:
   <label title="忽略：不在字根表显示"><input type="checkbox" data-ignore>忽略</label>
   <button data-act="up" title="上移">↑</button><button data-act="down" title="下移">↓</button>
 </div>
-<select class="mg" title="合并到同键的另一个字根"><option value="">合并…</option>{opts}</select>
+<select class="mg" data-key="{k}" title="和同键的另一个字根合并，或作为它的变体"><option value="">合并 / 变体…</option></select>
 </figure>''')
         sections.append(
             f'<section><header><b>{pos}</b> {k.upper()} · {name}'
@@ -295,7 +362,7 @@ def main() -> None:
 </style></head><body>
 <h1>字根表标注</h1>
 <p class="sub">每格左边是正楷、右边是书中黑体。可以：勾「忽略」把它从字根表去掉；用下拉把它「合并」到同键的另一个字根；
-用 ↑ ↓ 调整顺序。改完点「导出」，把文本框里的内容复制回给助手即可。标记存在浏览器本地，刷新不丢。</p>
+按住卡片拖动可以调整顺序（↑ ↓ 也能用）。改完点「导出」，把文本框里的内容复制回给助手即可。标记存在浏览器本地，刷新不丢。</p>
 <div class="bar">
   <button class="btn" id="export">导出</button>
   <button class="btn" id="copy">复制</button>
@@ -309,6 +376,8 @@ def main() -> None:
 </div>
 <script id="default-order" type="application/json">{json.dumps(default, ensure_ascii=False)}</script>
 <script id="init-ignored" type="application/json">{json.dumps(init_ignored, ensure_ascii=False)}</script>
+<script id="init-variant" type="application/json">{json.dumps(init_variant, ensure_ascii=False)}</script>
+<script id="slots" type="application/json">{json.dumps(slots, ensure_ascii=False)}</script>
 <script>{JS}</script>
 </body></html>'''
     OUT.parent.mkdir(parents=True, exist_ok=True)
