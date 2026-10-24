@@ -161,16 +161,6 @@ export default function App() {
     scrollToPicker()
   }
 
-  /** 字根表里点某个字根：回到查询页，打开反查面板并选中它。 */
-  const openReverse = (id: string) => {
-    const key = roots?.[id]?.k
-    setPick((prev) => ({ open: true, key: key || prev.key, root: id }))
-    setInput('')
-    setFromPick(false)
-    navigate('search', '')
-    scrollToPicker()
-  }
-
   const toggleTheme = () => {
     const next = !dark
     setDark(next)
@@ -340,7 +330,7 @@ export default function App() {
             </div>
           </>
         )}
-        {loc.page === 'roots' && roots && <RootsPage roots={roots} onSearch={search} onPickRoot={openReverse} />}
+        {loc.page === 'roots' && roots && <RootsPage roots={roots} onSearch={search} />}
         {loc.page === 'review' && roots && <ReviewPage roots={roots} onSearch={search} />}
         {loc.page === 'practice' && <PracticePage roots={roots ?? {}} onSearch={search} />}
       </main>

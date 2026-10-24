@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { RootInfo } from '../lib/data'
 import { KEYS, KEYBOARD_ROWS, ZONE_NAMES } from '../lib/keys'
 import { useMediaQuery } from '../lib/useMediaQuery'
+import { ReverseList } from './ReverseList'
 import { RootGlyph } from './RootGlyph'
 
 const ZONE_TINT = ['', 'var(--root-0)', 'var(--root-1)', 'var(--root-2)', 'var(--root-3)', 'var(--root-4)']
@@ -18,15 +19,16 @@ const ZONE_ORDER = [
 export function RootsPage({
   roots,
   onSearch,
-  onPickRoot,
 }: {
   roots: Record<string, RootInfo>
   onSearch: (q: string) => void
-  /** 点某个字根：去查询页反查包含它的汉字。 */
-  onPickRoot: (id: string) => void
 }) {
   const [sel, setSel] = useState<string | null>(null)
+  /** 点了哪个字根（连带记住它属于哪个键，换键时自然失效）。 */
+  const [picked, setPicked] = useState<{ key: string; id: string } | null>(null)
   const isDesktop = useMediaQuery('(min-width: 640px)')
+  /** 只有还停在这个键上时，之前点的字根才算数。 */
+  const pickedId = picked && picked.key === sel ? picked.id : null
   const byKey = new Map<string, [string, RootInfo][]>()
   for (const [id, r] of Object.entries(roots)) {
     if (r.id || !r.p || !r.k) continue
@@ -121,8 +123,12 @@ export function RootsPage({
               {(byKey.get(sel) ?? []).map(([id, r]) => (
                 <button
                   key={id}
-                  onClick={() => onPickRoot(id)}
-                  className="flex flex-col items-center rounded-xl bg-black/[0.035] px-2 pb-1 pt-2 transition hover:bg-black/[0.07] dark:bg-white/5 dark:hover:bg-white/10"
+                  onClick={() => setPicked(pickedId === id ? null : { key: sel, id })}
+                  className={`flex flex-col items-center rounded-xl px-2 pb-1 pt-2 transition ${
+                    pickedId === id
+                      ? 'bg-cinnabar/10 ring-1 ring-cinnabar/40'
+                      : 'bg-black/[0.035] hover:bg-black/[0.07] dark:bg-white/5 dark:hover:bg-white/10'
+                  }`}
                   title={`反查：包含「${r.n || r.a || id.toUpperCase()}」的汉字`}
                 >
                   <RootGlyph id={id} roots={roots} size={40} />
@@ -142,6 +148,21 @@ export function RootsPage({
               </figcaption>
             </figure>
           </div>
+
+          {pickedId && (
+            <div className="mt-4 border-t border-black/5 pt-3 dark:border-white/10">
+              <div className="mb-1 flex items-center justify-between">
+                <span className="text-sm font-semibold">包含这个字根的汉字</span>
+                <button
+                  className="text-xs text-ink-2 transition hover:text-cinnabar dark:text-white/45"
+                  onClick={() => setPicked(null)}
+                >
+                  收起
+                </button>
+              </div>
+              <ReverseList rootId={pickedId} roots={roots} onPickChar={onSearch} />
+            </div>
+          )}
         </section>
       )}
 

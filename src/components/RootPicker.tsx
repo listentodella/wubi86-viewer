@@ -3,6 +3,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import type { RootInfo } from '../lib/data'
 import { getRootReverse, type RootReverse } from '../lib/data'
 import { KEYS } from '../lib/keys'
+import { ReverseList } from './ReverseList'
 import { RootGlyph } from './RootGlyph'
 
 const ROWS = [
@@ -81,8 +82,6 @@ export function RootPicker({
     return (of.find(([id]) => (rev?.[id]?.n ?? 0) > 0) ?? of[0])?.[0] ?? null
   }
   const sel = state.root ?? firstRootFor(key)
-  const picked = sel ? roots?.[sel] : undefined
-  const pickedRev = sel ? rev?.[sel] : undefined
   /** 有些槽位没有命名（n/a 都空），这时只显示字形，不显示 U+XXXX。 */
   const label = (r: RootInfo) => r.n || r.a || ''
   /** rev.json 没生成时整张表是空的——别让它静默地显示成「0 个例字」。 */
@@ -119,6 +118,8 @@ export function RootPicker({
 
       {open && (
         <div className="card mt-3 p-3 sm:p-5">
+          <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_200px]">
+          <div>
           <div className="grid gap-1.5">
             {ROWS.map((row) => (
               <div key={row.join('')} className="flex gap-1.5">
@@ -150,6 +151,19 @@ export function RootPicker({
           <p className="mt-3 text-xs text-ink-2 dark:text-white/45">
             {key.toUpperCase()} 键 · {KEYS[key].name}｜口诀：{KEYS[key].mnemonic}
           </p>
+          </div>
+          <figure className="hidden sm:block">
+            <img
+              src={`/chart-keys/${key}.png`}
+              alt={`${key.toUpperCase()} 键在书中的字根图`}
+              loading="lazy"
+              className="w-full rounded-lg border border-black/5 bg-white/80 p-1 dark:border-white/10 dark:bg-white/5"
+            />
+            <figcaption className="mt-1 text-[11px] text-ink-2/70 dark:text-white/40">
+              书中原图（左为本站字形）
+            </figcaption>
+          </figure>
+          </div>
 
           {!rev && <p className="mt-2 text-sm text-ink-2 dark:text-white/50">加载例字…</p>}
 
@@ -187,47 +201,12 @@ export function RootPicker({
             </div>
           )}
 
-          {picked && pickedRev && (
-            <div className="mt-4 border-t border-black/5 pt-3 dark:border-white/10">
-              <p className="text-sm">
-                {label(picked) ? (
-                  <>
-                    字根「<b>{label(picked)}</b>」出现在 <b>{pickedRev.n}</b> 个字里
-                  </>
-                ) : (
-                  <>
-                    这个字根出现在 <b>{pickedRev.n}</b> 个字里
-                  </>
-                )}
-                {pickedRev.k > 0 && (
-                  <span className="text-ink-2 dark:text-white/45">
-                    ，下面列出的 {pickedRev.c.length} 个例字里有 {pickedRev.k} 个带 MMH 笔画数据
-                    （{pickedRev.k >= pickedRev.c.length ? '全部' : `前 ${pickedRev.k} 个`}
-                    带绿角标，可以照它抽笔画重绘）
-                  </span>
-                )}
-              </p>
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {pickedRev.c.map((ch, i) => (
-                  <button
-                    key={ch}
-                    onClick={() => onPickChar(ch)}
-                    className={`relative rounded-md border px-2 py-1 font-kai text-lg leading-none transition hover:border-cinnabar hover:text-cinnabar ${
-                      i < pickedRev.k
-                        ? 'border-emerald-600/30 bg-emerald-500/5 dark:border-emerald-400/25'
-                        : 'border-black/10 dark:border-white/10'
-                    }`}
-                    title={i < pickedRev.k ? `${ch}：有 MMH 笔画数据，可抽笔画重绘` : ch}
-                  >
-                    {ch}
-                    {i < pickedRev.k && (
-                      <span className="absolute -right-0.5 -top-0.5 h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+          <ReverseList
+            rootId={sel}
+            roots={roots}
+            onPickChar={onPickChar}
+            className="mt-4 border-t border-black/5 pt-3 dark:border-white/10"
+          />
         </div>
       )}
     </section>
