@@ -140,16 +140,35 @@ export default function App() {
     setFromPick(true)
   }
 
+  /** 面板要等这一屏渲染完才在 DOM 里，轮询几帧再滚过去。 */
+  const scrollToPicker = () => {
+    let tries = 0
+    const tick = () => {
+      const el = document.getElementById('root-picker')
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
+      if (++tries < 20) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }
+
   const backToPick = () => {
     setFromPick(false)
     setInput('')
     navigate('search', '')
-    // 面板要等这一屏渲染出来才在 DOM 里，等两帧再滚过去。
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() =>
-        document.getElementById('root-picker')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
-      ),
-    )
+    scrollToPicker()
+  }
+
+  /** 字根表里点某个字根：回到查询页，打开反查面板并选中它。 */
+  const openReverse = (id: string) => {
+    const key = roots?.[id]?.k
+    setPick((prev) => ({ open: true, key: key || prev.key, root: id }))
+    setInput('')
+    setFromPick(false)
+    navigate('search', '')
+    scrollToPicker()
   }
 
   const toggleTheme = () => {
@@ -321,7 +340,7 @@ export default function App() {
             </div>
           </>
         )}
-        {loc.page === 'roots' && roots && <RootsPage roots={roots} onSearch={search} />}
+        {loc.page === 'roots' && roots && <RootsPage roots={roots} onSearch={search} onPickRoot={openReverse} />}
         {loc.page === 'review' && roots && <ReviewPage roots={roots} onSearch={search} />}
         {loc.page === 'practice' && <PracticePage roots={roots ?? {}} onSearch={search} />}
       </main>

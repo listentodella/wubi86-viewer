@@ -15,7 +15,16 @@ const ZONE_ORDER = [
   ['n', 'b', 'v', 'c', 'x'],
 ]
 
-export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>; onSearch: (q: string) => void }) {
+export function RootsPage({
+  roots,
+  onSearch,
+  onPickRoot,
+}: {
+  roots: Record<string, RootInfo>
+  onSearch: (q: string) => void
+  /** 点某个字根：去查询页反查包含它的汉字。 */
+  onPickRoot: (id: string) => void
+}) {
   const [sel, setSel] = useState<string | null>(null)
   const isDesktop = useMediaQuery('(min-width: 640px)')
   const byKey = new Map<string, [string, RootInfo][]>()
@@ -32,7 +41,7 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
           <h2 className="font-kai text-2xl">86 版五笔字根键盘</h2>
         </div>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
-          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根；右上角「字形」按钮可在正楷（默认）/ 黑体之间切换，黑体是书中原字形。
+          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。点击键位查看助记词与全部字根，再点某个字根可反查包含它的汉字；右上角「字形」按钮可在正楷（默认）/ 黑体之间切换，黑体是书中原字形。
         </p>
 
         {isDesktop ? (
@@ -112,9 +121,9 @@ export function RootsPage({ roots, onSearch }: { roots: Record<string, RootInfo>
               {(byKey.get(sel) ?? []).map(([id, r]) => (
                 <button
                   key={id}
-                  onClick={() => r.n && onSearch(r.n)}
+                  onClick={() => onPickRoot(id)}
                   className="flex flex-col items-center rounded-xl bg-black/[0.035] px-2 pb-1 pt-2 transition hover:bg-black/[0.07] dark:bg-white/5 dark:hover:bg-white/10"
-                  title={r.n ? `查看「${r.n}」` : undefined}
+                  title={`反查：包含「${r.n || r.a || id.toUpperCase()}」的汉字`}
                 >
                   <RootGlyph id={id} roots={roots} size={40} />
                   <span className="h-4 text-[11px] text-ink-2 dark:text-white/40">{r.n || r.a}</span>
