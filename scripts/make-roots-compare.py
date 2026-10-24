@@ -138,7 +138,7 @@ h1{font-size:22px;margin:0 0 6px}
 .sub{color:var(--ink2);font-size:13px;margin:0 0 18px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 18px;font-size:12px;color:var(--ink2)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
-table.sum{border-collapse:collapse;margin:0 0 26px;font-size:13px;background:var(--soft);
+table.sum{width:100%;border-collapse:collapse;margin:0 0 26px;font-size:13px;background:var(--soft);
   border:1px solid var(--line);border-radius:10px;overflow:hidden}
 table.sum th,table.sum td{padding:5px 10px;border-bottom:1px solid var(--line);text-align:right}
 table.sum th:first-child,table.sum td:first-child{text-align:left}
@@ -154,12 +154,19 @@ section>header span{color:var(--ink2);font-size:12px}
   background:#fff;border:1px solid var(--line);border-radius:10px}
 .cell.extra{background:#fffdf5;border-style:dashed}
 .cell.none{opacity:.55}
-.pair{display:flex;gap:4px;align-items:flex-end}
+.pair{display:flex;gap:6px;align-items:center;justify-content:center;min-height:40px}
 .pair svg{width:40px;height:40px;display:block}
 .pair .miss{width:40px;height:40px;border:1px dashed var(--line);border-radius:6px}
 .cap{font-size:12px;margin-top:4px;max-width:88px;text-align:center;word-break:break-all}
 .code{font:11px/1 ui-monospace,monospace;color:var(--ink2);margin-top:2px}
 .tag{position:absolute;top:4px;right:5px;font-size:10px;color:var(--ink2)}
+body[data-mode="zheng"] .pair .hei{display:none}
+body[data-mode="hei"] .pair .zheng{display:none}
+.tabs{display:inline-flex;gap:2px;padding:2px;margin:0 0 14px;background:var(--soft);
+  border:1px solid var(--line);border-radius:999px}
+.tabs button{border:0;background:transparent;color:var(--ink2);font:inherit;font-size:13px;
+  padding:4px 14px;border-radius:999px;cursor:pointer}
+.tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 """
 
 
@@ -219,18 +226,24 @@ def render_html(rows: list[dict], groups: dict[str, list[dict]]) -> str:
     return f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>正楷 / 黑体 字根对照</title><style>{CSS}</style></head><body>
+<title>正楷 / 黑体 字根对照</title><style>{CSS}</style></head><body data-mode="zheng">
 <h1>正楷 / 黑体 字根对照</h1>
-<p class="sub">每个格子左为书中黑体字形，右为正楷（Make Me a Hanzi / 文鼎 PL 楷书）字形。
+<div class="tabs"><button data-mode="zheng" class="on">正楷</button><button data-mode="hei">黑体</button><button data-mode="both">并排</button></div>
+<p class="sub">每个格子显示一个字根的字形：黑体是书中原形，正楷来自 Make Me a Hanzi（文鼎 PL 楷书）。
 共 {total} 个槽位：两者都有 {both}，只有黑体 {only_hei}，只有正楷 {only_zheng}，都空 {none}。</p>
 <div class="legend">
-  <span><i style="background:#2b2620"></i>左：黑体（书中原形）</span>
-  <span><i style="background:#b9ae9b"></i>右：正楷（MMH）</span>
   <span>虚线框 = 该字体没有这个字形</span>
   <span>浅底 = 新增槽位（原书没有）</span>
+  <span>「并排」可左右对照，默认只看正楷</span>
 </div>
 {''.join(summary)}
 {''.join(sections)}
+<script>document.querySelectorAll(".tabs button").forEach(function (b) {{
+  b.onclick = function () {{
+    document.body.dataset.mode = b.dataset.mode
+    document.querySelectorAll(".tabs button").forEach(function (x) {{ x.classList.toggle("on", x === b) }})
+  }}
+}})</script>
 </body></html>"""
 
 

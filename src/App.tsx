@@ -11,6 +11,7 @@ import { ReviewPage } from './components/ReviewPage'
 import { PracticePage } from './components/PracticePage'
 import { PICK_DEFAULT, RootPicker, type PickState } from './components/RootPicker'
 
+import { ROOT_FONT_LABEL, nextRootFont, useRootFont } from './lib/root-font'
 import { BottomNav } from './components/BottomNav'
 import { isCoarsePointer } from './lib/mobile'
 type Page = 'search' | 'roots' | 'review' | 'practice'
@@ -58,6 +59,7 @@ export default function App() {
   const [pick, setPick] = useState<PickState>(PICK_DEFAULT)
   /** 当前这屏是从反查里点进来的，给一个「返回字根反查」。 */
   const [fromPick, setFromPick] = useState(false)
+  const { mode: rootFont, setMode: setRootFont } = useRootFont()
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
   const composing = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -204,6 +206,13 @@ export default function App() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-1 sm:ml-0">
+          <button
+            className="btn !px-2.5"
+            onClick={() => setRootFont(nextRootFont(rootFont))}
+            title={`切换字根字形（现在是${ROOT_FONT_LABEL[rootFont]}，点一下换另一种）`}
+          >
+            字形<span className="hidden sm:inline">：{ROOT_FONT_LABEL[rootFont]}</span>
+          </button>
           <button className="btn !px-2.5" onClick={() => setHistoryOpen(true)} title="查询记录">
             🕘<span className="hidden sm:inline">记录</span>
           </button>
