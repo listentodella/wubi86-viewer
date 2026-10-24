@@ -7,6 +7,14 @@ import { RootGlyph } from './RootGlyph'
 
 const ZONE_TINT = ['', 'var(--root-0)', 'var(--root-1)', 'var(--root-2)', 'var(--root-3)', 'var(--root-4)']
 const ZONE_STROKE = ['', '一', '丨', '丿', '丶', '乙']
+/** 每键自己的笔画字根（一丨丿丶乙 及其叠写/变体）；没有的退回区属笔画 */
+const KEY_STROKE: Record<string, string> = {
+  g: '一', f: '二', d: '三',
+  h: '丨', j: '刂', k: '川',
+  t: '丿', e: '彡',
+  y: '丶', u: '冫', i: '氵', o: '灬',
+  n: '乙', v: '巛',
+}
 const ZONE_ORDER = [
   ['g', 'f', 'd', 's', 'a'],
   ['h', 'j', 'k', 'l', 'm'],
@@ -67,7 +75,7 @@ export function RootsPage({
           <h2 className="font-kai text-2xl">86 版五笔字根键盘</h2>
         </div>
         <p className="mt-1 text-sm text-ink-2 dark:text-white/55">
-          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。每个键显示键名、起笔、一级简码、区位与字母；点击后展开该键的全部字根与书中键图，再点某个字根可反查包含它的汉字。也可以直接敲字母 A–Y 锁定键位（Esc 取消）。右上角「字形」按钮可在正楷（默认）/ 黑体之间切换。
+          按起笔分为五区：横区 G F D S A、竖区 H J K L M、撇区 T R E W Q、点区 Y U I O P、折区 N B V C X。每个键显示键名、笔画字根（右上）、一级简码（左下）与区位号（右下），颜色按所属区域；点击后展开该键的全部字根与书中键图，再点某个字根可反查包含它的汉字。也可以直接敲字母 A–Y 锁定键位（Esc 取消）。右上角「字形」按钮可在正楷（默认）/ 黑体之间切换。
         </p>
 
         {isDesktop ? (
@@ -252,6 +260,8 @@ function KeyButton({
   compact?: boolean
 }) {
   const info = KEYS[k]
+  const tint = ZONE_TINT[info.zone]
+  const stroke = KEY_STROKE[k] ?? ZONE_STROKE[info.zone]
   return (
     <button
       onClick={onClick}
@@ -260,35 +270,39 @@ function KeyButton({
       } ${selected ? 'shadow-lg ring-2 ring-offset-2 ring-offset-paper dark:ring-offset-[#151311]' : ''}`}
       style={{ borderColor: `color-mix(in srgb, ${ZONE_TINT[info.zone]} 45%, transparent)` }}
     >
-      <div className="flex items-baseline justify-between">
+      <div className="flex items-start justify-between">
         <span
-          className={`font-mono font-bold uppercase ${compact ? 'text-base' : 'text-lg'}`}
-          style={{ color: ZONE_TINT[info.zone] }}
+          className={`font-mono font-bold uppercase leading-none ${compact ? 'text-base' : 'text-lg'}`}
+          style={{ color: tint }}
         >
           {k}
         </span>
-        <span className="text-[10px] text-ink-2/70 dark:text-white/40">
-          {info.zone}
-          {info.pos}
+        <span
+          className="font-kai leading-none"
+          style={{ color: tint, fontSize: compact ? 15 : 18 }}
+          title={`笔画字根：${stroke}`}
+        >
+          {stroke}
         </span>
       </div>
       <span className={`font-kai leading-tight ${compact ? 'text-xl' : 'text-2xl'}`}>{info.name}</span>
-      <span className="mt-auto flex items-end justify-between gap-1 pt-1">
+      <div className="mt-auto flex items-end justify-between gap-1 pt-1">
         <span
-          className="font-kai text-ink-2/80 dark:text-white/45"
-          style={{ fontSize: compact ? 13 : 15 }}
-          title={`${ZONE_NAMES[info.zone]}起笔`}
-        >
-          {ZONE_STROKE[info.zone]}
-        </span>
-        <span
-          className="rounded-md bg-black/[0.06] px-1 font-kai text-ink-2 dark:bg-white/10 dark:text-white/60"
-          style={{ fontSize: compact ? 12 : 14 }}
+          className="rounded-md px-1 font-kai leading-tight"
+          style={{
+            color: tint,
+            fontSize: compact ? 12 : 14,
+            background: `color-mix(in srgb, ${tint} 14%, transparent)`,
+          }}
           title={`一级简码：${info.code1}`}
         >
           {info.code1}
         </span>
-      </span>
+        <span className="text-[11px] leading-none" style={{ color: tint }} title="区位号">
+          {info.zone}
+          {info.pos}
+        </span>
+      </div>
     </button>
   )
 }
