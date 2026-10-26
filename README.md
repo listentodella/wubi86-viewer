@@ -2,11 +2,11 @@
 
 86 版五笔学习站：输入汉字、词语或五笔编码，田字格按字根分色高亮，并自动讲解取码规则（键名字、成字字根、末笔字型识别码、简码、词组规则）。
 
-线上地址：<https://wubi.sdcb.ai>
+线上地址：<https://wubi86-viewer.pages.dev>
 
-[![查询「胜」：田字格字根分色高亮与取码讲解](docs/screenshot-char.png)](https://wubi.sdcb.ai/?q=胜)
+[![查询「胜」：田字格字根分色高亮与取码讲解](docs/screenshot-char.png)](https://wubi86-viewer.pages.dev/?q=胜)
 
-[![查询「今天吃什么」：推荐打法与优化打法](docs/screenshot-sentence.png)](https://wubi.sdcb.ai/?q=今天吃什么)
+[![查询「今天吃什么」：推荐打法与优化打法](docs/screenshot-sentence.png)](https://wubi86-viewer.pages.dev/?q=今天吃什么)
 
 ## 功能
 

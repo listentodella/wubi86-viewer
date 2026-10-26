@@ -409,7 +409,7 @@ export default function App() {
   )
 }
 
-const REPO_URL = 'https://github.com/sdcb/wubi86-viewer'
+const REPO_URL = 'https://github.com/listentodella/wubi86-viewer'
 const FOOT_LINK = 'transition hover:text-ink dark:hover:text-white/80'
 
 function GitHubIcon({ className = '' }: { className?: string }) {

@@ -12,6 +12,7 @@ import {
   type DrillStats,
   type Question,
 } from '../lib/practice'
+import { RootChartPanel } from './RootChartPanel'
 import { RootGlyph, slotColor } from './RootGlyph'
 import { Stat } from './Stat'
 import { isCoarsePointer, keepAboveKeyboard } from '../lib/mobile'
@@ -56,6 +57,23 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   const [wrong, setWrong] = useState<WrongItem[]>([])
   const [error, setError] = useState<string | null>(null)
   const [now, setNow] = useState(() => Date.now())
+  /** 练习时是否展开晓览的字根图；记在本地，下次进来保持 */
+  const [chart, setChart] = useState(() => {
+    try {
+      return localStorage.getItem('practice-chart') === '1'
+    } catch {
+      return false
+    }
+  })
+  const toggleChart = () => {
+    const next = !chart
+    setChart(next)
+    try {
+      localStorage.setItem('practice-chart', next ? '1' : '0')
+    } catch {
+      /* 隐私模式下写不进去，忽略 */
+    }
+  }
   const used = useRef(new Set<string>())
   const runId = useRef(0)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -292,6 +310,14 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
               <button className="btn" onClick={giveUp}>
                 看答案
               </button>
+              <button
+                className="btn"
+                aria-pressed={chart}
+                onClick={toggleChart}
+                title="显示晓览《五笔字型入门指南》的字根键位图"
+              >
+                字根图 {chart ? '开' : '关'}
+              </button>
             </div>
 
             {attempt && (
@@ -346,6 +372,8 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
           </div>
         </section>
       )}
+
+      {chart && <RootChartPanel />}
 
       {phase === 'done' && (
         <section className="card pop-in p-6 sm:p-8">
