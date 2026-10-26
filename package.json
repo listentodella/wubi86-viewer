@@ -19,6 +19,7 @@
     "test:guide": "node --experimental-strip-types --test scripts/tests/test-beginner-guide.mjs",
     "roots:compare": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-compare.py'",
     "roots:review": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-review.py'",
+    "chart:root": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-root-chart.py --pdf \"${PDF:-$HOME/Downloads/五笔字型入门指南.pdf}\"'",
     "data:rev": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/build-root-reverse.py'"
   },
   "dependencies": {
