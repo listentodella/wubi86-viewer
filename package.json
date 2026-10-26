@@ -15,6 +15,8 @@
     "review:zheng:y": "npm run review:zheng -- --key y",
     "review:zheng:apply": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/apply-zhengkai-review.py \"$@\"' --",
     "test:zheng": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" -m unittest discover -s scripts/tests -p \"test_zhengkai*.py\"'",
+    "test:practice": "node --test scripts/tests/test-tutorial-tiers.mjs",
+    "test:guide": "node --experimental-strip-types --test scripts/tests/test-beginner-guide.mjs",
     "roots:compare": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-compare.py'",
     "roots:review": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/make-roots-review.py'",
     "data:rev": "sh -c 'P=.venv/bin/python; [ -x \"$P\" ] || P=python3; \"$P\" scripts/build-root-reverse.py'"

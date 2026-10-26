@@ -1,8 +1,9 @@
-export type Page = 'search' | 'roots' | 'review' | 'practice'
+export type Page = 'search' | 'roots' | 'guide' | 'review' | 'practice'
 
 const TABS: [Page, string, string][] = [
   ['search', '查', '查询'],
   ['roots', '根', '字根'],
+  ['guide', '学', '教程'],
   ['review', '复', '复习'],
   ['practice', '练', '练习'],
 ]

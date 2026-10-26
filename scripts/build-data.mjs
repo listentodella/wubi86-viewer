@@ -5,6 +5,7 @@ import { join } from 'node:path'
 import opentype from 'opentype.js'
 import { loadWubi, loadChars, loadHanziWriter, loadMs, SRC } from './lib/load.mjs'
 import { buildRootModel, rootUnitsOf, segmentChar } from './lib/roots.mjs'
+import { getTutorialTiers } from './lib/tutorial-tiers.mjs'
 
 const OUT = 'public/data'
 rmSync(OUT, { recursive: true, force: true })
@@ -175,15 +176,8 @@ const simpleChars = [...chars.entries()]
   .sort((a, b) => b[1].freq - a[1].freq)
   .map(([ch]) => ch)
 const freqRank = new Map(simpleChars.map((ch, i) => [ch, i + 1]))
-const topWord = (code) => byCode.get(code)?.[0]?.word ?? ''
-const shortCodeChars = (len) =>
-  [...byCode.keys()].filter((code) => code.length === len && isHan(topWord(code))).map(topWord)
-const oneChars = shortCodeChars(1)
-const oneSet = new Set(oneChars)
 const byFreq = (list) => list.slice().sort((a, b) => (chars.get(b)?.freq ?? 0) - (chars.get(a)?.freq ?? 0))
-const twoChars = byFreq(
-  shortCodeChars(2).filter((ch) => !oneSet.has(ch) && chars.get(ch)?.jianti === ch && freqRank.get(ch) <= 1500),
-)
+const [simple1Tier, simple2Tier] = getTutorialTiers()
 const idChars = byFreq(
   tierChars.id
     .filter(([ch, max, min]) => min >= max && chars.get(ch)?.jianti === ch && freqRank.get(ch) <= 1500)
@@ -198,9 +192,9 @@ const tiers = [
   { id: 'keyname', stage: 1, title: '键名汉字', hint: '连按四下所在键（多数输入法可「按一下 + 选 2」）', codeLen: 4, chars: keynames.join('') },
   { id: 'charroot', stage: 1, title: '成字字根', hint: '报户口 + 首笔 + 次笔 + 末笔；两笔字全码 3 码', codeLen: 0, chars: byFreq(tierChars.char).join('') },
   { id: 'stroke', stage: 1, title: '单笔画', hint: '报户口 + 该笔画 + LL', codeLen: 0, chars: strokes.join('') },
-  { id: 'simple1', stage: 2, title: '一级简码', hint: '1 键 + 空格', codeLen: 1, chars: oneChars.join('') },
+  simple1Tier,
   { id: 'common500', stage: 2, title: '常用字 500', hint: '字频前 500，按全码作答（反馈里会给出简码）', codeLen: 0, chars: simpleChars.slice(0, 500).join('') },
-  { id: 'simple2', stage: 3, title: '二级简码', hint: '2 键 + 空格（前 1500 常用字范围内的纯二简）', codeLen: 2, chars: twoChars.join('') },
+  simple2Tier,
   { id: 'idcode', stage: 3, title: '识别码字', hint: '全码，含末笔字型识别码', codeLen: 0, chars: idChars.join('') },
   { id: 'common1500', stage: 4, title: '常用字 501–1500', hint: '中 500 + 后 500，按全码作答', codeLen: 0, chars: simpleChars.slice(500, 1500).join('') },
   { id: 'common3000', stage: 5, title: '常用字 1501–3000', hint: '过一遍即可，不必追速度；3000 名以后极少用', codeLen: 0, chars: simpleChars.slice(1500, 3000).join('') },

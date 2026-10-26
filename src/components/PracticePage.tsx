@@ -1,25 +1,34 @@
-import { useState } from 'react'
+import type { PracticeMode } from '../lib/practice-mode'
 import type { RootInfo } from '../lib/data'
 import { PassageDrill } from './PassageDrill'
 import { RandomDrill } from './RandomDrill'
 import { TierDrill } from './TierDrill'
 
-type Mode = 'random' | 'tier' | 'follow'
-
-const MODES: [Mode, string][] = [
-  ['random', '随机默写'],
+const MODES: [PracticeMode, string][] = [
+  ['simple1', '一级简码'],
+  ['simple2', '二级简码'],
   ['tier', '分级练习'],
+  ['random', '随机默写'],
   ['follow', '跟打练习'],
 ]
 
-const DESCRIPTIONS: Record<Mode, string> = {
+const DESCRIPTIONS: Record<PracticeMode, string> = {
+  simple1: '入门第 1 步：练熟 25 个一级简码，只需输入一个字母。可以先展开下方原表记键位，再收起表独立默写。',
+  simple2: '入门第 2 步：按教程先练 424 个常用纯二简，只需输入两个字母；下方可展开完整的 599 字二级简码表。',
   random: '随机出字或词，敲出它的五笔全码：输满即判定，也可按回车提前提交。',
   tier: '按书中的练习路线逐层推进：键名 → 成字字根 → 单笔画 → 一简/常用字 → 二简/识别码 → 1500 字 → 3000 字。',
   follow: '选一段古文或常用字流，用任意输入法逐字跟打；判定只比对汉字，标点可以跳过。',
 }
 
-export function PracticePage({ roots, onSearch }: { roots: Record<string, RootInfo>; onSearch: (q: string) => void }) {
-  const [mode, setMode] = useState<Mode>('random')
+interface PracticePageProps {
+  roots: Record<string, RootInfo>
+  onSearch: (q: string) => void
+  mode: PracticeMode
+  onModeChange: (mode: PracticeMode) => void
+  onGuide: () => void
+}
+
+export function PracticePage({ roots, onSearch, mode, onModeChange, onGuide }: PracticePageProps) {
 
   return (
     <div className="space-y-5">
@@ -29,24 +38,51 @@ export function PracticePage({ roots, onSearch }: { roots: Record<string, RootIn
             <h2 className="font-kai text-2xl">练习</h2>
             <p className="mt-1 max-w-2xl text-sm text-ink-2 dark:text-white/55">{DESCRIPTIONS[mode]}</p>
           </div>
-          <div className="ml-auto flex gap-1 rounded-full bg-black/5 p-1 text-sm dark:bg-white/10">
+          <div role="group" aria-label="练习项目" className="ml-auto flex max-w-full flex-wrap gap-1 rounded-2xl bg-black/5 p-1 text-sm dark:bg-white/10 sm:rounded-full">
             {MODES.map(([m, label]) => (
               <button
                 key={m}
-                onClick={() => setMode(m)}
+                onClick={() => onModeChange(m)}
+                type="button"
+                aria-pressed={mode === m}
                 className={`min-h-9 rounded-full px-3 py-1.5 transition ${
                   mode === m
                     ? 'bg-ink text-paper dark:bg-white dark:text-black'
                     : 'hover:bg-black/5 dark:hover:bg-white/10'
                 }`}
               >
+                {(m === 'simple1' || m === 'simple2') && (
+                  <span className="mr-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-black/10 text-[10px] dark:bg-white/20" aria-hidden="true">
+                    {m === 'simple1' ? 1 : 2}
+                  </span>
+                )}
                 {label}
               </button>
             ))}
           </div>
         </div>
+        <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-black/5 pt-4 dark:border-white/10">
+          <p className="flex-1 text-xs leading-6 text-ink-2 dark:text-white/55">第一次接触五笔？先读晓览教程整理版，按章节理解规则，再回来练习。</p>
+          <a href="/guide" className="btn text-sm" onClick={(event) => {
+            if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+            event.preventDefault()
+            onGuide()
+          }}>阅读入门教程 <span aria-hidden="true">→</span></a>
+        </div>
       </section>
 
+      {(mode === 'simple1' || mode === 'simple2') && (
+        <TierDrill
+          key={mode}
+          roots={roots}
+          onSearch={onSearch}
+          focusTierId={mode}
+          nextPractice={{
+            label: mode === 'simple1' ? '二级简码' : '分级练习',
+            onClick: () => onModeChange(mode === 'simple1' ? 'simple2' : 'tier'),
+          }}
+        />
+      )}
       {mode === 'random' && <RandomDrill roots={roots} onSearch={onSearch} />}
       {mode === 'tier' && <TierDrill roots={roots} onSearch={onSearch} />}
       {mode === 'follow' && <PassageDrill onSearch={onSearch} />}
@@ -59,6 +95,14 @@ export function PracticePage({ roots, onSearch }: { roots: Record<string, RootIn
             <li>得分 = 码长 × 10，连击每级再 +5（上限 +50）；答错不得分，连击清零。</li>
             <li>正确率 = 判定正确的题数 ÷ 已作答题数；平均码长 = 已作答题目的编码长度均值。</li>
             <li>一轮 10 题，答案取微软五笔词库中该字/词的最长编码；「只练常用字」按语料字频筛选。</li>
+          </ul>
+        )}
+        {(mode === 'simple1' || mode === 'simple2') && (
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-ink-2 dark:text-white/60">
+            <li>一级简码只打 1 码，二级简码只打 2 码；按原书指定编码判定，不需要输入全码。</li>
+            <li>输满自动判定，本练习无需额外按空格；实际使用五笔输入法时，简码后需按空格上屏。</li>
+            <li>一轮 10 题，答对自动进入下一题；「看答案」计为错题，完成后可进入下一步。</li>
+            <li>一级练 25 字，二级优先练教材的 424 个常用纯二简；最佳正确率和轮次只保存在本机浏览器。</li>
           </ul>
         )}
         {mode === 'tier' && (

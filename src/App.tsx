@@ -9,17 +9,18 @@ import { HistoryPanel } from './components/HistoryPanel'
 import { RootsPage } from './components/RootsPage'
 import { ReviewPage } from './components/ReviewPage'
 import { PracticePage } from './components/PracticePage'
+import { GuidePage } from './components/GuidePage'
 import { PICK_DEFAULT, RootPicker, type PickState } from './components/RootPicker'
 
 import { ROOT_FONT_LABEL, nextRootFont, useRootFont } from './lib/root-font'
-import { BottomNav } from './components/BottomNav'
+import { BottomNav, type Page } from './components/BottomNav'
 import { isCoarsePointer } from './lib/mobile'
-type Page = 'search' | 'roots' | 'review' | 'practice'
+import { readPracticeMode, type PracticeMode } from './lib/practice-mode'
 
-function readLocation(): { page: Page; q: string } {
+function readLocation(): { page: Page; q: string; practiceMode: PracticeMode } {
   const p = location.pathname.replace(/\/+$/, '')
-  const page: Page = p === '/roots' ? 'roots' : p === '/review' ? 'review' : p === '/practice' ? 'practice' : 'search'
-  return { page, q: new URLSearchParams(location.search).get('q') ?? '' }
+  const page: Page = p === '/roots' ? 'roots' : p === '/review' ? 'review' : p === '/practice' ? 'practice' : p === '/guide' ? 'guide' : 'search'
+  return { page, q: new URLSearchParams(location.search).get('q') ?? '', practiceMode: readPracticeMode(location.search) }
 }
 
 const isCode = (q: string) => /^[a-z]{1,4}$/i.test(q)
@@ -76,14 +77,17 @@ export default function App() {
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
-  const navigate = useCallback((page: Page, q: string, replace = false) => {
+  const navigate = useCallback((page: Page, q: string, replace = false, practiceMode: PracticeMode = 'simple1') => {
     const path = page === 'search' ? '/' : `/${page}`
-    const url = q ? `${path}?q=${encodeURIComponent(q)}` : path
-    if (url !== location.pathname + location.search) {
+    const params = new URLSearchParams()
+    if (q) params.set('q', q)
+    if (page === 'practice' && practiceMode !== 'simple1') params.set('mode', practiceMode)
+    const url = params.size ? `${path}?${params}` : path
+    if (url !== location.pathname + location.search || location.hash) {
       if (replace) window.history.replaceState(null, '', url)
       else window.history.pushState(null, '', url)
     }
-    setLoc({ page, q })
+    setLoc({ page, q, practiceMode })
   }, [])
 
   const search = useCallback(
@@ -182,6 +186,7 @@ export default function App() {
   const pages = [
     ['search', '查询'],
     ['roots', '字根表'],
+    ['guide', '教程'],
     ['review', '复习'],
     ['practice', '练习'],
   ] as const
@@ -206,6 +211,7 @@ export default function App() {
             <button
               key={p}
               onClick={() => navigate(p, p === 'search' ? input.trim() : '')}
+              aria-current={loc.page === p ? 'page' : undefined}
               className={`rounded-full px-3 py-1.5 transition ${
                 loc.page === p ? 'bg-ink text-paper dark:bg-white dark:text-black' : 'hover:bg-black/5 dark:hover:bg-white/10'
               }`}
@@ -332,7 +338,30 @@ export default function App() {
         )}
         {loc.page === 'roots' && roots && <RootsPage roots={roots} onSearch={search} />}
         {loc.page === 'review' && roots && <ReviewPage roots={roots} onSearch={search} />}
-        {loc.page === 'practice' && <PracticePage roots={roots ?? {}} onSearch={search} />}
+        {loc.page === 'guide' && (
+          <GuidePage
+            onPractice={(mode) => {
+              navigate('practice', '', false, mode)
+              window.scrollTo({ top: 0 })
+            }}
+            onRoots={() => {
+              navigate('roots', '')
+              window.scrollTo({ top: 0 })
+            }}
+          />
+        )}
+        {loc.page === 'practice' && (
+          <PracticePage
+            roots={roots ?? {}}
+            onSearch={search}
+            mode={loc.practiceMode}
+            onModeChange={(mode) => navigate('practice', '', false, mode)}
+            onGuide={() => {
+              navigate('guide', '')
+              window.scrollTo({ top: 0 })
+            }}
+          />
+        )}
       </main>
 
       <footer className="border-t border-black/5 py-4 text-center text-xs text-ink-2/70 dark:border-white/10 dark:text-white/35">

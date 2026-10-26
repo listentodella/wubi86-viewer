@@ -31,3 +31,6 @@ public/data
 .venv
 __pycache__/
 reports/
+
+# 教程提取里那个 zip 只是其余文件的打包，不入库
+五笔教程提取/*.zip

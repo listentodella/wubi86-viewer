@@ -57,6 +57,15 @@ export interface Meta {
   strokes: number
 }
 
+export interface PracticeChartInfo {
+  title: string
+  src: string
+  alt: string
+  width: number
+  height: number
+  caption: string
+}
+
 /** A practice tier of the learning route (书中的练习路线). */
 export interface PracticeTier {
   id: string
@@ -67,6 +76,9 @@ export interface PracticeTier {
   codeLen: number
   /** characters of this tier, packed as one string */
   chars: string
+  /** Explicit tutorial answers take precedence over input-method dictionary variants. */
+  answerCodes?: Record<string, string>
+  chart?: PracticeChartInfo
 }
 
 export interface TiersFile {
@@ -75,7 +87,7 @@ export interface TiersFile {
 }
 
 // Bump when the data format changes so cached shards from older builds are not reused.
-const DATA_VERSION = 4
+const DATA_VERSION = 5
 const cache = new Map<string, Promise<unknown>>()
 
 function fetchJson<T>(path: string): Promise<T> {

@@ -14,7 +14,7 @@ export type QuestionKind = 'char' | 'word' | 'mix'
 
 export interface Question {
   text: string
-  /** expected answer: the longest code in the Microsoft dictionary */
+  /** expected answer: a tutorial's specified code, or the dictionary's longest code */
   code: string
   /** other codes the dictionary also accepts (shorthand / compatible codes) */
   alternatives: string[]
@@ -180,6 +180,17 @@ export async function tierQuestion(tier: PracticeTier, used: Set<string>): Promi
   const pool = [...tier.chars].filter((ch) => !used.has(ch))
   for (const ch of shuffled(pool).slice(0, 6)) {
     const rec = await getChar(ch)
+    const tutorialCode = tier.answerCodes?.[ch]
+    if (tutorialCode) {
+      const candidate = rec?.codes.find(([code]) => code === tutorialCode)
+      return {
+        text: ch,
+        code: tutorialCode,
+        alternatives: [...new Set((rec?.codes ?? []).map(([code]) => code).filter((code) => code !== tutorialCode))],
+        rank: candidate?.[1] ?? 1,
+        n: candidate?.[2] ?? 1,
+      }
+    }
     if (!rec || !rec.codes.length) continue
     const longest = [...rec.codes].sort((a, b) => b[0].length - a[0].length || a[1] - b[1])
     const [code, rank, n] = (tier.codeLen > 0 ? rec.codes.find(([c]) => c.length === tier.codeLen) : null) ?? longest[0]
