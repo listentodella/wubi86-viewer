@@ -86,6 +86,8 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   const runId = useRef(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const runRef = useRef<HTMLDivElement>(null)
+  /** 正在抽下一题，避免重复触发 */
+  const swapping = useRef(false)
   const engaged = useRef(false)
   const drawRef = useRef(draw)
   const finishRef = useRef(onFinish)
@@ -144,22 +146,28 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   }, [start])
 
   const loadNext = useCallback(async () => {
+    if (swapping.current) return
+    swapping.current = true
     const id = runId.current
-    setAttempt(null)
-    setBuffer('')
-    setPhase('loading')
-    const next = await drawRef.current(used.current)
-    if (id !== runId.current) return
-    if (!next) {
-      setError('出题失败，本轮提前结束。')
-      setStats((s) => ({ ...s, endedAt: Date.now() }))
-      setPhase('done')
-      return
+    try {
+      const next = await drawRef.current(used.current)
+      if (id !== runId.current) return
+      if (!next) {
+        setError('出题失败，本轮提前结束。')
+        setStats((s) => ({ ...s, endedAt: Date.now() }))
+        setPhase('done')
+        return
+      }
+      used.current.add(next.text)
+      // 题目、判定、输入框一次性换掉：中间不出现「出题中」，页面也就不会塌一下再撑开
+      setAttempt(null)
+      setBuffer('')
+      setQ(next)
+      setPhase('run')
+      focusInput()
+    } finally {
+      swapping.current = false
     }
-    used.current.add(next.text)
-    setQ(next)
-    setPhase('run')
-    focusInput()
   }, [])
 
   const finish = useCallback((s: DrillStats) => {
@@ -191,8 +199,6 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
 
   const advance = useCallback(() => {
     if (!attempt) return
-    setAttempt(null)
-    setBuffer('')
     if (stats.done >= stats.total) {
       finish(stats)
       return
@@ -214,8 +220,15 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   }, [phase])
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (attempt) return
     const v = e.target.value.toLowerCase().replace(/[^a-y]/g, '').slice(0, 4)
+    if (attempt) {
+      // 答对了就等自动进下一题，别让输入框还能改
+      if (attempt.ok) return
+      // 答错了仍然可以退格改：改对直接进下一题（这一题已按错计分，不重复计）
+      setBuffer(v)
+      if (q && v === q.code) advance()
+      return
+    }
     setBuffer(v)
     // a complete code is judged at once
     if (q && v.length === q.code.length) submit(v)
@@ -269,7 +282,9 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
       )}
 
       {phase === 'loading' && (
-        <section className="card p-10 text-center text-ink-2 dark:text-white/50">出题中…</section>
+        <section className="card flex min-h-[26rem] items-center justify-center p-6 text-center text-ink-2 dark:text-white/50 sm:p-10">
+          出题中…
+        </section>
       )}
 
       {phase === 'run' && q && (
