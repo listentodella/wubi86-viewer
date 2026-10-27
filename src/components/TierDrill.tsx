@@ -4,7 +4,7 @@ import { accuracy, tierQuestion } from '../lib/practice'
 import { recordTierRound, resetTierRecords, useTierRecords } from '../lib/tier-progress'
 import { CodeDrill } from './CodeDrill'
 import { FingerWarmup } from './FingerWarmup'
-import { PracticeChart } from './PracticeChart'
+import { ROOT_CHART } from './RootChartPanel'
 
 const ROUND = 10
 
@@ -127,6 +127,7 @@ export function TierDrill({ roots, onSearch, focusTierId, nextPractice }: TierDr
             本层 {[...tier.chars].length} 字 · 一轮 {total} 题 · 答对即自动进入下一题
           </span>
         }
+        chart={tier.chart ?? ROOT_CHART}
         onFinish={(s) => recordTierRound(tier.id, accuracy(s), s.score)}
         extraActions={
           nextPractice ? (
@@ -144,8 +145,6 @@ export function TierDrill({ roots, onSearch, focusTierId, nextPractice }: TierDr
           ) : null
         }
       />
-
-      {tier.chart && <PracticeChart key={tier.id} chart={tier.chart} />}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent, type ReactNode } from 'react'
-import { getChar, type CharRecord, type RootInfo } from '../lib/data'
+import { getChar, type CharRecord, type PracticeChartInfo, type RootInfo } from '../lib/data'
 import { buildParts } from '../lib/explain'
 import {
   accuracy,
@@ -12,7 +12,7 @@ import {
   type DrillStats,
   type Question,
 } from '../lib/practice'
-import { RootChartPanel } from './RootChartPanel'
+import { ROOT_CHART, RootChartPanel } from './RootChartPanel'
 import { RootGlyph, slotColor } from './RootGlyph'
 import { Stat } from './Stat'
 import { isCoarsePointer, keepAboveKeyboard } from '../lib/mobile'
@@ -45,10 +45,12 @@ export interface CodeDrillProps {
   /** extra buttons on the results card */
   extraActions?: ReactNode
   onFinish?: (stats: DrillStats) => void
+  /** 本层的键位图/简码表；不给就用整张字根键位图 */
+  chart?: PracticeChartInfo
 }
 
 /** Shared engine for every code-dictation drill (random dictation and the tier route). */
-export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, extraActions, onFinish }: CodeDrillProps) {
+export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, extraActions, onFinish, chart = ROOT_CHART }: CodeDrillProps) {
   const [phase, setPhase] = useState<Phase>('loading')
   const [q, setQ] = useState<Question | null>(null)
   const [buffer, setBuffer] = useState('')
@@ -57,8 +59,8 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   const [wrong, setWrong] = useState<WrongItem[]>([])
   const [error, setError] = useState<string | null>(null)
   const [now, setNow] = useState(() => Date.now())
-  /** 练习时是否展开晓览的字根图；记在本地，下次进来保持 */
-  const [chart, setChart] = useState(() => {
+  /** 练习时是否展开键位图；记在本地，下次进来保持 */
+  const [chartOpen, setChartOpen] = useState(() => {
     try {
       return localStorage.getItem('practice-chart') === '1'
     } catch {
@@ -66,8 +68,14 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
     }
   })
   const toggleChart = () => {
-    const next = !chart
-    setChart(next)
+    const next = !chartOpen
+    setChartOpen(next)
+    // 展开后把「题目 + 键位图」一起滚进视口，手机上不用再手动找
+    if (next) {
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => runRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' })),
+      )
+    }
     try {
       localStorage.setItem('practice-chart', next ? '1' : '0')
     } catch {
@@ -77,6 +85,7 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   const used = useRef(new Set<string>())
   const runId = useRef(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const runRef = useRef<HTMLDivElement>(null)
   const engaged = useRef(false)
   const drawRef = useRef(draw)
   const finishRef = useRef(onFinish)
@@ -264,6 +273,10 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
       )}
 
       {phase === 'run' && q && (
+        <div
+          ref={runRef}
+          className={chartOpen ? 'grid scroll-mt-3 items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]' : ''}
+        >
         <section
           className="card p-6 sm:p-10"
           onClick={() => {
@@ -312,11 +325,11 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
               </button>
               <button
                 className="btn"
-                aria-pressed={chart}
+                aria-pressed={chartOpen}
                 onClick={toggleChart}
-                title="显示晓览《五笔字型入门指南》的字根键位图"
+                title="在题目旁边显示键位图/简码表"
               >
-                字根图 {chart ? '开' : '关'}
+                键位图 {chartOpen ? '开' : '关'}
               </button>
             </div>
 
@@ -371,9 +384,9 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
             )}
           </div>
         </section>
+        {chartOpen && <RootChartPanel chart={chart} className="lg:sticky lg:top-4" />}
+        </div>
       )}
-
-      {chart && <RootChartPanel />}
 
       {phase === 'done' && (
         <section className="card pop-in p-6 sm:p-8">
