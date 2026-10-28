@@ -1,5 +1,7 @@
+# 数据分片不设 HTTP 新鲜期：SW 的 StaleWhileRevalidate 已负责离线与提速，
+# 这里再缓存一天会让内容更新后访客最长 24 小时刷不出新版。
 /data/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=0, must-revalidate
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 /fonts/*

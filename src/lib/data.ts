@@ -87,7 +87,9 @@ export interface TiersFile {
 }
 
 // Bump when the data format changes so cached shards from older builds are not reused.
-const DATA_VERSION = 5
+// 也应在数据内容修正时 bump：SW 运行时缓存与 _headers 都按完整 URL（含 ?v=）存取，
+// 不 bump 则旧内容可能被 HTTP/SW 缓存兜住最长 24 小时。
+const DATA_VERSION = 6
 const cache = new Map<string, Promise<unknown>>()
 
 function fetchJson<T>(path: string): Promise<T> {
