@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
+import { isCoarsePointer } from '../lib/mobile'
 
 const TARGET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const BEST_KEY = 'wubi86.finger.best'
@@ -90,6 +91,7 @@ export function FingerWarmup() {
         value=""
         onChange={() => {}}
         onKeyDown={onKeyDown}
+        readOnly={!isCoarsePointer()}
         aria-label="指法热身输入"
         spellCheck={false}
         autoComplete="off"

@@ -86,6 +86,8 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
   const runId = useRef(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const runRef = useRef<HTMLDivElement>(null)
+  /** buffer 的权威值：keydown 连击时 state 尚未重渲染，靠它不丢键 */
+  const bufferRef = useRef('')
   /** 正在抽下一题，避免重复触发 */
   const swapping = useRef(false)
   const engaged = useRef(false)
@@ -113,6 +115,7 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
     used.current = new Set()
     setError(null)
     setAttempt(null)
+    bufferRef.current = ''
     setBuffer('')
     setWrong([])
     setQ(null)
@@ -161,6 +164,7 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
       used.current.add(next.text)
       // 题目、判定、输入框一次性换掉：中间不出现「出题中」，页面也就不会塌一下再撑开
       setAttempt(null)
+      bufferRef.current = ''
       setBuffer('')
       setQ(next)
       setPhase('run')
@@ -219,8 +223,17 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
     return () => window.clearInterval(id)
   }, [phase])
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const v = e.target.value.toLowerCase().replace(/[^a-y]/g, '').slice(0, 4)
+  /**
+   * 桌面端把输入框设为只读、按键逐个接收：只读框不会触发系统输入法的组词，
+   * 练习打编码时不会再弹出候选窗、也不会被输入法吞掉字母。
+   * 网页没有直接关闭系统输入法的 API，这是等效做法。手机保持普通输入框（要弹软键盘）。
+   */
+  const captureKeys = !isCoarsePointer()
+
+  const applyValue = (raw: string) => {
+    const v = raw.toLowerCase().replace(/[^a-y]/g, '').slice(0, 4)
+    // buffer 的权威值放 ref：连续按键时 state 还没重渲染，闭包里的 buffer 是旧的
+    bufferRef.current = v
     if (attempt) {
       // 答对了就等自动进下一题，别让输入框还能改
       if (attempt.ok) return
@@ -234,11 +247,26 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
     if (q && v.length === q.code.length) submit(v)
   }
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => applyValue(e.target.value)
+
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault()
       if (attempt) advance()
       else submit()
+      return
+    }
+    if (!captureKeys) return
+    // 只读框的值不经 onChange，全部在这里维护（权威值在 bufferRef）
+    if (e.key === 'Backspace') {
+      e.preventDefault()
+      applyValue(bufferRef.current.slice(0, -1))
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      applyValue('')
+    } else if (!e.ctrlKey && !e.metaKey && !e.altKey && /^[a-y]$/i.test(e.key)) {
+      e.preventDefault()
+      applyValue(bufferRef.current + e.key)
     }
   }
 
@@ -317,6 +345,8 @@ export function CodeDrill({ roots, onSearch, total, draw, options, subtitle, ext
                 value={buffer}
                 onChange={onChange}
                 onKeyDown={onKeyDown}
+                readOnly={captureKeys}
+                title={captureKeys ? '已屏蔽系统输入法：直接按键输入编码，退格可删' : undefined}
                 onFocus={(e) => {
                   engaged.current = true
                   keepAboveKeyboard(e.currentTarget)
